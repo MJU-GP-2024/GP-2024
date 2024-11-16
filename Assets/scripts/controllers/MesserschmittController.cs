@@ -29,6 +29,7 @@ public class Messerschmitt : MonoBehaviour
         {
             rotateSpeed = -rotateSpeed;
         }
+
     }
 
     void Update()

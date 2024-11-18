@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class Messerschmitt : MonoBehaviour
 {
-    public float rotateSpeed= 5.0f;        // 회전 속도
+    public int rotateSpeed= 50;        // 회전 속도
     public float minInterval = 1.0f;    // 무기 발사 minimum interval time
     public float maxInterval = 2.0f;    // 무기 발사 max interval time
     private float speed = 3f;
-    private float randomSeed = 2f;      // 곡선의 무작위성 정도
+    //private float randomSeed = 2f;      // 곡선의 무작위성 정도
     private Vector2 startPoint;
     private Vector2 targetPoint;        // player를 endpoint로 잡는 경우
-    private float edgePoint = 10f;      // 화면의 가장자리 좌표
+    //private float edgePoint = 10f;      // 화면의 가장자리 좌표
     private float time = 0;
 
-    void change(float a, float b, float c, float d) {
+    void change(int a, float b, float c, float d) {
         this.rotateSpeed = a;
         this.minInterval = b;
         this.maxInterval = c;
@@ -23,14 +23,15 @@ public class Messerschmitt : MonoBehaviour
 
     void Start()
     {
+        transform.Rotate(0, 0, 180);
         StartCoroutine(ShootRandomly());    // Shoot 메서드 코루틴
 
         startPoint = transform.position;
         targetPoint = GameObject.Find("Player").transform.position;
         Vector2 direction = startPoint - targetPoint;
 
-        float angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
-        transform.Rotate(0, 0, -angle); // 생성시 플레이어를 바라봅니다
+        //float angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
+        //transform.Rotate(0, 0, -angle); // 생성시 플레이어를 바라봅니다
 
         if (transform.position.x > 0)   // 생성 위치에 따라 회전 방향이 바뀝니다
         {
@@ -41,10 +42,16 @@ public class Messerschmitt : MonoBehaviour
 
     void Update()
     {
-        time += Time.deltaTime;
+        //time += Time.deltaTime;
 
         transform.Translate(0, this.speed*Time.deltaTime, 0);
         transform.Rotate(0, 0, this.rotateSpeed * Time.deltaTime);
+
+        // 화면에서 벗어나면 객체 삭제
+        if (transform.position.y < -6.0f || transform.position.x < -6f || transform.position.x > 6f)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void Flip() //현재 미구현

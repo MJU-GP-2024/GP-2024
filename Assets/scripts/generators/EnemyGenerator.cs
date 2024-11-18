@@ -11,23 +11,20 @@ public class EnemyGenerator : MonoBehaviour
     public float spawnInterval = 1.0f;
     public float spawnY = -4.5f;
 
-    public int pattern = 1;
-
-    void Start()
-    {
-        InvokeRepeating("SpawnEnemy", 1.5f, spawnInterval);
-    }
+    public int pattern = 2;
 
     void SpawnEnemy()
     {
-            int enemyType = Random.Range(0, this.pattern); // 적 유형 선택
+            int enemyType = Random.Range(0, pattern); // 적 유형 선택
+            Debug.Log("enemyType: " + enemyType);
         switch (enemyType)
         {
+
             case 0:
                 SpawnTypeA();
                 break;
             case 1:
-                SpawnTypeB();
+                StartCoroutine(SpawnTypeB());
                 break;
             case 2:
                 SpawnTypeC();
@@ -35,11 +32,12 @@ public class EnemyGenerator : MonoBehaviour
         }
     }
 
+
     void SpawnTypeA() {
         for (int i = 0; i < 4; i++) {
             float spawnX = Random.Range(-4.0f, 4.0f);
-            Vector3 spawnPosition = new Vector3(spawnX, 5.5f, 0f);
-            Instantiate(Messerschmitt, spawnPosition);
+            Vector3 spawnPosition = new Vector3(spawnX, 5.5f, 0.0f);
+            Instantiate(Messerschmitt, spawnPosition, Quaternion.identity);
         }
     }
 
@@ -64,6 +62,18 @@ public class EnemyGenerator : MonoBehaviour
                 Instantiate(F_16, spawnPosition, Quaternion.identity);
 
     }
+
+    void Start()
+    {
+        InvokeRepeating("SpawnEnemy", 1.5f, spawnInterval);
+    }
+
+    void Update() {
+
+    }
+
+
+
 
 
 

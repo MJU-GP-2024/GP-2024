@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ScenarioDirector : MonoBehaviour
 {
     private int chapter = 1;
-    float time = 30.0f;   
+    //float time = 30.0f;   
 
 
 

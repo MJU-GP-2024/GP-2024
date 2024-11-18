@@ -170,7 +170,7 @@ MonoBehaviour:
   F_16: {fileID: 662586661249907194, guid: b592d99ab68f67e4e8632f29314c35fa, type: 3}
   spawnInterval: 2
   spawnY: -6.5
-  pattern: 4
+  pattern: 3
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

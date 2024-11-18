@@ -15,7 +15,7 @@ public class EnemyGenerator : MonoBehaviour
 
     void SpawnEnemy()
     {
-            int enemyType = Random.Range(0, 3); // 적 유형 선택
+            int enemyType = Random.Range(0, pattern); // 적 유형 선택
             Debug.Log("enemyType: " + enemyType);
         switch (enemyType)
         {

@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class Messerschmitt : MonoBehaviour
 {
-    public float rotateSpeed = 0.14f;   // 회전 속도
+    public float rotateSpeed= 5.0f;        // 회전 속도
     public float minInterval = 1.0f;    // 무기 발사 minimum interval time
     public float maxInterval = 2.0f;    // 무기 발사 max interval time
-    private float speed = 0.03f;
+    private float speed = 3f;
     private float randomSeed = 2f;      // 곡선의 무작위성 정도
     private Vector2 startPoint;
     private Vector2 targetPoint;        // player를 endpoint로 잡는 경우
     private float edgePoint = 10f;      // 화면의 가장자리 좌표
     private float time = 0;
+
+    void change(float a, float b, float c, float d) {
+        this.rotateSpeed = a;
+        this.minInterval = b;
+        this.maxInterval = c;
+        this.speed = d;
+    }
 
     void Start()
     {
@@ -27,7 +34,7 @@ public class Messerschmitt : MonoBehaviour
 
         if (transform.position.x > 0)   // 생성 위치에 따라 회전 방향이 바뀝니다
         {
-            rotateSpeed = -rotateSpeed;
+            this.rotateSpeed = -this.rotateSpeed;
         }
 
     }
@@ -36,11 +43,11 @@ public class Messerschmitt : MonoBehaviour
     {
         time += Time.deltaTime;
 
-        transform.Translate(0, speed, 0);
-        transform.Rotate(0, 0, rotateSpeed);
+        transform.Translate(0, this.speed*Time.deltaTime, 0);
+        transform.Rotate(0, 0, this.rotateSpeed * Time.deltaTime);
     }
 
-    void Flip()
+    void Flip() //현재 미구현
     {
         for (int i = 0; i < 180; i++)
         {

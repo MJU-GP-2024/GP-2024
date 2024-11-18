@@ -2,19 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Messerschmitt : MonoBehaviour
+public class MesserschmittController : MonoBehaviour
 {
-    public int rotateSpeed= 50;        // 회전 속도
+    public int rotateSpeed = 5;       // 회전 속도
     public float minInterval = 1.0f;    // 무기 발사 minimum interval time
     public float maxInterval = 2.0f;    // 무기 발사 max interval time
-    private float speed = 3f;
+    private float speed = 5f;
     //private float randomSeed = 2f;      // 곡선의 무작위성 정도
     private Vector2 startPoint;
     private Vector2 targetPoint;        // player를 endpoint로 잡는 경우
     //private float edgePoint = 10f;      // 화면의 가장자리 좌표
     private float time = 0;
 
-    void change(int a, float b, float c, float d) {
+    public void change(int a, float b, float c, float d) {
         this.rotateSpeed = a;
         this.minInterval = b;
         this.maxInterval = c;
@@ -23,7 +23,7 @@ public class Messerschmitt : MonoBehaviour
 
     void Start()
     {
-        transform.Rotate(0, 0, 180);
+        
         StartCoroutine(ShootRandomly());    // Shoot 메서드 코루틴
 
         startPoint = transform.position;
@@ -33,6 +33,7 @@ public class Messerschmitt : MonoBehaviour
         //float angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
         //transform.Rotate(0, 0, -angle); // 생성시 플레이어를 바라봅니다
 
+    
         if (transform.position.x > 0)   // 생성 위치에 따라 회전 방향이 바뀝니다
         {
             this.rotateSpeed = -this.rotateSpeed;
@@ -74,9 +75,10 @@ public class Messerschmitt : MonoBehaviour
             Shoot();
         }
     }
-
     void Shoot()
     {
         Debug.Log("shoot by messerschmitt. elapsed time since creation:" + time);
     }
+
 }
+

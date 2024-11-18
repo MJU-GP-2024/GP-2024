@@ -3,7 +3,7 @@ using UnityEngine;
 public class F_16Controller : MonoBehaviour
 {
     public float horizontalSpeed = 5f;
-    public float upwardSpeed = 4f;
+    public float upwardSpeed = 6f;
     public float diveSpeed = 10f;
     public float diveAcceleration = 5.0f;
     private Transform player;

@@ -8,10 +8,10 @@ public class EnemyGenerator : MonoBehaviour
     public GameObject F_16;
 
 
-    public float spawnInterval = 1.0f;
+    public float spawnInterval = 2.0f; //적 출현 패턴 발동 딜레이
     public float spawnY = -4.5f;
 
-    public int pattern = 2;
+    public int pattern = 3; //스테이지에 따른 적 출현 패턴
 
     void SpawnEnemy()
     {
@@ -37,7 +37,11 @@ public class EnemyGenerator : MonoBehaviour
         for (int i = 0; i < 4; i++) {
             float spawnX = Random.Range(-4.0f, 4.0f);
             Vector3 spawnPosition = new Vector3(spawnX, 5.5f, 0.0f);
-            Instantiate(Messerschmitt, spawnPosition, Quaternion.identity);
+            GameObject enemy = Instantiate(Messerschmitt, spawnPosition, Quaternion.Euler(0f, 0f, 180f));
+            int rotateSpeed = Random.Range(0, 20);
+            enemy.GetComponent<MesserschmittController>().change(rotateSpeed, 1.0f, 2.0f, 3f);
+
+
         }
     }
 
@@ -46,10 +50,19 @@ public class EnemyGenerator : MonoBehaviour
         float spawnDelay = 0.2f;
         float spawnX = Random.Range(-3.5f, 3.5f);
         Vector3 spawnPosition = new Vector3(spawnX, 5.5f, 0f);
+        int rotateSpeed;
+        int turn = Random.Range(0,6);
+        if(turn==0) {
+            rotateSpeed = 0;
+        }
+        else{
+            rotateSpeed = Random.Range(15, 40);
+        }
 
         for (int i = 0; i < 4; i++)
         {
-            Instantiate(Messerschmitt, spawnPosition, Quaternion.identity);
+            GameObject enemy = Instantiate(Messerschmitt, spawnPosition, Quaternion.Euler(0f, 0f, 180f));
+            enemy.GetComponent<MesserschmittController>().change(rotateSpeed, 1.0f, 2.0f, 5f);
             yield return new WaitForSeconds(spawnDelay); // 0.2초 대기
         }
     }

@@ -3,7 +3,7 @@ using UnityEngine;
 public class F_16Controller : MonoBehaviour
 {
     public float horizontalSpeed = 5f;
-    public float upwardSpeed = 4f;
+    public float upwardSpeed = 6f;
     public float diveSpeed = 10f;
     public float diveAcceleration = 5.0f;
     private Transform player;
@@ -19,10 +19,11 @@ public class F_16Controller : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player").transform;
+
         // 2와 4.5 사이에서 랜덤하게 다이브 포인트 설정
         divePoint = Random.Range(2f, 4.5f);
-        upwardPointRight = Random.Range(3f, 4.8f);
-        upwardPointLeft = Random.Range(-3f, -4.8f);
+        upwardPointRight = Random.Range(2f, 4.8f);
+        upwardPointLeft = Random.Range(-2f, -4.8f);
 
         // 스폰 위치에 따라 바라보는 방향 설정
         if (transform.position.x < 0)
@@ -41,6 +42,7 @@ public class F_16Controller : MonoBehaviour
 
     void Update()
     {
+
         if (isMovingHorizontally)
         {
             // 수평 이동 (world space)

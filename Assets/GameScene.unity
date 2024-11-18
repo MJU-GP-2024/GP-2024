@@ -167,10 +167,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Messerschmitt: {fileID: 6087161426398611854, guid: 58c6eee5d8018cf4d8f87a82a76b29f8, type: 3}
-  F_16: {fileID: 175472, guid: 1339defe18fbc5645bd93bc8cb86d71e, type: 3}
-  spawnInterval: 1
-  spawnY: -4.5
-  pattern: 2
+  F_16: {fileID: 662586661249907194, guid: b592d99ab68f67e4e8632f29314c35fa, type: 3}
+  spawnInterval: 2
+  spawnY: -6.5
+  pattern: 4
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

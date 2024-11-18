@@ -9,13 +9,13 @@ public class EnemyGenerator : MonoBehaviour
 
 
     public float spawnInterval = 2.0f; //적 출현 패턴 발동 딜레이
-    public float spawnY = -4.5f;
+    public float spawnY = -6.5f;
 
     public int pattern = 3; //스테이지에 따른 적 출현 패턴
 
     void SpawnEnemy()
     {
-            int enemyType = Random.Range(0, pattern); // 적 유형 선택
+            int enemyType = Random.Range(0, 3); // 적 유형 선택
             Debug.Log("enemyType: " + enemyType);
         switch (enemyType)
         {

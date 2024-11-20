@@ -14,6 +14,8 @@ public class MesserschmittController : MonoBehaviour
     //private float edgePoint = 10f;      // 화면의 가장자리 좌표
     private float time = 0;
 
+    GameObject player;
+
     public void change(int a, float b, float c, float d) {
         this.rotateSpeed = a;
         this.minInterval = b;
@@ -21,9 +23,20 @@ public class MesserschmittController : MonoBehaviour
         this.speed = d;
     }
 
+        void OnTriggerEnter2D(Collider2D other) {
+        if(other.gameObject.tag=="Player") {
+            if(!this.player.GetComponent<PlayerController>().stun){
+                Destroy(gameObject);
+            }
+        }
+        else if(other.gameObject.tag=="bullet0") {
+            Destroy(gameObject);
+        }
+    }
+
     void Start()
     {
-        
+        this.player = GameObject.Find("Player");
         StartCoroutine(ShootRandomly());    // Shoot 메서드 코루틴
 
         startPoint = transform.position;

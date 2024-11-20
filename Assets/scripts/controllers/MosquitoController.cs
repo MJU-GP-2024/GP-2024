@@ -18,6 +18,19 @@ public class MosquitoController : MonoBehaviour
 
     public float localTime; //개인 시간
 
+    GameObject player;
+
+    void OnTriggerEnter2D(Collider2D other) {
+        if(other.gameObject.tag=="Player") {
+            if(!this.player.GetComponent<PlayerController>().stun){
+                Destroy(gameObject);
+            }
+        }
+        else if(other.gameObject.tag=="bullet0") {
+            Destroy(gameObject);
+        }
+    }
+
     public void changeminY(float a) {
         this.minYposition = a;
     }
@@ -25,6 +38,7 @@ public class MosquitoController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        this.player = GameObject.Find("Player");
         startPositionX = transform.position.x;
         currentSpeed = initialSpeed;    // 초기 속도로 설정
     }

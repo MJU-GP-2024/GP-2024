@@ -6,7 +6,7 @@ public class F_16Controller : MonoBehaviour
     public float upwardSpeed = 6f;
     public float diveSpeed = 10f;
     public float diveAcceleration = 5.0f;
-    private Transform player;
+    private Transform playerTrans;
     private bool isDiving = false;
     private bool isMovingHorizontally = true;
     private bool isPausedAtDivePoint = false;
@@ -15,10 +15,25 @@ public class F_16Controller : MonoBehaviour
     private float upwardPointRight;
     private float upwardPointLeft;
     private Vector2 diveDirection;
+    GameObject player;
+
+        void OnTriggerEnter2D(Collider2D other) {
+        if(other.gameObject.tag=="Player") {
+            if(!this.player.GetComponent<PlayerController>().stun){
+                Destroy(gameObject);
+            }
+        }
+        else if(other.gameObject.tag=="bullet0") {
+            Destroy(gameObject);
+        }
+    }
+
+
     // 화면 하단에서 수평으로 비행하다 위로 올라와서 플레이어를 1초 동안 바라보다가 dive
     void Start()
     {
-        player = GameObject.Find("Player").transform;
+        this.player = GameObject.Find("Player");
+        playerTrans = GameObject.Find("Player").transform;
 
         // 2와 4.5 사이에서 랜덤하게 다이브 포인트 설정
         divePoint = Random.Range(2f, 4.5f);
@@ -61,7 +76,7 @@ public class F_16Controller : MonoBehaviour
             // dive point까지 위로 이동 (world space)
             transform.Translate(Vector3.up * upwardSpeed * Time.deltaTime, Space.World);
 
-            if (transform.position.y >= divePoint && player != null)
+            if (transform.position.y >= divePoint && playerTrans != null)
             {
                 isDiving = true;
                 isPausedAtDivePoint = true; // dive point에서 pause
@@ -74,7 +89,7 @@ public class F_16Controller : MonoBehaviour
             transform.position = new Vector2(transform.position.x, divePoint); // Keep the enemy at the dive point
 
             // pause 했을 때 플레이어를 바라보도록 회전
-            Vector2 directionToPlayer = (player.position - transform.position).normalized;
+            Vector2 directionToPlayer = (playerTrans.position - transform.position).normalized;
             float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
             transform.localRotation = Quaternion.Euler(0f, 0f, angle - 90f); // Adjust image rotation to face player
 
@@ -99,12 +114,5 @@ public class F_16Controller : MonoBehaviour
         }
     }
 
-    //void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    // Player에게 부딪히면 객체 삭제 (Tag 비교 방식)
-    //    if (collision.CompareTag("Player"))
-    //    {
-    //        Destroy(gameObject); // Destroy the enemy on collision with the player
-    //    }
-    //}
+ 
 }

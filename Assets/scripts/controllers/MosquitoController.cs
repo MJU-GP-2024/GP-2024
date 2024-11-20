@@ -32,7 +32,7 @@ public class MosquitoController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        locatTime += Time.deltaTime;
+        this.localTime += Time.deltaTime;
         // Y축 하강 처리
         if (isDescending)
         {
@@ -54,7 +54,7 @@ public class MosquitoController : MonoBehaviour
         }
 
         // PingPong 함수와 증가된 속도를 사용하여 X축 이동
-        float newX = startPositionX + Mathf.PingPong(localTime * currentSpeed, moveRange) - moveRange / 2;
+        float newX = startPositionX + Mathf.PingPong(this.localTime * currentSpeed, moveRange) - moveRange / 2;
         transform.position = new Vector3(newX, transform.position.y, transform.position.z);
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class MosquitoController : MonoBehaviour
 {
     public float initialSpeed = 3.0f;   // 초기 이동 속도
-    public float maxSpeed = 10.0f;      // 최대 속도
+    public float maxSpeed = 6.0f;      // 최대 속도
     public float acceleration = 0.1f;   // 가속도 (시간이 지날수록 속도가 증가)
 
     public float moveRange = 5.0f;      // X축 이동 범위

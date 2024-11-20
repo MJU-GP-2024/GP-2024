@@ -11,7 +11,11 @@ public class EnemyGenerator : MonoBehaviour
 
     public float spawnInterval = 2.0f; //적 출현 패턴 발동 딜레이
 
-    public int pattern = 5; //스테이지에 따른 적 출현 패턴
+    public int pattern = 2; //스테이지에 따른 적 출현 패턴
+
+    public void patternchange(int a) {
+        this.pattern = a;
+    }
 
     void SpawnEnemy()
     {
@@ -109,6 +113,14 @@ public class EnemyGenerator : MonoBehaviour
             spawnX += 2.3f;
         }
 
+    }
+
+    public void PauseInvoke() { //생성 중지
+        CancelInvoke("SpawnEnemy");
+    }
+
+    public void ResumeInvoke() { //생성 재시작
+        InvokeRepeating("SpawnEnemy", 2.0f, spawnInterval);
     }
 
 

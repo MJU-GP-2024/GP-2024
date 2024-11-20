@@ -16,6 +16,8 @@ public class MosquitoController : MonoBehaviour
     private bool isDescending = true;   // Y축 하강 여부
     public float minYposition = 2.5f; //y축 최대하강 위치
 
+    public float localTime; //개인 시간
+
     public void changeminY(float a) {
         this.minYposition = a;
     }
@@ -30,6 +32,7 @@ public class MosquitoController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        locatTime += Time.deltaTime;
         // Y축 하강 처리
         if (isDescending)
         {
@@ -51,7 +54,7 @@ public class MosquitoController : MonoBehaviour
         }
 
         // PingPong 함수와 증가된 속도를 사용하여 X축 이동
-        float newX = startPositionX + Mathf.PingPong(Time.time * currentSpeed, moveRange) - moveRange / 2;
+        float newX = startPositionX + Mathf.PingPong(localTime * currentSpeed, moveRange) - moveRange / 2;
         transform.position = new Vector3(newX, transform.position.y, transform.position.z);
     }
 }

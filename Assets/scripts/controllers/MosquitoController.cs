@@ -14,6 +14,11 @@ public class MosquitoController : MonoBehaviour
     private float currentSpeed;         // 현재 X축 속도
     private float startPositionX;       // 시작 X 위치 저장
     private bool isDescending = true;   // Y축 하강 여부
+    public float minYposition = 2.5f; //y축 최대하강 위치
+
+    public void changeminY(float a) {
+        this.minYposition = a;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -30,10 +35,10 @@ public class MosquitoController : MonoBehaviour
         {
             transform.position -= new Vector3(0, descendSpeed * Time.deltaTime, 0);
 
-            // Y축이 4 이하로 내려가면 멈춤
-            if (transform.position.y <= 4.0f)
+            // Y축이 minYposition 이하로 내려가면 멈춤
+            if (transform.position.y <= minYposition)
             {
-                transform.position = new Vector3(transform.position.x, 4.0f, transform.position.z);
+                transform.position = new Vector3(transform.position.x, minYposition, transform.position.z);
                 isDescending = false; // 더 이상 내려가지 않도록 설정
             }
         }

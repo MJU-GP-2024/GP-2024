@@ -223,7 +223,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 726357300}
-  - component: {fileID: 726357299}
+  - component: {fileID: 726357301}
   m_Layer: 0
   m_Name: EnemyGenerator
   m_TagString: Untagged
@@ -231,23 +231,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &726357299
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 726357298}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 183d230df617e1e438d5b07358072a8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Messerschmitt: {fileID: 6738962024961013020, guid: 90bcc55db27106742bc83e4a99446ba6, type: 3}
-  F_16: {fileID: 1947054544204643427, guid: 1c51d978508ec594cac666ca4ddd2f0a, type: 3}
-  spawnInterval: 2
-  spawnY: -6.5
-  pattern: 3
 --- !u!4 &726357300
 Transform:
   m_ObjectHideFlags: 0
@@ -263,6 +246,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &726357301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726357298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 183d230df617e1e438d5b07358072a8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Messerschmitt: {fileID: 6738962024961013020, guid: 90bcc55db27106742bc83e4a99446ba6, type: 3}
+  F_16: {fileID: 1947054544204643427, guid: 1c51d978508ec594cac666ca4ddd2f0a, type: 3}
+  Mosqutio: {fileID: 4077015859476022289, guid: 9e035a6bf89452545840cbaad4149129, type: 3}
+  spawnInterval: 2
+  pattern: 5
 --- !u!1 &814550939
 GameObject:
   m_ObjectHideFlags: 0

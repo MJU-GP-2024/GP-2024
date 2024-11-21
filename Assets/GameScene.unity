@@ -306,7 +306,7 @@ MonoBehaviour:
   F_16: {fileID: 5051268243270119762, guid: e411073a060d74349a75ca99dc69ed43, type: 3}
   Mosqutio: {fileID: 4431183123838337637, guid: 2c5b814720fb43e4a946bb50c7d7d6a6, type: 3}
   spawnInterval: 2
-  pattern: 2
+  pattern: 3
 --- !u!1 &814550939
 GameObject:
   m_ObjectHideFlags: 0

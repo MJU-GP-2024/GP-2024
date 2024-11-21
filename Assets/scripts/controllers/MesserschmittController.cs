@@ -90,12 +90,7 @@ public class MesserschmittController : MonoBehaviour
             yield return new WaitForSeconds(waitTime);
 
             // shoot() 메서드 실행
-            Shoot();
+            GetComponent<HostileWeaponProvider>().Shoot("single");
         }
     }
-    void Shoot()
-    {
-        Debug.Log("shoot by messerschmitt. elapsed time since creation:" + time);
-    }
-
 }

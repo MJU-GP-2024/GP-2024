@@ -265,6 +265,7 @@ GameObject:
   - component: {fileID: 8487537727027428664}
   - component: {fileID: 260087749759859409}
   - component: {fileID: 1583974696023776482}
+  - component: {fileID: 5819904636796990749}
   m_Layer: 0
   m_Name: F_16
   m_TagString: enemy
@@ -472,6 +473,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &5819904636796990749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5051268243270119762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24c363b7832d145d2a73f556ddb32b2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponVariant: 
+  fireRate: 0
+  bulletEnemyAPrefab: {fileID: 0}
+  bulletEnemyBPrefab: {fileID: 0}
+  bulletEnemyCPrefab: {fileID: 0}
 --- !u!1 &7127113321922359856
 GameObject:
   m_ObjectHideFlags: 0

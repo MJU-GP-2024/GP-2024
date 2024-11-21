@@ -17,13 +17,17 @@ public class F_16Controller : MonoBehaviour
     private Vector2 diveDirection;
     GameObject player;
 
-        void OnTriggerEnter2D(Collider2D other) {
-        if(other.gameObject.tag=="Player") {
-            if(!this.player.GetComponent<PlayerController>().stun){
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            if (!this.player.GetComponent<PlayerController>().stun)
+            {
                 Destroy(gameObject);
             }
         }
-        else if(other.gameObject.tag=="bullet0") {
+        else if (other.gameObject.tag == "bullet0")
+        {
             Destroy(gameObject);
         }
     }
@@ -114,5 +118,5 @@ public class F_16Controller : MonoBehaviour
         }
     }
 
- 
+
 }

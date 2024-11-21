@@ -181,6 +181,7 @@ GameObject:
   - component: {fileID: 2268362259925040095}
   - component: {fileID: 8357892306021835119}
   - component: {fileID: 8822086615822246040}
+  - component: {fileID: 420983288649999192}
   m_Layer: 0
   m_Name: Messerschmitt
   m_TagString: enemy
@@ -387,6 +388,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &420983288649999192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2200960020998399124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24c363b7832d145d2a73f556ddb32b2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponVariant: 
+  fireRate: 0
+  bulletEnemyAPrefab: {fileID: 0}
+  bulletEnemyBPrefab: {fileID: 0}
+  bulletEnemyCPrefab: {fileID: 0}
 --- !u!1 &4260780721037686511
 GameObject:
   m_ObjectHideFlags: 0

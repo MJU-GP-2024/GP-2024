@@ -6,8 +6,10 @@ public class Boss1Controller : MonoBehaviour
 {
     int ready = 0;
     float Hp = 1000f;
-    public float minCirclePatternInterval = 1.0f; // circle 무기 발사 minimum interval time
-    public float maxCirclePatternInterval = 2.0f; // circle무기 발사 max interval time
+    float minSinglePatternInterval = 0.0f; // single 무기 발사 minimum interval time
+    float maxSinglePatternInterval = 1.5f; // single 무기 발사 max interval time
+    float minCirclePatternInterval = 7.0f; // circle 무기 발사 minimum interval time
+    float maxCirclePatternInterval = 10.0f; // circle무기 발사 max interval time
 
     GameObject ScenarioDirector;
 
@@ -17,6 +19,7 @@ public class Boss1Controller : MonoBehaviour
         this.ScenarioDirector = GameObject.Find("ScenarioDirector");
 
         // Shoot 메서드 코루틴
+        StartCoroutine(SinglePatternShooter());
         StartCoroutine(CirclePatternShooter());
     }
 
@@ -45,12 +48,25 @@ public class Boss1Controller : MonoBehaviour
         }
     }
 
+    IEnumerator SinglePatternShooter()
+    {
+        while (true)
+        {
+            // 무작위 대기 시간
+            float waitTime = Random.Range(minSinglePatternInterval, maxSinglePatternInterval);
+            yield return new WaitForSeconds(waitTime);
+
+            // shoot() 메서드 실행
+            GetComponent<HostileWeaponProvider>().Shoot("single");
+        }
+    }
+
     IEnumerator CirclePatternShooter()
     {
         while (true)
         {
             // 무작위 대기 시간
-            float waitTime = Random.Range(minCirclePatternInterval, maxCirclePatternInterval);
+            float waitTime = 4 + Random.Range(minCirclePatternInterval, maxCirclePatternInterval);
             yield return new WaitForSeconds(waitTime);
 
             // shoot() 메서드 실행

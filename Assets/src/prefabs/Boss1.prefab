@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3915043550406970790}
   - component: {fileID: 5679304655352875451}
   - component: {fileID: 8608142752479460172}
+  - component: {fileID: 2334617034502071242}
   m_Layer: 0
   m_Name: Boss1
   m_TagString: Untagged
@@ -104,6 +105,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d14e6d3a6edb7140832dc7fe7014d7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minCirclePatternInterval: 1
+  maxCirclePatternInterval: 2
 --- !u!60 &5679304655352875451
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -238,6 +241,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2334617034502071242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435442031612239112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24c363b7832d145d2a73f556ddb32b2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponVariant: 
+  fireRate: 0
+  bulletEnemyAPrefab: {fileID: 0}
+  bulletEnemyBPrefab: {fileID: 0}
+  bulletEnemyCPrefab: {fileID: 0}
 --- !u!1 &4170858583511634609
 GameObject:
   m_ObjectHideFlags: 0

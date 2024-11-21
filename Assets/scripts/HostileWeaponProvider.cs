@@ -18,6 +18,7 @@ public class HostileWeaponProvider : MonoBehaviour
     public GameObject bulletEnemyAPrefab; // 발사체를 연결
     public GameObject bulletEnemyBPrefab; // 발사체를 연결
     public GameObject bulletEnemyCPrefab; // 발사체를 연결
+    float time;
 
 
     void Start() // initiate weapon, player reference
@@ -32,6 +33,8 @@ public class HostileWeaponProvider : MonoBehaviour
 
     void Update() // player를 가리키는 방향 벡터를 update합니다
     {
+        time += Time.deltaTime;
+
         if (player != null)
         {
             playerDirection = (player.transform.position - transform.position).normalized;
@@ -81,11 +84,23 @@ public class HostileWeaponProvider : MonoBehaviour
         }
     }
 
+    private IEnumerator CirclePatternAttackRoutine()
+    {
+        int repeatCount = 6; // 총 발사 횟수
+        float delay = 0.13f;  // 각 발사 사이의 간격 (초 단위)
+
+        for (int i = 0; i < repeatCount; i++)
+        {
+            CirelePatternVariant(); // Circle Pattern 발사
+            yield return new WaitForSeconds(delay); // 0.5초 대기
+        }
+    }
+
     private void CirelePatternVariant()
     {
         int numberOfProjectiles = 30; // 한 번에 발사할 투사체의 개수
         float angleStep = 360f / numberOfProjectiles; // 각 투사체 간의 각도 차이
-        float angle = 0f; // 초기 각도
+        float angle = time * 10; // 초기 각도
 
         if (bulletEnemyCPrefab != null)
         {
@@ -120,19 +135,15 @@ public class HostileWeaponProvider : MonoBehaviour
     {
         if (type == "single")
         {
-            // SinglePatternVariant(playerDirection);
-            CirelePatternVariant();
+            SinglePatternVariant(playerDirection);
         }
-
-        if (type == "linear")
+        else if (type == "linear")
         {
             LinearPatternVariant(playerDirection);
-
         }
-
-        if (type == "circle")
+        else if (type == "circle")
         {
-            CirelePatternVariant();
+            StartCoroutine(CirclePatternAttackRoutine());
         }
     }
 }

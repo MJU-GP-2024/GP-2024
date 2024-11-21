@@ -16,20 +16,25 @@ public class MesserschmittController : MonoBehaviour
 
     GameObject player;
 
-    public void change(int a, float b, float c, float d) {
+    public void change(int a, float b, float c, float d)
+    {
         this.rotateSpeed = a;
         this.minInterval = b;
         this.maxInterval = c;
         this.speed = d;
     }
 
-        void OnTriggerEnter2D(Collider2D other) {
-        if(other.gameObject.tag=="Player") {
-            if(!this.player.GetComponent<PlayerController>().stun){
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            if (!this.player.GetComponent<PlayerController>().stun)
+            {
                 Destroy(gameObject);
             }
         }
-        else if(other.gameObject.tag=="bullet0") {
+        else if (other.gameObject.tag == "bullet0")
+        {
             Destroy(gameObject);
         }
     }
@@ -46,7 +51,7 @@ public class MesserschmittController : MonoBehaviour
         //float angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
         //transform.Rotate(0, 0, -angle); // 생성시 플레이어를 바라봅니다
 
-    
+
         if (transform.position.x > 0)   // 생성 위치에 따라 회전 방향이 바뀝니다
         {
             this.rotateSpeed = -this.rotateSpeed;
@@ -58,7 +63,7 @@ public class MesserschmittController : MonoBehaviour
     {
         //time += Time.deltaTime;
 
-        transform.Translate(0, this.speed*Time.deltaTime, 0);
+        transform.Translate(0, this.speed * Time.deltaTime, 0);
         transform.Rotate(0, 0, this.rotateSpeed * Time.deltaTime);
 
         // 화면에서 벗어나면 객체 삭제

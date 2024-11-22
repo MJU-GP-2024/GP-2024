@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class M8Controller : MonoBehaviour
 {
-    public float speed2 = 9f; // 미사일 속도
+    public float speed3 = 9f; // 미사일 속도
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +18,7 @@ public class M8Controller : MonoBehaviour
     void Update()
     {
         // 아래 방향으로 이동
-        transform.Translate(Vector3.down * speed2 * Time.deltaTime);
+        transform.Translate(Vector3.down * speed3 * Time.deltaTime);
 
         
     }

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class M4Controller : MonoBehaviour
 {
-    public float speed = 5f; // 미사일 속도
+    public float speed = 10f; // 미사일 속도
 
     // Update is called once per frame
     void Update()

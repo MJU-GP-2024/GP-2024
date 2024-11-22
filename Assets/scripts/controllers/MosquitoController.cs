@@ -13,7 +13,7 @@ public class EnemyPlaneController : MonoBehaviour
 
     public GameObject missilePrefab;    // 적 미사일 프리팹
     public Transform missileSpawnPoint; // 미사일 발사 위치
-    private float missileCooldown = 1f; // 1초 간격
+    private float missileCooldown = 0.7f; // 1초 간격
 
 
 

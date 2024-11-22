@@ -349,7 +349,6 @@ MonoBehaviour:
   descendSpeed: 1
   missilePrefab: {fileID: 1846705119}
   missileSpawnPoint: {fileID: 1458607750}
-  fireRate: 1.5
 --- !u!4 &1458607750 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 444216, guid: 57740bf80b3a6c04984441aa3a5c18ac, type: 3}
@@ -374,15 +373,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7173012185012191068, guid: 76fedbfec044dae469f1d7abbdd37561, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7173012185012191068, guid: 76fedbfec044dae469f1d7abbdd37561, type: 3}
       propertyPath: m_LocalScale.y
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7173012185012191068, guid: 76fedbfec044dae469f1d7abbdd37561, type: 3}
       propertyPath: m_LocalScale.z
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7173012185012191068, guid: 76fedbfec044dae469f1d7abbdd37561, type: 3}
       propertyPath: m_LocalPosition.x
@@ -427,13 +426,29 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5633715751535423242, guid: 76fedbfec044dae469f1d7abbdd37561, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1846705122}
   m_SourcePrefab: {fileID: 100100000, guid: 76fedbfec044dae469f1d7abbdd37561, type: 3}
 --- !u!1 &1846705119 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5633715751535423242, guid: 76fedbfec044dae469f1d7abbdd37561, type: 3}
   m_PrefabInstance: {fileID: 1713209954}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1846705122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1846705119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c8692cfbfdf1c44b9c2ea1e980596b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
 --- !u!1001 &1595793151953995292
 PrefabInstance:
   m_ObjectHideFlags: 0

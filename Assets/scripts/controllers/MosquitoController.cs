@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyPlaneController : MonoBehaviour
+public class MosquitoController : MonoBehaviour
 {
     public float speed = 4.0f;          // 고정 이동 속도
     public float moveRange = 5.0f;      // X축 이동 범위
@@ -21,7 +21,7 @@ public class EnemyPlaneController : MonoBehaviour
     public float initialSpeed = 3.0f;   // 초기 이동 속도
     public float maxSpeed = 6.0f;      // 최대 속도
     public float acceleration = 0.1f;   // 가속도 (시간이 지날수록 속도가 증가)
-    
+
     private float currentSpeed;         // 현재 X축 속도
     public float minYposition = 2.5f; // y축 최대하강 위치
 
@@ -46,7 +46,7 @@ public class EnemyPlaneController : MonoBehaviour
     void Update()
     {
         this.localTime += Time.deltaTime;
-        
+
         // Y축 하강 처리
         if (isDescending)
         {
@@ -74,7 +74,7 @@ public class EnemyPlaneController : MonoBehaviour
         }
 
         // PingPong 함수와 고정된 속도를 사용하여 X축 이동
-        float newX = startPositionX + Mathf.PingPong(Time.time * speed, moveRange) - moveRange / 2;
+        // float newX = startPositionX + Mathf.PingPong(Time.time * speed, moveRange) - moveRange / 2;
         // PingPong 함수와 증가된 속도를 사용하여 X축 이동
         float newX = startPositionX + Mathf.PingPong(this.localTime * currentSpeed, moveRange) - moveRange / 2;
         transform.position = new Vector3(newX, transform.position.y, transform.position.z);
@@ -112,7 +112,7 @@ public class EnemyPlaneController : MonoBehaviour
                 Destroy(gameObject); // 체력이 0 이하가 되면 적기 삭제
             }
         }
-        
+
         if (other.gameObject.tag == "Player")
         {
             if (!this.player.GetComponent<PlayerController>().stun)
@@ -120,7 +120,7 @@ public class EnemyPlaneController : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        
+
         if (other.gameObject.tag == "bullet0")
         {
             Destroy(gameObject);

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyPlaneController : MonoBehaviour
+public class MosquitoController : MonoBehaviour
 {
     public float speed = 4.0f;          // 고정 이동 속도
     public float moveRange = 5.0f;      // X축 이동 범위

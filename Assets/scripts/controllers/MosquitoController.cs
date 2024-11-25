@@ -7,7 +7,7 @@ public class EnemyPlaneController : MonoBehaviour
     public float speed = 4.0f;          // 고정 이동 속도
     public float moveRange = 5.0f;      // X축 이동 범위
     public float descendSpeed = 1.0f;   // Y축 하강 속도
-    public int health = 3;             // 적기 체력 (3번 맞으면 파괴)
+    public int health = 5;             // 적기 체력 (3번 맞으면 파괴)
 
     private float startPositionX;       // 시작 X 위치 저장
     private bool isDescending = true;   // Y축 하강 여부

@@ -76,7 +76,6 @@ public class EnemyPlaneController : MonoBehaviour
         // PingPong 함수와 고정된 속도를 사용하여 X축 이동
         float newX = startPositionX + Mathf.PingPong(Time.time * speed, moveRange) - moveRange / 2;
         // PingPong 함수와 증가된 속도를 사용하여 X축 이동
-        float newX = startPositionX + Mathf.PingPong(this.localTime * currentSpeed, moveRange) - moveRange / 2;
         transform.position = new Vector3(newX, transform.position.y, transform.position.z);
     }
 

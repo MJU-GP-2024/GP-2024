@@ -7,7 +7,7 @@ public class MosquitoController : MonoBehaviour
     public float speed = 4.0f;          // 고정 이동 속도
     public float moveRange = 5.0f;      // X축 이동 범위
     public float descendSpeed = 1.0f;   // Y축 하강 속도
-    public int health = 3;             // 적기 체력 (3번 맞으면 파괴)
+    public int health = 5;             // 적기 체력 (3번 맞으면 파괴)
 
     private float startPositionX;       // 시작 X 위치 저장
     private bool isDescending = true;   // Y축 하강 여부
@@ -76,7 +76,6 @@ public class MosquitoController : MonoBehaviour
         // PingPong 함수와 고정된 속도를 사용하여 X축 이동
         // float newX = startPositionX + Mathf.PingPong(Time.time * speed, moveRange) - moveRange / 2;
         // PingPong 함수와 증가된 속도를 사용하여 X축 이동
-        float newX = startPositionX + Mathf.PingPong(this.localTime * currentSpeed, moveRange) - moveRange / 2;
         transform.position = new Vector3(newX, transform.position.y, transform.position.z);
     }
 

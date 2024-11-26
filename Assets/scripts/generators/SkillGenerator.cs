@@ -7,7 +7,7 @@ public class SkillGenerator : MonoBehaviour
     public GameObject missilePrefab;
 
 
-    IEnumerator Missile() //messersc적기 일직선 4개 패턴
+    IEnumerator Missile()
     {
         float spawnDelay = 0.1f;
 

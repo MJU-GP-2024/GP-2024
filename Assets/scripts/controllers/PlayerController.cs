@@ -74,10 +74,7 @@ public class PlayerController : MonoBehaviour
         if(speed<maxSpeed) {
             speed *= 1.025f;
         }
-
-        if (this.Master == 0)
-        {
-            if (this.ready == 0 && this.transform.position.y <= -2)
+        if (this.ready == 0 && this.transform.position.y <= -2)
             {
                 this.transform.Translate(0, 0.04f, 0);
             }
@@ -86,6 +83,9 @@ public class PlayerController : MonoBehaviour
             {
                 this.ready = 1;
             }
+
+        if (this.Master == 0)
+        {
 
             if (this.ready == 1)
             {

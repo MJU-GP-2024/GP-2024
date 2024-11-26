@@ -63,18 +63,12 @@ public class MosquitoController : MonoBehaviour
         // 시간에 따라 X축 속도 증가 (최대 속도 제한 적용)
         if (currentSpeed < maxSpeed)
         {
-            transform.position -= new Vector3(0, descendSpeed * Time.deltaTime, 0);
+            transform.position -= new Vector3(currentSpeed * this.localTime, 0, 0);
 
-            // Y축이 4 이하로 내려가면 멈춤
-            if (transform.position.y <= 4.0f)
-            {
-                transform.position = new Vector3(transform.position.x, 4.0f, transform.position.z);
-                isDescending = false; // 더 이상 내려가지 않도록 설정
-            }
         }
 
         // PingPong 함수와 고정된 속도를 사용하여 X축 이동
-        // float newX = startPositionX + Mathf.PingPong(Time.time * speed, moveRange) - moveRange / 2;
+        float newX = startPositionX + Mathf.PingPong(Time.time * speed, moveRange) - moveRange / 2;
         // PingPong 함수와 증가된 속도를 사용하여 X축 이동
         transform.position = new Vector3(newX, transform.position.y, transform.position.z);
     }

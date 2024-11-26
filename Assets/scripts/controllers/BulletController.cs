@@ -4,10 +4,24 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
+
+    GameObject player;
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            if (!this.player.GetComponent<PlayerController>().stun)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-
+        this.player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -17,5 +31,8 @@ public class BulletController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+
+
     }
 }

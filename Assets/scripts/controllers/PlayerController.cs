@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     int ready = 0;
     int Hp = 3;
     public bool stun = false;
+    private float speed = 0.065f; //이동속도
+    private float maxSpeed = 0.065f;
 
     public GameObject missilePrefab; // 미사일 프리팹 참조
     public Transform missileSpawnPoint; // 미사일 발사 위치
@@ -44,7 +46,9 @@ public class PlayerController : MonoBehaviour
     void Hitted()
     {
         this.stun = true;
-        Invoke("Recover", 0.3f);
+        this.maxSpeed=0.065f;
+        this.speed=0.025f;
+        Invoke("Recover", 1f);
     }
     void Recover()
     {
@@ -67,6 +71,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(speed<maxSpeed) {
+            speed *= 1.025f;
+        }
+
         if (this.Master == 0)
         {
             if (this.ready == 0 && this.transform.position.y <= -2)
@@ -81,26 +89,22 @@ public class PlayerController : MonoBehaviour
 
             if (this.ready == 1)
             {
-
-                if (!this.stun)
-                {
                     if (Input.GetKey(KeyCode.W) && this.transform.position.y <= 2.0f)
                     {
-                        this.transform.Translate(0, 0.065f, 0);
+                        this.transform.Translate(0, speed, 0);
                     }
                     if (Input.GetKey(KeyCode.A) && this.transform.position.x >= -4.7)
                     {
-                        this.transform.Translate(-0.065f, 0, 0);
+                        this.transform.Translate(-speed, 0, 0);
                     }
                     if (Input.GetKey(KeyCode.S) && this.transform.position.y >= -4.5)
                     {
-                        this.transform.Translate(0, -0.065f, 0);
+                        this.transform.Translate(0, -speed, 0);
                     }
                     if (Input.GetKey(KeyCode.D) && this.transform.position.x <= 4.7)
                     {
-                        this.transform.Translate(0.065f, 0, 0);
+                        this.transform.Translate(speed, 0, 0);
                     }
-                }
             }
         }
     }

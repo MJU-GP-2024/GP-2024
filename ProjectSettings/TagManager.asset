@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PlayerMissile
   - enemy
+  - powerUpItem
   layers:
   - Default
   - TransparentFX

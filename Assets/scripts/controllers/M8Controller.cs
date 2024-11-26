@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+//적기 mosquito 미사일
 public class M8Controller : MonoBehaviour
 {
     public float speed3 = 9f; // 미사일 속도

@@ -122,6 +122,71 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &340563390
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4793154719678028500, guid: 8d0e4b7b3515a2146b900b4cd032b021, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3.3682027
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793154719678028500, guid: 8d0e4b7b3515a2146b900b4cd032b021, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3.3068652
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793154719678028500, guid: 8d0e4b7b3515a2146b900b4cd032b021, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.2138
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793154719678028500, guid: 8d0e4b7b3515a2146b900b4cd032b021, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0326
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793154719678028500, guid: 8d0e4b7b3515a2146b900b4cd032b021, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793154719678028500, guid: 8d0e4b7b3515a2146b900b4cd032b021, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793154719678028500, guid: 8d0e4b7b3515a2146b900b4cd032b021, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793154719678028500, guid: 8d0e4b7b3515a2146b900b4cd032b021, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793154719678028500, guid: 8d0e4b7b3515a2146b900b4cd032b021, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793154719678028500, guid: 8d0e4b7b3515a2146b900b4cd032b021, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793154719678028500, guid: 8d0e4b7b3515a2146b900b4cd032b021, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793154719678028500, guid: 8d0e4b7b3515a2146b900b4cd032b021, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6546220248532574162, guid: 8d0e4b7b3515a2146b900b4cd032b021, type: 3}
+      propertyPath: m_Name
+      value: SpeedItemPrefab
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8d0e4b7b3515a2146b900b4cd032b021, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,9 +501,15 @@ MonoBehaviour:
   speed: 4
   moveRange: 5
   descendSpeed: 1
-  health: 3
+  health: 5
   missilePrefab: {fileID: 1846705119}
   missileSpawnPoint: {fileID: 1458607750}
+  initialSpeed: 3
+  maxSpeed: 6
+  acceleration: 0.1
+  minYposition: 2.5
+  localTime: 0
+  powerUpPrefab: {fileID: 0}
 --- !u!58 &1458607755
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -601,11 +672,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7173012185012191068, guid: 76fedbfec044dae469f1d7abbdd37561, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.144
       objectReference: {fileID: 0}
     - target: {fileID: 7173012185012191068, guid: 76fedbfec044dae469f1d7abbdd37561, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.004
       objectReference: {fileID: 0}
     - target: {fileID: 7173012185012191068, guid: 76fedbfec044dae469f1d7abbdd37561, type: 3}
       propertyPath: m_LocalPosition.z
@@ -992,3 +1063,4 @@ SceneRoots:
   - {fileID: 1458607746}
   - {fileID: 6349858118784132336}
   - {fileID: 1713209954}
+  - {fileID: 340563390}

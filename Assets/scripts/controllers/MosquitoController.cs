@@ -7,7 +7,7 @@ public class MosquitoController : MonoBehaviour
     public float speed = 4.0f;          // 고정 이동 속도
     public float moveRange = 5.0f;      // X축 이동 범위
     public float descendSpeed = 1.0f;   // Y축 하강 속도
-    public int health = 5;             // 적기 체력 (3번 맞으면 파괴)
+    public int health = 5;             // 적기 체력 (5번 맞으면 파괴)
 
     private float startPositionX;       // 시작 X 위치 저장
     private bool isDescending = true;   // Y축 하강 여부
@@ -28,6 +28,9 @@ public class MosquitoController : MonoBehaviour
     public float localTime; // 개인 시간
 
     GameObject player;
+
+
+    public GameObject powerUpPrefab; // 파워업 아이템 프리팹  -  중력으로 설정하여 못 먹으면 끝남 ㅂ2
 
     public void changeminY(float a)
     {
@@ -94,8 +97,10 @@ public class MosquitoController : MonoBehaviour
         if (other.CompareTag("PlayerMissile")) // 플레이어 미사일과 충돌했을 경우
         {
 
-            health--; // 체력 감소
-            Debug.Log("미사일 맞음.");
+            // M4Controller에서 공격력 가져오기
+            M4Controller missile = other.GetComponent<M4Controller>();
+        
+            health -= missile.attackPower; // 체력 감소
 
             Destroy(other.gameObject); // 미사일 삭제
 
@@ -109,6 +114,10 @@ public class MosquitoController : MonoBehaviour
             if (health <= 0)
             {
                 Destroy(gameObject); // 체력이 0 이하가 되면 적기 삭제
+
+                // 아이템 생성
+                SpawnPowerUp();
+
             }
         }
 
@@ -124,5 +133,15 @@ public class MosquitoController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+
+    //아이템 드롭됨
+    void SpawnPowerUp()
+    {
+
+        // 현재 적기의 위치에 아이템 생성
+        Instantiate(powerUpPrefab, transform.position, Quaternion.identity);
+        Debug.Log("PowerUp 아이템 생성됨.");
     }
 }

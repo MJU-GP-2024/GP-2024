@@ -6,12 +6,14 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    GameObject SkillGenerator;
+
     int Master = 0;
     int ready = 0;
     int Hp = 3;
     public bool stun = false;
-    private float speed = 0.065f; //이동속도
-    private float maxSpeed = 0.065f;
+    private float speed = 2.8f; //이동속도
+    private float maxSpeed = 2.8f;
 
     public GameObject missilePrefab; // 미사일 프리팹 참조
     public Transform missileSpawnPoint; // 미사일 발사 위치
@@ -46,8 +48,8 @@ public class PlayerController : MonoBehaviour
     void Hitted()
     {
         this.stun = true;
-        this.maxSpeed=0.065f;
-        this.speed=0.025f;
+        this.maxSpeed=2.8f;
+        this.speed=1.5f;
         Invoke("Recover", 1f);
     }
     void Recover()
@@ -64,6 +66,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        this.SkillGenerator = GameObject.Find("SkillGenerator");
         StartCoroutine(FireMissilesContinuously()); // 미사일 자동 발사 시작
         this.Hp = 3;
     }
@@ -72,7 +75,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if(speed<maxSpeed) {
-            speed *= 1.025f;
+            speed *= 1.015f;
         }
         if (this.ready == 0 && this.transform.position.y <= -2)
             {
@@ -89,22 +92,42 @@ public class PlayerController : MonoBehaviour
 
             if (this.ready == 1)
             {
+                if(SkillGenerator.GetComponent<SkillGenerator>().TimeSkillActive == 0) {
                     if (Input.GetKey(KeyCode.W) && this.transform.position.y <= 2.0f)
                     {
-                        this.transform.Translate(0, speed, 0);
+                        this.transform.Translate(0, speed * Time.deltaTime, 0);
                     }
                     if (Input.GetKey(KeyCode.A) && this.transform.position.x >= -4.7)
                     {
-                        this.transform.Translate(-speed, 0, 0);
+                        this.transform.Translate(-speed * Time.deltaTime, 0, 0);
                     }
                     if (Input.GetKey(KeyCode.S) && this.transform.position.y >= -4.5)
                     {
-                        this.transform.Translate(0, -speed, 0);
+                        this.transform.Translate(0, -speed * Time.deltaTime, 0);
                     }
                     if (Input.GetKey(KeyCode.D) && this.transform.position.x <= 4.7)
                     {
-                        this.transform.Translate(speed, 0, 0);
+                        this.transform.Translate(speed * Time.deltaTime, 0, 0);
                     }
+                }
+                else{
+                    if (Input.GetKey(KeyCode.W) && this.transform.position.y <= 2.0f)
+                    {
+                        this.transform.Translate(0, speed * Time.unscaledDeltaTime, 0);
+                    }
+                    if (Input.GetKey(KeyCode.A) && this.transform.position.x >= -4.7)
+                    {
+                        this.transform.Translate(-speed * Time.unscaledDeltaTime, 0, 0);
+                    }
+                    if (Input.GetKey(KeyCode.S) && this.transform.position.y >= -4.5)
+                    {
+                        this.transform.Translate(0, -speed * Time.unscaledDeltaTime, 0);
+                    }
+                    if (Input.GetKey(KeyCode.D) && this.transform.position.x <= 4.7)
+                    {
+                        this.transform.Translate(speed * Time.unscaledDeltaTime, 0, 0);
+                    }
+                }
             }
         }
     }

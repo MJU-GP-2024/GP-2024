@@ -6,6 +6,9 @@ public class SkillGenerator : MonoBehaviour
 {
     public GameObject missilePrefab;
 
+    public float slowMotionScale = 0.35f;
+    public int TimeSkillActive = 0;
+
 
     IEnumerator Missile()
     {
@@ -20,6 +23,21 @@ public class SkillGenerator : MonoBehaviour
         }
     }
 
+    private void TimeControl() {
+        if(TimeSkillActive == 0) {
+            TimeSkillActive = 1;
+            Time.timeScale = slowMotionScale;
+            Time.fixedDeltaTime = 0.02f * Time.timeScale;
+        }
+        else if(TimeSkillActive == 1) {
+            TimeSkillActive = 0;
+            Time.timeScale = 1f;
+            Time.fixedDeltaTime = 0.02f;
+        }
+    }
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +51,10 @@ public class SkillGenerator : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Q)) {
             StartCoroutine(Missile());
+        }
+
+        if(Input.GetKeyDown(KeyCode.E)) {
+            TimeControl();
         }
     }
 }

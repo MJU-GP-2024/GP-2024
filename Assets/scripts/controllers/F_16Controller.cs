@@ -30,6 +30,10 @@ public class F_16Controller : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        else if (other.gameObject.tag == "SkillMissile")
+        {
+            Destroy(gameObject);
+        }
     }
 
 

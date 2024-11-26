@@ -6,6 +6,9 @@ TagManager:
   tags:
   - PlayerMissile
   - enemy
+  - SkillMissile
+  - Undefined
+  - EnemyMissile
   layers:
   - Default
   - TransparentFX

@@ -118,5 +118,9 @@ public class MosquitoController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        else if (other.gameObject.tag == "SkillMissile")
+        {
+            Destroy(gameObject);
+        }
     }
 }

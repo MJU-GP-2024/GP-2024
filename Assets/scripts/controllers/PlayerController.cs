@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!this.stun)
         {
-            if (other.gameObject.tag == "bullet")
+            if (other.gameObject.tag == "EnemyMissile")
             {
                 this.decreaseHp(1);
                 this.Hitted();

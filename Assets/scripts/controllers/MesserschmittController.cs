@@ -37,6 +37,10 @@ public class MesserschmittController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        else if (other.gameObject.tag == "SkillMissile")
+        {
+            Destroy(gameObject);
+        }
     }
 
     void Start()

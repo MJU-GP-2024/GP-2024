@@ -5,6 +5,7 @@ using UnityEngine;
 public class SkillGenerator : MonoBehaviour
 {
     public GameObject missilePrefab;
+    public GameObject TimeEffect;
 
     public float slowMotionScale = 0.35f;
     public int TimeSkillActive = 0;
@@ -28,11 +29,13 @@ public class SkillGenerator : MonoBehaviour
             TimeSkillActive = 1;
             Time.timeScale = slowMotionScale;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
+            TimeEffect.GetComponent<Renderer>().enabled = true;
         }
         else if(TimeSkillActive == 1) {
             TimeSkillActive = 0;
             Time.timeScale = 1f;
             Time.fixedDeltaTime = 0.02f;
+            TimeEffect.GetComponent<Renderer>().enabled = false;
         }
     }
 
@@ -41,7 +44,8 @@ public class SkillGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        TimeEffect = GameObject.Find("TimeEffect");
+        TimeEffect.GetComponent<Renderer>().enabled = false;
     }
 
 

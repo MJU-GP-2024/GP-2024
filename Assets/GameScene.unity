@@ -148,7 +148,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 444216, guid: 57740bf80b3a6c04984441aa3a5c18ac, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.53
+      value: 7.467
       objectReference: {fileID: 0}
     - target: {fileID: 444216, guid: 57740bf80b3a6c04984441aa3a5c18ac, type: 3}
       propertyPath: m_LocalPosition.z
@@ -354,7 +354,7 @@ MonoBehaviour:
   moveRange: 5
   descendSpeed: 1
   health: 5
-  missilePrefab: {fileID: 1152972228860566222, guid: 30f3f7901f6eb8b41bd9f4a63ce7c995, type: 3}
+  missilePrefab: {fileID: 286007833233399370, guid: 2977f4ff623ed1647b38d0d573a37b83, type: 3}
   missileSpawnPoint: {fileID: 1466527395}
   initialSpeed: 3
   maxSpeed: 6
@@ -726,11 +726,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4462275520161505152, guid: 88dcbb9ecd0ff4842a1106fa3e3562a6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.064
+      value: 0.07
       objectReference: {fileID: 0}
     - target: {fileID: 4462275520161505152, guid: 88dcbb9ecd0ff4842a1106fa3e3562a6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.522
+      value: -6.528
       objectReference: {fileID: 0}
     - target: {fileID: 4462275520161505152, guid: 88dcbb9ecd0ff4842a1106fa3e3562a6, type: 3}
       propertyPath: m_LocalPosition.z

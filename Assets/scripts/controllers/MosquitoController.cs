@@ -69,9 +69,9 @@ public class MosquitoController : MonoBehaviour
             transform.position -= new Vector3(0, descendSpeed * Time.deltaTime, 0);
 
             // Y축이 4 이하로 내려가면 멈춤
-            if (transform.position.y <= 4.0f)
+            if (transform.position.y <= 3.0f)
             {
-                transform.position = new Vector3(transform.position.x, 4.0f, transform.position.z);
+                transform.position = new Vector3(transform.position.x, 3.0f, transform.position.z);
                 isDescending = false; // 더 이상 내려가지 않도록 설정
             }
         }
@@ -97,10 +97,8 @@ public class MosquitoController : MonoBehaviour
         if (other.CompareTag("PlayerMissile")) // 플레이어 미사일과 충돌했을 경우
         {
 
-            // M4Controller에서 공격력 가져오기
-            M4Controller missile = other.GetComponent<M4Controller>();
         
-            health -= missile.attackPower; // 체력 감소
+            health --; // 체력 감소
 
             Destroy(other.gameObject); // 미사일 삭제
 

@@ -39,16 +39,6 @@ public class PlayerController : MonoBehaviour
                 this.Hitted();
             }
         }
-
-        if (other.CompareTag("powerUpItem")) // powerUpItem과 충돌 시
-        {
-            M4Controller missile = missilePrefab.GetComponent<M4Controller>();
-            missile.attackPower += 1; // 미사일의 공격력 증가
-            Debug.Log("공격력증가.");
-
-            Destroy(other.gameObject); // PowerUp 아이템 제거
-
-        }
     }
 
     void Hitted()

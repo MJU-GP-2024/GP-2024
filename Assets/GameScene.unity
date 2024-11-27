@@ -354,7 +354,7 @@ MonoBehaviour:
   moveRange: 5
   descendSpeed: 1
   health: 5
-  missilePrefab: {fileID: 286007833233399370, guid: 2977f4ff623ed1647b38d0d573a37b83, type: 3}
+  missilePrefab: {fileID: 1152972228860566222, guid: c05f39813c3bab04180380da0256463f, type: 3}
   missileSpawnPoint: {fileID: 1466527395}
   initialSpeed: 3
   maxSpeed: 6

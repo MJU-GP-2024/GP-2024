@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour
     public bool stun = false;
     private float speed = 2.8f; //이동속도
     private float maxSpeed = 2.8f;
+    public float blinkDuration = 2f; // 총 깜빡임 지속 시간
+    public float blinkInterval = 0.25f; // 깜빡이는 간격
+    private Renderer[] renderers;
 
     public GameObject missilePrefab; // 미사일 프리팹 참조
     public Transform missileSpawnPoint; // 미사일 발사 위치
@@ -50,11 +53,33 @@ public class PlayerController : MonoBehaviour
         this.stun = true;
         this.maxSpeed=2.8f;
         this.speed=1.5f;
-        Invoke("Recover", 1f);
+        StartCoroutine(BlinkCoroutine());
+        Invoke("Recover", 2f);
     }
     void Recover()
     {
         this.stun = false;
+    }
+
+    private IEnumerator BlinkCoroutine()
+    {
+        float elapsedTime = 0f;
+         while (elapsedTime < blinkDuration)
+        {
+            foreach (Renderer rend in renderers)
+            {
+                rend.enabled = !rend.enabled; // 렌더러 토글
+            }
+
+            yield return new WaitForSecondsRealtime(blinkInterval); // 깜빡임 간격
+            elapsedTime += blinkInterval;
+        }
+
+        // 깜빡임 종료 후 모든 렌더러 활성화
+        foreach (Renderer rend in renderers)
+        {
+            rend.enabled = true;
+        }
     }
 
     public void decreaseHp(int a)
@@ -69,6 +94,7 @@ public class PlayerController : MonoBehaviour
         this.SkillGenerator = GameObject.Find("SkillGenerator");
         StartCoroutine(FireMissilesContinuously()); // 미사일 자동 발사 시작
         this.Hp = 3;
+        renderers = GetComponentsInChildren<Renderer>();
     }
 
     // Update is called once per frame

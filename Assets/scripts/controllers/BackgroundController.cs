@@ -6,7 +6,7 @@ using UnityEngine;
 public class BackgroundController : MonoBehaviour
 {
     int Master = 0;
-    float speed = 0.07f;
+    float speed = 1.5f;
     int child = 0;
     GameObject BackgroundGenerator;
 
@@ -29,15 +29,15 @@ public class BackgroundController : MonoBehaviour
     {
         if (this.Master == 0)
         {
-            this.transform.Translate(0, -this.speed, 0);
+            this.transform.Translate(0, -this.speed * Time.deltaTime, 0);
 
-            if (this.transform.position.y <= -13.25f && this.child == 0)
+            if (this.transform.position.y <= -11.4f && this.child == 0)
             {
                 this.BackgroundGenerator.GetComponent<BackgroundGenerator>().Gen_NewBackground();
                 this.child = 1;
             }
 
-            if (this.transform.position.y < -26)
+            if (this.transform.position.y < -24)
             {
                 Destroy(gameObject);
             }

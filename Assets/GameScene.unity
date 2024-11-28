@@ -451,7 +451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ea75a1bbe4aee9498b2f5f9a2776838, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackgroundPrefab: {fileID: 886683724144362538, guid: 5abefc5bc0fbe6a45ab6f036a9eaaa49, type: 3}
+  BackgroundPrefab: {fileID: 2171486919719277702, guid: 67f0782f255b04b5e9aa745f5513ad4b, type: 3}
 --- !u!4 &814550941
 Transform:
   m_ObjectHideFlags: 0

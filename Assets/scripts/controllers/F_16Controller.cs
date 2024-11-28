@@ -17,6 +17,9 @@ public class F_16Controller : MonoBehaviour
     private Vector2 diveDirection;
     GameObject player;
 
+
+    private ItemDropController itemDropController; // ItemDropController 참조
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player")
@@ -24,16 +27,24 @@ public class F_16Controller : MonoBehaviour
             if (!this.player.GetComponent<PlayerController>().stun)
             {
                 Destroy(gameObject);
+                
             }
         }
-        else if (other.gameObject.tag == "bullet0")
+        else if (other.gameObject.tag == "PlayerMissile")
         {
             Destroy(gameObject);
+            DropItem(); // 아이템 드랍****
         }
         else if (other.gameObject.tag == "SkillMissile")
         {
             Destroy(gameObject);
+            DropItem(); // 아이템 드랍****
         }
+    }
+    void DropItem()
+    {
+        // 적기의 현재 위치에서 아이템 드랍 요청
+        itemDropController.RequestItemDrop(transform.position);
     }
 
 
@@ -61,6 +72,9 @@ public class F_16Controller : MonoBehaviour
             horizontalSpeed = -Mathf.Abs(horizontalSpeed);
             transform.localRotation = Quaternion.Euler(0f, 0f, 90f); // 왼쪽을 바라보도록 회전
         }
+
+        // ItemDropController 찾기
+        itemDropController = FindObjectOfType<ItemDropController>();
     }
 
     void Update()

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MesserschmittController : MonoBehaviour
 {
+    //private ItemDropController itemDropController;
     public int rotateSpeed = 5;       // 회전 속도
     public float minInterval = 1.0f;    // 무기 발사 minimum interval time
     public float maxInterval = 2.0f;    // 무기 발사 max interval time
@@ -24,21 +25,31 @@ public class MesserschmittController : MonoBehaviour
         this.speed = d;
     }
 
+    void DropItem()
+    {
+        // 적기의 현재 위치에서 아이템 드랍 요청
+        //itemDropController.RequestItemDrop(transform.position);
+    }
+
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player")
         {
             if (!this.player.GetComponent<PlayerController>().stun)
             {
+                //DropItem();
                 Destroy(gameObject);
             }
         }
         else if (other.gameObject.tag == "bullet0")
         {
+            //DropItem();
             Destroy(gameObject);
         }
         else if (other.gameObject.tag == "SkillMissile")
         {
+            //DropItem();
             Destroy(gameObject);
         }
     }
@@ -60,6 +71,7 @@ public class MesserschmittController : MonoBehaviour
         {
             this.rotateSpeed = -this.rotateSpeed;
         }
+        //itemDropController = FindObjectOfType<ItemDropController>();
 
     }
 

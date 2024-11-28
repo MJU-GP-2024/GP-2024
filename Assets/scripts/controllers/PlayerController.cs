@@ -45,6 +45,11 @@ public class PlayerController : MonoBehaviour
                 this.decreaseHp(1);
                 this.Hitted();
             }
+            else if (other.gameObject.tag == "Menemy")
+            {
+                this.decreaseHp(2);
+                this.Hitted();
+            }
         }
     }
 

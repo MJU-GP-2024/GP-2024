@@ -46,7 +46,7 @@ public class LightningController : MonoBehaviour
         }
     }
 
-     private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("PlayerMissile")) // 플레이어 미사일과 충돌했을 경우
         {   health --; // 체력 감소

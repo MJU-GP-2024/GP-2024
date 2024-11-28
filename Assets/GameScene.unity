@@ -419,8 +419,9 @@ MonoBehaviour:
   Messerschmitt: {fileID: 2200960020998399124, guid: cf62ec61b9770a34f93dd2d653844a86, type: 3}
   F_16: {fileID: 5051268243270119762, guid: e411073a060d74349a75ca99dc69ed43, type: 3}
   Mosqutio: {fileID: 4431183123838337637, guid: 2c5b814720fb43e4a946bb50c7d7d6a6, type: 3}
+  Lighting: {fileID: 7974392891512173717, guid: b4c41a023c0b081478e1f5b447627aab, type: 3}
   spawnInterval: 2
-  pattern: 3
+  pattern: 2
 --- !u!1 &814550939
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,54 +462,6 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.6361845, y: 5.7135177, z: 0.05797162}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &949742491
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 949742493}
-  - component: {fileID: 949742492}
-  m_Layer: 0
-  m_Name: ItemDropController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &949742492
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 949742491}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3d4fb0b3cb70db41b837bbc193e9899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemPrefabs: []
-  itemDropChance: 0.3
-  itemChangeInterval: 1
-  allPossibleItems: []
---- !u!4 &949742493
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 949742491}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.1118553, y: -1.9308863, z: 0.036432613}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -621,4 +574,3 @@ SceneRoots:
   - {fileID: 1222143761}
   - {fileID: 103315851}
   - {fileID: 678212411}
-  - {fileID: 949742493}

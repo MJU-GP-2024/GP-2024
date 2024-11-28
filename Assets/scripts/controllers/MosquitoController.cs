@@ -47,17 +47,21 @@ public class MosquitoController : MonoBehaviour
     {
         this.localTime += Time.deltaTime;
 
+        if(transform.position.y < -6f) {
+            Destroy(gameObject);
+        }
+
         // Y축 하강 처리
         if (isDescending)
         {
             transform.position -= new Vector3(0, descendSpeed * Time.deltaTime, 0);
 
-            // Y축이 minYposition 이하로 내려가면 멈춤
-            if (transform.position.y <= minYposition)
-            {
-                transform.position = new Vector3(transform.position.x, minYposition, transform.position.z);
-                isDescending = false; // 더 이상 내려가지 않도록 설정
-            }
+            // // Y축이 minYposition 이하로 내려가면 멈춤
+            // if (transform.position.y <= minYposition)
+            // {
+            //     transform.position = new Vector3(transform.position.x, minYposition, transform.position.z);
+            //     isDescending = false; // 더 이상 내려가지 않도록 설정
+            // }
         }
 
         // 시간에 따라 X축 속도 증가 (최대 속도 제한 적용)

@@ -15,7 +15,7 @@ public class MesserschmittController : MonoBehaviour
     
     private int Hp = 1;
     public GameObject[] itemPrefabs; // 아이템 프리팹 배열
-    public float dropChance = 1f;  // 아이템 드롭 확률
+    public float dropChance = 0.4f;  // 아이템 드롭 확률
 
     public void change(float rotateSpeed, float minInterval, float maxInterval, float speed)
     {

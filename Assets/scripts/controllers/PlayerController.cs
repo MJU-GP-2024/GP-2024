@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
 
     int Master = 0;
     int ready = 0;
-    int Hp = 3;
+    int Hp = 4;
     int Firemode = 1;
     public bool stun = false;
     private float speed = 3.5f; //이동속도
@@ -31,6 +31,25 @@ public class PlayerController : MonoBehaviour
     {
         this.Master = 0;
     }
+
+    public void PowerUp() {
+        if(this.Firemode < 3) {
+            Firemode += 1;
+        }
+    }
+    public void HpUp() {
+        if(Hp<4) {
+            Hp += 1;
+        }
+    }
+    public void Shield() {
+        stun = true;
+        Invoke("Recover", 3f);
+    }
+    public void SpeedUp() {
+        maxSpeed = 5f;
+    }
+
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -56,11 +75,16 @@ public class PlayerController : MonoBehaviour
 
     void Hitted()
     {
-        this.stun = true;
-        this.maxSpeed=3.5f;
-        this.speed=1.5f;
-        StartCoroutine(BlinkCoroutine());
-        Invoke("Recover", 2f);
+        if(!stun){        
+            this.stun = true;
+            this.maxSpeed=3.5f;
+            this.speed=1.5f;
+            if(Firemode>1){
+                this.Firemode -= 1;
+            }
+            StartCoroutine(BlinkCoroutine());
+            Invoke("Recover", 2f);
+        }
     }
     void Recover()
     {
@@ -174,6 +198,19 @@ public class PlayerController : MonoBehaviour
                 if(Firemode == 1) {
                 // 미사일 생성
                 Instantiate(PlayerMissile, transform.position + new Vector3(0, 0.1f, 0), Quaternion.identity);
+                }
+                else if(Firemode == 2) {
+                    Instantiate(PlayerMissile, transform.position + new Vector3(0, 0.1f, 0), Quaternion.identity);
+                    Instantiate(PlayerMissile, transform.position + new Vector3(0.3f, 0.1f, 0), Quaternion.Euler(0, 0, -17f));
+                    Instantiate(PlayerMissile, transform.position + new Vector3(-0.3f, 0.1f, 0), Quaternion.Euler(0, 0, 17f));
+
+                }
+                else if(Firemode == 3) {
+                    Instantiate(PlayerMissile, transform.position + new Vector3(0.15f, 0.1f, 0), Quaternion.identity);
+                    Instantiate(PlayerMissile, transform.position + new Vector3(-0.15f, 0.1f, 0), Quaternion.identity);
+                    Instantiate(PlayerMissile, transform.position + new Vector3(0.3f, 0.1f, 0), Quaternion.Euler(0, 0, -17f));
+                    Instantiate(PlayerMissile, transform.position + new Vector3(-0.3f, 0.1f, 0), Quaternion.Euler(0, 0, 17f));
+                
                 }
             }
                 yield return new WaitForSecondsRealtime(missileCooldown); // 미사일 쿨다운

@@ -13,6 +13,9 @@ public class MissileController : MonoBehaviour
         else if(other.gameObject.tag == "Boss") {
             Destroy(gameObject);
         }
+        else if(other.gameObject.tag == "Menemy") {
+            Destroy(gameObject);
+        }
     }
     // Start is called before the first frame update
     void Start()

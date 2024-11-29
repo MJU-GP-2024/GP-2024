@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class ItemDropController : MonoBehaviour
 {
+    GameObject Player;
     public GameObject[] itemPrefabs; // 아이템 프리팹 배열 (Enemy.cs에서 복사)
-    public float fallSpeed = 3f;   // 떨어지는 속도
+    public float fallSpeed = 2.3f;   // 떨어지는 속도
     public float itemChangeInterval = 1.0f; // 아이템 변경 간격
     private float changeTimer = 0f;  // 아이템 변경 타이머
     float scaleFactor = 1f;
@@ -18,6 +19,7 @@ public class ItemDropController : MonoBehaviour
 
     void Start()
     {
+        this.Player = GameObject.Find("Player");
         // // 초기 아이템 설정
         // currentIndex = Random.Range(0, itemPrefabs.Length);
         // UpdateItemAppearance();
@@ -109,19 +111,19 @@ public class ItemDropController : MonoBehaviour
         {
             case 0:
                 Debug.Log("체력 회복!");
-                // 플레이어 체력 증가 코드
+                Player.GetComponent<PlayerController>().HpUp();
                 break;
             case 1:
                 Debug.Log("파워 증가!");
-                // 플레이어 속도 증가 코드
+                Player.GetComponent<PlayerController>().PowerUp();
                 break;
             case 2:
-                Debug.Log("속도 증가!");
-                // 플레이어 공격력 증가 코드
+                Debug.Log("무적 상태!");
+                Player.GetComponent<PlayerController>().Shield();
                 break;
             case 3:
-                Debug.Log("무적 상태!");
-                // 플레이어 무적 상태 코드
+                Debug.Log("속도 증가!");
+                Player.GetComponent<PlayerController>().SpeedUp();
                 break;
         }
     }

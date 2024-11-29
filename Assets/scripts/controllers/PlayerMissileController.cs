@@ -42,7 +42,7 @@ public class PlayerMissileController : MonoBehaviour
             transform.Translate(0, speed * Time.unscaledDeltaTime, 0);
         }
 
-        if(transform.position.y >= 6f) {
+        if(transform.position.y >= 5.1f) {
             Destroy(gameObject);
         }
     }

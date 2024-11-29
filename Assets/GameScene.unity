@@ -170,6 +170,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6898332952443867373, guid: 88dcbb9ecd0ff4842a1106fa3e3562a6, type: 3}
+      propertyPath: PlayerMissile
+      value: 
+      objectReference: {fileID: 4235592947326163161, guid: 47cf3efac31934e43b4a1d5d68b8d603, type: 3}
+    - target: {fileID: 6898332952443867373, guid: 88dcbb9ecd0ff4842a1106fa3e3562a6, type: 3}
+      propertyPath: missilePrefab
+      value: 
+      objectReference: {fileID: 4235592947326163161, guid: 47cf3efac31934e43b4a1d5d68b8d603, type: 3}
     - target: {fileID: 7113028516420182008, guid: 88dcbb9ecd0ff4842a1106fa3e3562a6, type: 3}
       propertyPath: m_Name
       value: Player

@@ -14,6 +14,7 @@ public class MesserschmittController : MonoBehaviour
     private Vector2 targetPoint;        // player를 endpoint로 잡는 경우
     //private float edgePoint = 10f;      // 화면의 가장자리 좌표
     private float time = 0;
+    private int Hp = 1;
 
     GameObject player;
 
@@ -42,10 +43,9 @@ public class MesserschmittController : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        else if (other.gameObject.tag == "bullet0")
+        else if (other.gameObject.tag == "PlayerMissile")
         {
-            //DropItem();
-            Destroy(gameObject);
+            this.Hp -= 1;
         }
         else if (other.gameObject.tag == "SkillMissile")
         {
@@ -77,6 +77,10 @@ public class MesserschmittController : MonoBehaviour
 
     void Update()
     {
+        if(this.Hp <= 0) {
+            Destroy(gameObject);
+        }
+
         //time += Time.deltaTime;
 
         transform.Translate(0, this.speed * Time.deltaTime, 0);

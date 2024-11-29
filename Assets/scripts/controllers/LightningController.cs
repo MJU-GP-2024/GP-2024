@@ -7,7 +7,7 @@ public class LightningController : MonoBehaviour
     public float speed = 2.0f;          // 고정 이동 속도
     public float moveRange = 5.0f;      // X축 이동 범위
     public float descendSpeed = 0.6f;   // Y축 하강 속도
-    public int health = 5;             // 적기 체력 (5번 맞으면 파괴)
+    private int Hp = 13;             // 적기 체력 (5번 맞으면 파괴)
 
     private float startPositionX;       // 시작 X 위치 저장
     private bool isDescending = true;   // Y축 하강 여부
@@ -49,16 +49,9 @@ public class LightningController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("PlayerMissile")) // 플레이어 미사일과 충돌했을 경우
-        {   health --; // 체력 감소
-            //Destroy(other.gameObject); // 미사일 삭제
-            // 충돌 이펙트 생성
-            // 충돌 사운드 재생
+        {   this.Hp -= 1; // 체력 감소
             audioSource.Play();
 
-            if (health <= 0)
-            {
-                Destroy(gameObject); // 체력이 0 이하가 되면 적기 삭제
-            }
         }
         
         if (other.gameObject.tag == "Player")
@@ -67,6 +60,9 @@ public class LightningController : MonoBehaviour
             {
                 Destroy(gameObject);
             }
+        }
+        else if(other.gameObject.tag == "SkillMissile") {
+            Destroy(gameObject);
         }
     }
 
@@ -86,6 +82,10 @@ public class LightningController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Hp <= 0)
+            {
+                Destroy(gameObject); // 체력이 0 이하가 되면 적기 삭제
+            }
         this.localTime += Time.deltaTime;
         
         // Y축 하강 처리

@@ -172,7 +172,7 @@ public class EnemyGenerator : MonoBehaviour
 
     void Start()
     {
-        InvokeRepeating("SpawnEnemy", 1.5f, spawnInterval);
+        InvokeRepeating("SpawnEnemy", 2.5f, spawnInterval);
         LCoroutine = StartCoroutine(SpawnTypeM());
     }
 

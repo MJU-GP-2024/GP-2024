@@ -170,6 +170,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6898332952443867373, guid: 88dcbb9ecd0ff4842a1106fa3e3562a6, type: 3}
+      propertyPath: PlayerMissile
+      value: 
+      objectReference: {fileID: 4235592947326163161, guid: 47cf3efac31934e43b4a1d5d68b8d603, type: 3}
+    - target: {fileID: 6898332952443867373, guid: 88dcbb9ecd0ff4842a1106fa3e3562a6, type: 3}
+      propertyPath: missilePrefab
+      value: 
+      objectReference: {fileID: 4235592947326163161, guid: 47cf3efac31934e43b4a1d5d68b8d603, type: 3}
     - target: {fileID: 7113028516420182008, guid: 88dcbb9ecd0ff4842a1106fa3e3562a6, type: 3}
       propertyPath: m_Name
       value: Player
@@ -544,9 +552,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 912411f88998b5249b5710b5a59b2d5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Boss1prefab: {fileID: 435442031612239112, guid: ceef6c6edaa2c4f41ba269103ca02d07, type: 3}
-  Boss2prefab: {fileID: 0}
-  Boss3prefab: {fileID: 0}
+  Boss_1prefab: {fileID: 5243672444240535528, guid: a48e630cc3b4d754483c8b4ac23323bb, type: 3}
+  Boss_2prefab: {fileID: 7512913672675578987, guid: 8a444288c279dc64b9e4298914f79057, type: 3}
+  Boss_3prefab: {fileID: 9072830712492717221, guid: 2ce7e7db7b0822a4dbafa566a0576f69, type: 3}
 --- !u!4 &1809121035
 Transform:
   m_ObjectHideFlags: 0

@@ -15,6 +15,7 @@ public class F_16Controller : MonoBehaviour
     private float upwardPointRight;
     private float upwardPointLeft;
     private Vector2 diveDirection;
+    private int Hp = 2;
     GameObject player;
 
     void OnTriggerEnter2D(Collider2D other)
@@ -26,9 +27,9 @@ public class F_16Controller : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        else if (other.gameObject.tag == "bullet0")
+        else if (other.gameObject.tag == "PlayerMissile")
         {
-            Destroy(gameObject);
+            this.Hp -= 1;
         }
         else if (other.gameObject.tag == "SkillMissile")
         {
@@ -65,6 +66,9 @@ public class F_16Controller : MonoBehaviour
 
     void Update()
     {
+        if(this.Hp <= 0) {
+            Destroy(gameObject);
+        }
 
         if (isMovingHorizontally)
         {

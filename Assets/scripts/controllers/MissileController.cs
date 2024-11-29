@@ -10,6 +10,9 @@ public class MissileController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        else if(other.gameObject.tag == "Boss") {
+            Destroy(gameObject);
+        }
     }
     // Start is called before the first frame update
     void Start()

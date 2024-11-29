@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class BossGenerator : MonoBehaviour
 {
-    public GameObject Boss1prefab;
-    public GameObject Boss2prefab;
-    public GameObject Boss3prefab;
+    public GameObject Boss_1prefab;
+    public GameObject Boss_2prefab;
+    public GameObject Boss_3prefab;
 
-    Vector3 spawnPosition = new Vector3(0.0f, 6.48f, 0.0f);
+    Vector3 spawnPosition = new Vector3(0.0f, 7.7f, 0.0f);
 
     public void bossGetStage(int a) {
         if(a == 1) {
-            GameObject boss = Instantiate(Boss1prefab, spawnPosition, Quaternion.identity);
+            GameObject boss_1= Instantiate(Boss_1prefab, spawnPosition, Quaternion.identity);
         }
-        else if(a == 2) { //임시로 동일보스 생성
-            GameObject boss = Instantiate(Boss1prefab, spawnPosition, Quaternion.identity);
+        else if(a == 2) {
+            GameObject boss_2 = Instantiate(Boss_2prefab, spawnPosition, Quaternion.identity);
         }
-        else if(a == 3) { //임시로 동일보스 생성
-            GameObject boss = Instantiate(Boss1prefab, spawnPosition, Quaternion.identity);
+        else if(a == 3) {
+            GameObject boss_3 = Instantiate(Boss_3prefab, spawnPosition, Quaternion.identity);
         }
     }
 

@@ -7,20 +7,21 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     GameObject SkillGenerator;
+    public GameObject PlayerMissile;
 
     int Master = 0;
     int ready = 0;
     int Hp = 3;
+    int Firemode = 1;
     public bool stun = false;
-    private float speed = 2.8f; //이동속도
-    private float maxSpeed = 2.8f;
+    private float speed = 3.5f; //이동속도
+    private float maxSpeed = 3.5f;
     public float blinkDuration = 2f; // 총 깜빡임 지속 시간
-    public float blinkInterval = 0.25f; // 깜빡이는 간격
+    public float blinkInterval = 0.2f; // 깜빡이는 간격
     private Renderer[] renderers;
 
-    public GameObject missilePrefab; // 미사일 프리팹 참조
-    public Transform missileSpawnPoint; // 미사일 발사 위치
-    private float missileCooldown = 1f; // 1초 간격
+    Transform missileSpawnPoint; // 미사일 발사 위치
+    private float missileCooldown = 0.22f; // 1초 간격
 
     public void PlayerStop()
     {
@@ -56,7 +57,7 @@ public class PlayerController : MonoBehaviour
     void Hitted()
     {
         this.stun = true;
-        this.maxSpeed=2.8f;
+        this.maxSpeed=3.5f;
         this.speed=1.5f;
         StartCoroutine(BlinkCoroutine());
         Invoke("Recover", 2f);
@@ -169,11 +170,15 @@ public class PlayerController : MonoBehaviour
         {
             if (Master == 0 && ready == 1) // 발사 조건 확인
             {
+                
+                if(Firemode == 1) {
                 // 미사일 생성
-                Instantiate(missilePrefab, missileSpawnPoint.position, Quaternion.identity);
+                Instantiate(PlayerMissile, transform.position + new Vector3(0, 0.1f, 0), Quaternion.identity);
+                }
             }
-
-            yield return new WaitForSeconds(missileCooldown); // 미사일 쿨다운
+                yield return new WaitForSecondsRealtime(missileCooldown); // 미사일 쿨다운
+            
+                
         }
     }
 }

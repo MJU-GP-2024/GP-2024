@@ -7,7 +7,7 @@ public class MosquitoController : MonoBehaviour
     public float speed = 4.0f;          // 고정 이동 속도
     public float moveRange = 5.0f;      // X축 이동 범위
     public float descendSpeed = 1.0f;   // Y축 하강 속도
-    public int health = 5;             // 적기 체력 (3번 맞으면 파괴)
+    private int Hp = 1;             // 적기 체력 (3번 맞으면 파괴)
 
     private float startPositionX;       // 시작 X 위치 저장
     private bool isDescending = true;   // Y축 하강 여부
@@ -45,6 +45,10 @@ public class MosquitoController : MonoBehaviour
 
     void Update()
     {
+        if (Hp <= 0)
+            {
+                Destroy(gameObject); // 체력이 0 이하가 되면 적기 삭제
+            }
         this.localTime += Time.deltaTime;
 
         if(transform.position.y < -6f) {
@@ -91,23 +95,11 @@ public class MosquitoController : MonoBehaviour
     {
         if (other.CompareTag("PlayerMissile")) // 플레이어 미사일과 충돌했을 경우
         {
-
-            health--; // 체력 감소
-            Debug.Log("미사일 맞음.");
-
-            Destroy(other.gameObject); // 미사일 삭제
+            this.Hp -= 1; // 체력 감소
 
             // 충돌 이펙트 생성
             // 충돌 사운드 재생
             audioSource.Play();
-
-            // GetComponent<ParticleSystem>().Play();
-
-
-            if (health <= 0)
-            {
-                Destroy(gameObject); // 체력이 0 이하가 되면 적기 삭제
-            }
         }
 
         if (other.gameObject.tag == "Player")
@@ -116,11 +108,6 @@ public class MosquitoController : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-        }
-
-        if (other.gameObject.tag == "bullet0")
-        {
-            Destroy(gameObject);
         }
         else if (other.gameObject.tag == "SkillMissile")
         {

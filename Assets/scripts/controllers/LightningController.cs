@@ -32,9 +32,6 @@ public class LightningController : MonoBehaviour
 
     GameObject player;
 
-
-    //public GameObject powerUpPrefab; 
-
     public void changeminY(float a)
     {
         this.minYposition = a;
@@ -51,9 +48,9 @@ public class LightningController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("PlayerMissile")) // 플레이어 미사일과 충돌했을 경우
+        if (other.gameObject.tag == "PlayerMissile") // 플레이어 미사일과 충돌했을 경우
         {   this.Hp -= 1; // 체력 감소
-            audioSource.Play();
+            // audioSource.Play();
 
         }
         
@@ -107,7 +104,7 @@ public class LightningController : MonoBehaviour
             }
                 Destroy(gameObject); // 체력이 0 이하가 되면 적기 삭제
             }
-            
+
         this.localTime += Time.deltaTime;
         
         // Y축 하강 처리

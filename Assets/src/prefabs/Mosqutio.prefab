@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0df0ac8d02c0c6241bef80dda309ca9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  speed: 6
   moveRange: 5
   descendSpeed: 1
   missilePrefab: {fileID: 0}

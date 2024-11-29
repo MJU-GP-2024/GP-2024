@@ -131,7 +131,7 @@ public class EnemyGenerator : MonoBehaviour
         while (true)
         {
             float spawnX = Random.Range(-2.0f, 2.0f);
-            Vector3 spawnPosition = new Vector3(spawnX, 6f, 0.0f);
+            Vector3 spawnPosition = new Vector3(spawnX, 5.3f, 0.0f);
             GameObject enemy = Instantiate(Lighting, spawnPosition, Quaternion.Euler(0f, 0f, 180f));
 
             // 랜덤 8~12초 대기 후 다시 생성

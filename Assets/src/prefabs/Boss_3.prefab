@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4425135711014696808}
   m_Layer: 0
   m_Name: Boss_3
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -255,8 +255,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c363b7832d145d2a73f556ddb32b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponVariant: 
-  fireRate: 0
-  bulletEnemyAPrefab: {fileID: 0}
-  bulletEnemyBPrefab: {fileID: 0}
-  bulletEnemyCPrefab: {fileID: 0}

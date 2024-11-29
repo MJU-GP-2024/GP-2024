@@ -349,7 +349,6 @@ GameObject:
   - component: {fileID: 6487135489886449113}
   - component: {fileID: 7731205297422529958}
   - component: {fileID: 8317494325688826516}
-  - component: {fileID: -909774340396420683}
   m_Layer: 0
   m_Name: Lightning
   m_TagString: Menemy
@@ -591,25 +590,6 @@ MonoBehaviour:
   - {fileID: 5161092237043112884, guid: f0862df38a0cc784c8237b8ed400f22a, type: 3}
   dropChance: 0.6
   localTime: 0
---- !u!114 &-909774340396420683
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7974392891512173717}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69fd578d61332f74eb18c0997e97e1a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemPrefabs:
-  - {fileID: 2455614493424208830, guid: 7abf7013150958a428c2c115c8126b30, type: 3}
-  - {fileID: 6954477276852529659, guid: 7d5dfe63bd33da94cb995a7df0db1282, type: 3}
-  - {fileID: 8212291923114141355, guid: 93505fed4aab83d46a77b730e4a256cf, type: 3}
-  - {fileID: 5161092237043112884, guid: f0862df38a0cc784c8237b8ed400f22a, type: 3}
-  fallSpeed: 2.3
-  itemChangeInterval: 1
 --- !u!1 &8731873624218668072
 GameObject:
   m_ObjectHideFlags: 0

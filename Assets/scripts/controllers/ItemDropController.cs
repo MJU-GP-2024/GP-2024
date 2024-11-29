@@ -5,7 +5,7 @@ using UnityEngine;
 public class ItemDropController : MonoBehaviour
 {
     public GameObject[] itemPrefabs; // 아이템 프리팹 배열 (Enemy.cs에서 복사)
-    public float fallSpeed = 1.5f;   // 떨어지는 속도
+    public float fallSpeed = 3f;   // 떨어지는 속도
     public float itemChangeInterval = 1.0f; // 아이템 변경 간격
     private float changeTimer = 0f;  // 아이템 변경 타이머
     float scaleFactor = 1f;
@@ -18,9 +18,9 @@ public class ItemDropController : MonoBehaviour
 
     void Start()
     {
-        // 초기 아이템 설정
-        //currentIndex = Random.Range(0, itemPrefabs.Length);
-        //UpdateItemAppearance();
+        // // 초기 아이템 설정
+        // currentIndex = Random.Range(0, itemPrefabs.Length);
+        // UpdateItemAppearance();
     }
 
     void Update()

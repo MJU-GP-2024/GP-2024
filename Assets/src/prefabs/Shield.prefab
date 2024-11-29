@@ -155,5 +155,5 @@ MonoBehaviour:
   - {fileID: 6954477276852529659, guid: 7d5dfe63bd33da94cb995a7df0db1282, type: 3}
   - {fileID: 8212291923114141355}
   - {fileID: 5161092237043112884, guid: f0862df38a0cc784c8237b8ed400f22a, type: 3}
-  fallSpeed: 1
+  fallSpeed: 2.3
   itemChangeInterval: 1

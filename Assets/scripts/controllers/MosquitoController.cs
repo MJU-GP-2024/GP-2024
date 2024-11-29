@@ -7,7 +7,7 @@ public class MosquitoController : MonoBehaviour
     public float speed = 4.0f;          // 고정 이동 속도
     public float moveRange = 5.0f;      // X축 이동 범위
     public float descendSpeed = 1.0f;   // Y축 하강 속도
-    private int Hp = 1;             // 적기 체력 (3번 맞으면 파괴)
+    private int Hp = 3;             // 적기 체력 (3번 맞으면 파괴)
 
     private float startPositionX;       // 시작 X 위치 저장
     private bool isDescending = true;   // Y축 하강 여부
@@ -24,10 +24,22 @@ public class MosquitoController : MonoBehaviour
 
     private float currentSpeed;         // 현재 X축 속도
     public float minYposition = 2.5f; // y축 최대하강 위치
+    public GameObject[] itemPrefabs; // 아이템 프리팹 배열
+    public float dropChance = 0.25f;  // 아이템 드롭 확률
 
     public float localTime; // 개인 시간
 
     GameObject player;
+
+    private void DropItem()
+    {
+        // 랜덤 아이템 선택
+        int randomIndex = Random.Range(0, 4);
+
+        // 아이템 생성
+        GameObject droppedItem = Instantiate(itemPrefabs[randomIndex], transform.position, Quaternion.identity);
+        droppedItem.GetComponent<ItemDropController>().select(randomIndex);
+    }
 
     public void changeminY(float a)
     {
@@ -47,6 +59,10 @@ public class MosquitoController : MonoBehaviour
     {
         if (Hp <= 0)
             {
+                if (Random.value < dropChance) // Random.value는 0~1 사이의 값
+                {
+                    DropItem();
+                }
                 Destroy(gameObject); // 체력이 0 이하가 되면 적기 삭제
             }
         this.localTime += Time.deltaTime;
@@ -111,6 +127,10 @@ public class MosquitoController : MonoBehaviour
         }
         else if (other.gameObject.tag == "SkillMissile")
         {
+            if (Random.value < dropChance) // Random.value는 0~1 사이의 값
+            {
+            DropItem();
+        }
             Destroy(gameObject);
         }
     }

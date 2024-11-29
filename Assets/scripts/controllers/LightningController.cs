@@ -24,6 +24,9 @@ public class LightningController : MonoBehaviour
 
     private float currentSpeed;         // 현재 X축 속도
     public float minYposition = 1f; // y축 최대하강 위치
+    public GameObject[] itemPrefabs; // 아이템 프리팹 배열
+    public float dropChance = 0.6f;  // 아이템 드롭 확률
+
 
     public float localTime; // 개인 시간
 
@@ -62,8 +65,22 @@ public class LightningController : MonoBehaviour
             }
         }
         else if(other.gameObject.tag == "SkillMissile") {
+            if (Random.value < dropChance) // Random.value는 0~1 사이의 값
+         {
+            DropItem();
+         }
             Destroy(gameObject);
         }
+    }
+
+    private void DropItem()
+    {
+        // 랜덤 아이템 선택
+        int randomIndex = Random.Range(0, 4);
+
+        // 아이템 생성
+        GameObject droppedItem = Instantiate(itemPrefabs[randomIndex], transform.position, Quaternion.identity);
+        droppedItem.GetComponent<ItemDropController>().select(randomIndex);
     }
 
 
@@ -84,8 +101,13 @@ public class LightningController : MonoBehaviour
     {
         if (Hp <= 0)
             {
+                if (Random.value < dropChance) // Random.value는 0~1 사이의 값
+            {
+            DropItem();
+            }
                 Destroy(gameObject); // 체력이 0 이하가 되면 적기 삭제
             }
+            
         this.localTime += Time.deltaTime;
         
         // Y축 하강 처리

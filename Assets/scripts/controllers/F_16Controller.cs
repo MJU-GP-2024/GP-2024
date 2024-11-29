@@ -17,6 +17,8 @@ public class F_16Controller : MonoBehaviour
     private Vector2 diveDirection;
     private int Hp = 2;
     GameObject player;
+    public GameObject[] itemPrefabs; // 아이템 프리팹 배열
+    public float dropChance = 0.25f;  // 아이템 드롭 확률
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -33,8 +35,22 @@ public class F_16Controller : MonoBehaviour
         }
         else if (other.gameObject.tag == "SkillMissile")
         {
+            if (Random.value < dropChance) // Random.value는 0~1 사이의 값
+            {
+            DropItem();
+            }
             Destroy(gameObject);
         }
+    }
+
+    private void DropItem()
+    {
+        // 랜덤 아이템 선택
+        int randomIndex = Random.Range(0, 4);
+
+        // 아이템 생성
+        GameObject droppedItem = Instantiate(itemPrefabs[randomIndex], transform.position, Quaternion.identity);
+        droppedItem.GetComponent<ItemDropController>().select(randomIndex);
     }
 
 
@@ -67,6 +83,10 @@ public class F_16Controller : MonoBehaviour
     void Update()
     {
         if(this.Hp <= 0) {
+            if (Random.value < dropChance) // Random.value는 0~1 사이의 값
+            {
+            DropItem();
+            }
             Destroy(gameObject);
         }
 

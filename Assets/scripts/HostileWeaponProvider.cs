@@ -11,13 +11,13 @@ public class HostileWeaponProvider : MonoBehaviour
     // 싱글 패턴 공격 설정
     private float singePatternVelocity = 4f;        // 투사체 속도
     // 리니어 패턴 공격 설정
-    private float linearPatternVelocity = 6f;       // 투사체 속도
-    private int linearPatternRepeatCount = 3;       // 발사 횟수
-    private float linearPatternAttackDelay = 0.33f;  // 발사 간격
+    private float linearPatternVelocity = 7.5f;       // 투사체 속도
+    private int linearPatternRepeatCount = 4;       // 발사 횟수
+    private float linearPatternAttackDelay = 0.25f;  // 발사 간격
     // 원형 패턴 공격 설정
     private float circlePatternVelocity = 4f;       // 투사체 속도
-    private int numberOfProjectiles = 30;           // 1회 발사 횟수
-    private int circlePatternRepeatCount = 6;       // 총 발사 횟수
+    private int numberOfProjectiles = 26;           // 1회 발사 횟수
+    private int circlePatternRepeatCount = 3;       // 총 발사 횟수
     private float circlePatternAttackDelay = 0.13f; // 발사 간격
 
     private GameObject player;

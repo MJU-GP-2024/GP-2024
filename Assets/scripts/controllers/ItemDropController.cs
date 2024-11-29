@@ -4,70 +4,126 @@ using UnityEngine;
 
 public class ItemDropController : MonoBehaviour
 {
-    public List<GameObject> itemPrefabs; // 드랍 가능한 아이템 리스트
+    public GameObject[] itemPrefabs; // 아이템 프리팹 배열 (Enemy.cs에서 복사)
+    public float fallSpeed = 1.5f;   // 떨어지는 속도
+    public float itemChangeInterval = 1.0f; // 아이템 변경 간격
+    private float changeTimer = 0f;  // 아이템 변경 타이머
+    float scaleFactor = 1f;
 
+    private int currentIndex;        // 현재 아이템의 인덱스
 
-
-    //******************************************************************************************
-    [Range(0f, 1f)] public float itemDropChance = 1f; // 아이템 드랍 확률 1->100%  , 0.5 -> 50% 조정가능
-    //******************************************************************************************
-
-    public float itemChangeInterval = 1f; // 아이템 변경 주기(초)
-    public GameObject[] allPossibleItems; // 모든 가능한 아이템 배열
-
-    private void Start()
-    {
+    public void select(int a) {
+        this.currentIndex = a;
     }
 
-    public void RequestItemDrop(Vector3 dropPosition)
+    void Start()
     {
+        // 초기 아이템 설정
+        //currentIndex = Random.Range(0, itemPrefabs.Length);
+        //UpdateItemAppearance();
+    }
 
-        if (Random.value <= itemDropChance)
-        {
-            int randomIndex = Random.Range(0, itemPrefabs.Count); // 리스트에서 랜덤 선택
-            GameObject droppedItem = Instantiate(itemPrefabs[randomIndex], dropPosition, Quaternion.identity);
-            StartCoroutine(ChangeItemOverTime(droppedItem)); // 떨어지는 동안 아이템 변경
+    void Update()
+    {
+        if(transform.position.y <= -5.5) {
+            Destroy(gameObject);
         }
-        else
+        // 아래로 이동
+        transform.Translate(Vector3.down * fallSpeed * Time.deltaTime);
+
+        // 아이템 변경 간격 타이머
+        changeTimer += Time.deltaTime;
+        if (changeTimer >= itemChangeInterval)
         {
-            Debug.Log("[RequestItemDrop] 확률 꽝! 아이템 드랍 실패.");
+            changeTimer = 0f;
+            ChangeItem();
         }
     }
 
-    private IEnumerator ChangeItemOverTime(GameObject droppedItem)
+    private void ChangeItem()
+    {
+        // itemPrefabs[currentIndex].SetActive(false);
+        // 다음 아이템으로 변경
+        currentIndex = (currentIndex + 1) % itemPrefabs.Length; // 순환 변경
+        Debug.Log($"Item changed to index: {currentIndex}");
+        UpdateItemAppearance();
+    }
+
+    // private void UpdateItemAppearance()
+    // {
+    //     // itemPrefabs[currentIndex].SetActive(true);
+    //     // 아이템의 프리팹교체
+    //     for (int i = 0; i < itemPrefabs.Length; i++)
+    //     {
+    //         itemPrefabs[i].SetActive(i == currentIndex); // 현재 아이템만 활성화
+    //     }
+    // }
+
+
+
+    private void UpdateItemAppearance()
 {
-    int index = 0; // 순차적으로 아이템을 변경하기 위한 인덱스 변수
+    // 현재 오브젝트의 Sprite Renderer 가져오기
+    SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 
-    while (true)
+    if (spriteRenderer != null && itemPrefabs[currentIndex] != null)
     {
-        if (droppedItem == null) // 아이템이 삭제되었는지 확인
-        {
-            Debug.Log("[ChangeItemOverTime] 아이템이 삭제되었습니다. 코루틴 종료.");
-            yield break;
+        
+        // itemPrefabs의 Sprite를 가져와 설정
+        spriteRenderer.sprite = itemPrefabs[currentIndex].GetComponent<SpriteRenderer>().sprite;
+        scaleFactor = 1f;
+        switch (currentIndex){
+            case 0:
+                scaleFactor = 0.08f;
+                break;
+            case 1:
+                 scaleFactor = 0.5f;
+                break;
+            case 2:
+                scaleFactor = 0.47f;
+                break;
+            case 3:
+                scaleFactor = 0.4f;
+                break;
         }
-
-        yield return new WaitForSeconds(itemChangeInterval);
-
-        // 순차적으로 아이템 변경
-        GameObject newItemPrefab = allPossibleItems[index];
-        index = (index + 1) % allPossibleItems.Length; // 다음 인덱스로 이동, 배열 끝에서 다시 처음으로 돌아감
-
-        SpriteRenderer spriteRenderer = droppedItem.GetComponent<SpriteRenderer>();
-        SpriteRenderer newItemSpriteRenderer = newItemPrefab.GetComponent<SpriteRenderer>();
-
-        spriteRenderer.sprite = newItemSpriteRenderer.sprite;
+         transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
+         scaleFactor = 1f;
     }
 }
 
-    
-}
 
-// 아이템이 화면 밖으로 나가면 삭제
-public class AutoDestroy : MonoBehaviour
-{
-    private void OnBecameInvisible()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        Destroy(gameObject);
-        Debug.Log($"[AutoDestroy] {gameObject.name} 화면 밖으로 나가서 삭제됨.");
+        // 플레이어가 아이템 획득
+        if (other.gameObject.tag == "Player")
+        {
+            ApplyItemEffect();
+            Destroy(gameObject);
+        }
     }
+
+    private void ApplyItemEffect()
+    {
+        // 아이템 효과 적용 (현재 선택된 아이템 기준)
+        switch (currentIndex)
+        {
+            case 0:
+                Debug.Log("체력 회복!");
+                // 플레이어 체력 증가 코드
+                break;
+            case 1:
+                Debug.Log("파워 증가!");
+                // 플레이어 속도 증가 코드
+                break;
+            case 2:
+                Debug.Log("속도 증가!");
+                // 플레이어 공격력 증가 코드
+                break;
+            case 3:
+                Debug.Log("무적 상태!");
+                // 플레이어 무적 상태 코드
+                break;
+        }
+    }
+
 }

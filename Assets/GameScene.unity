@@ -173,7 +173,7 @@ PrefabInstance:
     - target: {fileID: 6898332952443867373, guid: 88dcbb9ecd0ff4842a1106fa3e3562a6, type: 3}
       propertyPath: PlayerMissile
       value: 
-      objectReference: {fileID: 4235592947326163161, guid: 47cf3efac31934e43b4a1d5d68b8d603, type: 3}
+      objectReference: {fileID: 502689967806002799, guid: 4f18a4cc787acef489141271f8a4d1c6, type: 3}
     - target: {fileID: 6898332952443867373, guid: 88dcbb9ecd0ff4842a1106fa3e3562a6, type: 3}
       propertyPath: missilePrefab
       value: 
@@ -504,7 +504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16e2fd1d34db2f8498e33af154d1191f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missilePrefab: {fileID: 2816869736764770019, guid: 435abf1d1c1b462438f403e402cbc703, type: 3}
+  missilePrefab: {fileID: 897242208548587854, guid: ff633c69b7783ce4496e4539d335b39a, type: 3}
   TimeEffect: {fileID: 4333696086117515716, guid: 16b0282953850354984c79eac4b3f2e6, type: 3}
   slowMotionScale: 0.2
   TimeSkillActive: 0

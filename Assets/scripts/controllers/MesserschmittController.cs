@@ -15,6 +15,8 @@ public class MesserschmittController : MonoBehaviour
     //private float edgePoint = 10f;      // 화면의 가장자리 좌표
     private float time = 0;
     private int Hp = 1;
+    public GameObject[] itemPrefabs; // 아이템 프리팹 배열
+    public float dropChance = 1f;  // 아이템 드롭 확률
 
     GameObject player;
 
@@ -26,12 +28,6 @@ public class MesserschmittController : MonoBehaviour
         this.speed = d;
     }
 
-    void DropItem()
-    {
-        // 적기의 현재 위치에서 아이템 드랍 요청
-        //itemDropController.RequestItemDrop(transform.position);
-    }
-
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -39,7 +35,6 @@ public class MesserschmittController : MonoBehaviour
         {
             if (!this.player.GetComponent<PlayerController>().stun)
             {
-                //DropItem();
                 Destroy(gameObject);
             }
         }
@@ -49,9 +44,22 @@ public class MesserschmittController : MonoBehaviour
         }
         else if (other.gameObject.tag == "SkillMissile")
         {
-            //DropItem();
+            if (Random.value < dropChance) // Random.value는 0~1 사이의 값
+        {
+            DropItem();
+        }
             Destroy(gameObject);
         }
+    }
+
+    private void DropItem()
+    {
+        // 랜덤 아이템 선택
+        int randomIndex = Random.Range(0, 4);
+
+        // 아이템 생성
+        GameObject droppedItem = Instantiate(itemPrefabs[randomIndex], transform.position, Quaternion.identity);
+        droppedItem.GetComponent<ItemDropController>().select(randomIndex);
     }
 
     void Start()
@@ -78,6 +86,10 @@ public class MesserschmittController : MonoBehaviour
     void Update()
     {
         if(this.Hp <= 0) {
+            if (Random.value < dropChance) // Random.value는 0~1 사이의 값
+        {
+            DropItem();
+        }
             Destroy(gameObject);
         }
 

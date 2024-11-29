@@ -9,9 +9,9 @@ TagManager:
   - SkillMissile
   - Undefined
   - EnemyMissile
-  - powerUpItem
   - Menemy
   - Boss
+  - Item
   layers:
   - Default
   - TransparentFX

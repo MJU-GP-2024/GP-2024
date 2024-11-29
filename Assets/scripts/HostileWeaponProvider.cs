@@ -53,31 +53,24 @@ public class HostileWeaponProvider : MonoBehaviour
 
     private void SinglePatternVariant()
     {
-        if (bulletEnemyAPrefab != null)
+        // ±10도 랜덤 오차 추가
+        float randomAngle = Random.Range(-15f, 15f);
+        float angleInRadians = randomAngle * Mathf.Deg2Rad;
+
+        // 기존 방향 벡터에 회전 적용
+        Vector2 randomizedDirection = new Vector2(
+            playerDirection.x * Mathf.Cos(angleInRadians) - playerDirection.y * Mathf.Sin(angleInRadians),
+            playerDirection.x * Mathf.Sin(angleInRadians) + playerDirection.y * Mathf.Cos(angleInRadians)
+        ).normalized;
+
+        // 투사체 생성
+        GameObject projectile = Instantiate(bulletEnemyAPrefab, transform.position, Quaternion.identity);
+
+        // 투사체의 Rigidbody2D를 이용해 속도 적용
+        Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
+        if (rb != null)
         {
-            // ±10도 랜덤 오차 추가
-            float randomAngle = Random.Range(-15f, 15f);
-            float angleInRadians = randomAngle * Mathf.Deg2Rad;
-
-            // 기존 방향 벡터에 회전 적용
-            Vector2 randomizedDirection = new Vector2(
-                playerDirection.x * Mathf.Cos(angleInRadians) - playerDirection.y * Mathf.Sin(angleInRadians),
-                playerDirection.x * Mathf.Sin(angleInRadians) + playerDirection.y * Mathf.Cos(angleInRadians)
-            ).normalized;
-
-            // 투사체 생성
-            GameObject projectile = Instantiate(bulletEnemyAPrefab, transform.position, Quaternion.identity);
-
-            // 투사체의 Rigidbody2D를 이용해 속도 적용
-            Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
-            if (rb != null)
-            {
-                rb.velocity = randomizedDirection * singePatternVelocity; // 속도 적용
-            }
-        }
-        else
-        {
-            Debug.Log("Error; Missing Assets/src/prefabs/BulletA.prefab");
+            rb.velocity = randomizedDirection * singePatternVelocity; // 속도 적용
         }
     }
 
@@ -92,25 +85,18 @@ public class HostileWeaponProvider : MonoBehaviour
 
     private void LinearPatternVariant()
     {
-        if (bulletEnemyBPrefab != null)
-        {
-            // 투사체 생성 및 초기화
-            GameObject projectile = Instantiate(
-                bulletEnemyBPrefab,
-                transform.position,
-                Quaternion.Euler(0, 0, Mathf.Atan2(playerDirection.y, playerDirection.x) * Mathf.Rad2Deg) // Z축 회전만 적용
-            );
+        // 투사체 생성 및 초기화
+        GameObject projectile = Instantiate(
+            bulletEnemyBPrefab,
+            transform.position,
+            Quaternion.Euler(0, 0, Mathf.Atan2(playerDirection.y, playerDirection.x) * Mathf.Rad2Deg) // Z축 회전만 적용
+        );
 
-            Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
+        Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
 
-            if (rb != null)
-            {
-                rb.velocity = playerDirection.normalized * linearPatternVelocity; // 속도 적용
-            }
-        }
-        else
+        if (rb != null)
         {
-            Debug.Log("Error; Missing Assets/src/prefabs/BulletB.prefab");
+            rb.velocity = playerDirection.normalized * linearPatternVelocity; // 속도 적용
         }
     }
 
@@ -160,11 +146,25 @@ public class HostileWeaponProvider : MonoBehaviour
 
         if (type == "single")
         {
-            SinglePatternVariant();
+            if (bulletEnemyAPrefab != null)
+            {
+                SinglePatternVariant();
+            }
+            else
+            {
+                Debug.Log("Error; Missing Assets/src/prefabs/BulletA.prefab");
+            }
         }
         else if (type == "linear")
         {
-            StartCoroutine(LinearPatternAttackRoutine());
+            if (bulletEnemyBPrefab != null)
+            {
+                StartCoroutine(LinearPatternAttackRoutine());
+            }
+            else
+            {
+                Debug.Log("Error; Missing Assets/src/prefabs/BulletB.prefab");
+            }
         }
         else if (type == "circle")
         {

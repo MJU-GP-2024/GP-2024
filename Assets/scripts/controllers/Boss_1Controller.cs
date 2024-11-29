@@ -8,20 +8,26 @@ public class Boss_1Controller : MonoBehaviour
     float Hp = 100f;
     float minSinglePatternInterval = 0.0f; // single 무기 발사 minimum interval time
     float maxSinglePatternInterval = 1.5f; // single 무기 발사 max interval time
+    float minLinearPatternInterval = 3.0f;
+    float maxLinearPatternInterval = 5.0f;
     float minCirclePatternInterval = 7.0f; // circle 무기 발사 minimum interval time
     float maxCirclePatternInterval = 10.0f; // circle무기 발사 max interval time
 
     GameObject ScenarioDirector;
 
     private void OnTriggerEnter2D(Collider2D other)
-    {if(this.ready == 1){
-        if (other.CompareTag("PlayerMissile")) // 플레이어 미사일과 충돌했을 경우
-        {   this.Hp -= 1; // 체력 감소
+    {
+        if (this.ready == 1)
+        {
+            if (other.CompareTag("PlayerMissile")) // 플레이어 미사일과 충돌했을 경우
+            {
+                this.Hp -= 1; // 체력 감소
 
-        }
-        else if(other.gameObject.tag == "SkillMissile") {
-            this.Hp -= 4;
-        }
+            }
+            else if (other.gameObject.tag == "SkillMissile")
+            {
+                this.Hp -= 4;
+            }
         }
     }
 
@@ -32,6 +38,7 @@ public class Boss_1Controller : MonoBehaviour
 
         // Shoot 메서드 코루틴
         StartCoroutine(SinglePatternShooter());
+        StartCoroutine(LinearPatternShooter());
         StartCoroutine(CirclePatternShooter());
     }
 
@@ -70,6 +77,19 @@ public class Boss_1Controller : MonoBehaviour
 
             // shoot() 메서드 실행
             GetComponent<HostileWeaponProvider>().Shoot("single");
+        }
+    }
+
+    IEnumerator LinearPatternShooter()
+    {
+        while (true)
+        {
+            // 무작위 대기 시간
+            float waitTime = Random.Range(minLinearPatternInterval, maxLinearPatternInterval);
+            yield return new WaitForSeconds(waitTime);
+
+            // shoot() 메서드 실행
+            GetComponent<HostileWeaponProvider>().Shoot("linear");
         }
     }
 

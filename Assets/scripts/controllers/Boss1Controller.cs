@@ -20,7 +20,6 @@ public class Boss1Controller : MonoBehaviour
 
         // Shoot 메서드 코루틴
         StartCoroutine(SinglePatternShooter());
-        StartCoroutine(LinearPatternShooter());
         StartCoroutine(CirclePatternShooter());
     }
 
@@ -59,18 +58,6 @@ public class Boss1Controller : MonoBehaviour
 
             // shoot() 메서드 실행
             GetComponent<HostileWeaponProvider>().Shoot("single");
-        }
-    }
-
-    IEnumerator LinearPatternShooter()
-    {
-        while (true)
-        {
-            // 무작위 대기 시간
-            float waitTime = 2 + Random.Range(1, 3);
-            yield return new WaitForSeconds(waitTime);
-
-            GetComponent<HostileWeaponProvider>().Shoot("linear");
         }
     }
 

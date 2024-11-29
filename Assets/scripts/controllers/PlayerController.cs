@@ -14,14 +14,14 @@ public class PlayerController : MonoBehaviour
     int Hp = 3;
     int Firemode = 1;
     public bool stun = false;
-    private float speed = 2.8f; //이동속도
-    private float maxSpeed = 2.8f;
+    private float speed = 3.5f; //이동속도
+    private float maxSpeed = 3.5f;
     public float blinkDuration = 2f; // 총 깜빡임 지속 시간
     public float blinkInterval = 0.2f; // 깜빡이는 간격
     private Renderer[] renderers;
 
     Transform missileSpawnPoint; // 미사일 발사 위치
-    private float missileCooldown = 0.26f; // 1초 간격
+    private float missileCooldown = 0.22f; // 1초 간격
 
     public void PlayerStop()
     {
@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
     void Hitted()
     {
         this.stun = true;
-        this.maxSpeed=2.8f;
+        this.maxSpeed=3.5f;
         this.speed=1.5f;
         StartCoroutine(BlinkCoroutine());
         Invoke("Recover", 2f);
@@ -176,8 +176,9 @@ public class PlayerController : MonoBehaviour
                 Instantiate(PlayerMissile, transform.position + new Vector3(0, 0.1f, 0), Quaternion.identity);
                 }
             }
-
-            yield return new WaitForSeconds(missileCooldown); // 미사일 쿨다운
+                yield return new WaitForSecondsRealtime(missileCooldown); // 미사일 쿨다운
+            
+                
         }
     }
 }

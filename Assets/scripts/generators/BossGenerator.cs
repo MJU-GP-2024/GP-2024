@@ -12,13 +12,13 @@ public class BossGenerator : MonoBehaviour
 
     public void bossGetStage(int a) {
         if(a == 1) {
-            GameObject boss = Instantiate(Boss_1prefab, spawnPosition, Quaternion.identity);
+            GameObject boss_1= Instantiate(Boss_1prefab, spawnPosition, Quaternion.identity);
         }
-        else if(a == 2) { //임시로 동일보스 생성
-            GameObject boss = Instantiate(Boss_1prefab, spawnPosition, Quaternion.identity);
+        else if(a == 2) {
+            GameObject boss_2 = Instantiate(Boss_2prefab, spawnPosition, Quaternion.identity);
         }
-        else if(a == 3) { //임시로 동일보스 생성
-            GameObject boss = Instantiate(Boss_1prefab, spawnPosition, Quaternion.identity);
+        else if(a == 3) {
+            GameObject boss_3 = Instantiate(Boss_3prefab, spawnPosition, Quaternion.identity);
         }
     }
 

@@ -553,8 +553,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Boss_1prefab: {fileID: 5243672444240535528, guid: a48e630cc3b4d754483c8b4ac23323bb, type: 3}
-  Boss_2prefab: {fileID: 0}
-  Boss_3prefab: {fileID: 0}
+  Boss_2prefab: {fileID: 7512913672675578987, guid: 8a444288c279dc64b9e4298914f79057, type: 3}
+  Boss_3prefab: {fileID: 9072830712492717221, guid: 2ce7e7db7b0822a4dbafa566a0576f69, type: 3}
 --- !u!4 &1809121035
 Transform:
   m_ObjectHideFlags: 0

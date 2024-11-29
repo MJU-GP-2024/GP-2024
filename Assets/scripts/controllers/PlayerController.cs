@@ -174,9 +174,7 @@ public class PlayerController : MonoBehaviour
                 if(Firemode == 1) {
                 // 미사일 생성
                 Instantiate(PlayerMissile, transform.position + new Vector3(0, 0.1f, 0), Quaternion.identity);
-                Debug.Log("wow2");
                 }
-                Debug.Log("wow");
             }
 
             yield return new WaitForSeconds(missileCooldown); // 미사일 쿨다운

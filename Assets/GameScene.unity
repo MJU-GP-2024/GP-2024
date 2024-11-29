@@ -552,9 +552,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 912411f88998b5249b5710b5a59b2d5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Boss1prefab: {fileID: 435442031612239112, guid: ceef6c6edaa2c4f41ba269103ca02d07, type: 3}
-  Boss2prefab: {fileID: 0}
-  Boss3prefab: {fileID: 0}
+  Boss_1prefab: {fileID: 5243672444240535528, guid: a48e630cc3b4d754483c8b4ac23323bb, type: 3}
+  Boss_2prefab: {fileID: 0}
+  Boss_3prefab: {fileID: 0}
 --- !u!4 &1809121035
 Transform:
   m_ObjectHideFlags: 0

@@ -506,6 +506,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missilePrefab: {fileID: 897242208548587854, guid: ff633c69b7783ce4496e4539d335b39a, type: 3}
   TimeEffect: {fileID: 4333696086117515716, guid: 16b0282953850354984c79eac4b3f2e6, type: 3}
+  MissileEffect: {fileID: 9188231254609532510, guid: e782abc664b99cb4fb3b8b99d1084e57, type: 3}
   slowMotionScale: 0.2
   TimeSkillActive: 0
   MissileCharge: 20

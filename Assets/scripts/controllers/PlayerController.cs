@@ -165,6 +165,22 @@ public class PlayerController : MonoBehaviour
                     {
                         this.transform.Translate(speed * Time.deltaTime, 0, 0);
                     }
+                    if (Input.GetKey(KeyCode.UpArrow) && this.transform.position.y <= 2.0f)
+                    {
+                        this.transform.Translate(0, speed * Time.deltaTime, 0);
+                    }
+                    if (Input.GetKey(KeyCode.LeftArrow) && this.transform.position.x >= -4.7)
+                    {
+                        this.transform.Translate(-speed * Time.deltaTime, 0, 0);
+                    }
+                    if (Input.GetKey(KeyCode.DownArrow) && this.transform.position.y >= -4.5)
+                    {
+                        this.transform.Translate(0, -speed * Time.deltaTime, 0);
+                    }
+                    if (Input.GetKey(KeyCode.RightArrow) && this.transform.position.x <= 4.7)
+                    {
+                        this.transform.Translate(speed * Time.deltaTime, 0, 0);
+                    }
                 }
                 else{
                     if (Input.GetKey(KeyCode.W) && this.transform.position.y <= 2.0f)
@@ -180,6 +196,22 @@ public class PlayerController : MonoBehaviour
                         this.transform.Translate(0, -speed * Time.unscaledDeltaTime, 0);
                     }
                     if (Input.GetKey(KeyCode.D) && this.transform.position.x <= 4.7)
+                    {
+                        this.transform.Translate(speed * Time.unscaledDeltaTime, 0, 0);
+                    }
+                    if (Input.GetKey(KeyCode.UpArrow) && this.transform.position.y <= 2.0f)
+                    {
+                        this.transform.Translate(0, speed * Time.unscaledDeltaTime, 0);
+                    }
+                    if (Input.GetKey(KeyCode.LeftArrow) && this.transform.position.x >= -4.7)
+                    {
+                        this.transform.Translate(-speed * Time.unscaledDeltaTime, 0, 0);
+                    }
+                    if (Input.GetKey(KeyCode.DownArrow) && this.transform.position.y >= -4.5)
+                    {
+                        this.transform.Translate(0, -speed * Time.unscaledDeltaTime, 0);
+                    }
+                    if (Input.GetKey(KeyCode.RightArrow) && this.transform.position.x <= 4.7)
                     {
                         this.transform.Translate(speed * Time.unscaledDeltaTime, 0, 0);
                     }

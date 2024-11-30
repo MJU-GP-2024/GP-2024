@@ -6,6 +6,7 @@ public class SkillGenerator : MonoBehaviour
 {
     public GameObject missilePrefab;
     public GameObject TimeEffect;
+    public GameObject MissileEffect;
 
     public float slowMotionScale = 0.35f;
     public int TimeSkillActive = 0;
@@ -25,6 +26,8 @@ public class SkillGenerator : MonoBehaviour
     IEnumerator Missile()
     {
         float spawnDelay = 0.1f;
+        Instantiate(MissileEffect, new Vector3(0, -8, 0), Quaternion.identity);
+        yield return new WaitForSeconds(0.25f);
 
         for (int i = 0; i < 15; i++)
         {
@@ -43,11 +46,18 @@ public class SkillGenerator : MonoBehaviour
             TimeEffect.GetComponent<Renderer>().enabled = true;
         }
         else if(TimeSkillActive == 1) {
-            TimeSkillActive = 0;
+            TimeSkillActive = 2;
             Time.timeScale = 1f;
             Time.fixedDeltaTime = 0.02f;
             TimeEffect.GetComponent<Renderer>().enabled = false;
+            StartCoroutine(Cool());
         }
+    }
+
+    IEnumerator Cool() {
+        yield return new WaitForSeconds(1.5f);
+        TimeSkillActive = 0;
+
     }
 
 
@@ -96,6 +106,9 @@ public class SkillGenerator : MonoBehaviour
         }
 
         if(Input.GetKeyDown(KeyCode.E)) {
+            TimeControl();
+        }
+        if(Input.GetKeyDown(KeyCode.P)) {
             TimeControl();
         }
     }

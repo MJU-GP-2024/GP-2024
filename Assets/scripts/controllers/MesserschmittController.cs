@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MesserschmittController : MonoBehaviour
 {
+    GameObject SkillGenerator;
     public float rotateSpeed = 5; // 회전 속도
     public float minInterval = 1.0f; // 무기 발사 minimum interval time
     public float maxInterval = 2.0f; // 무기 발사 max interval time
@@ -32,6 +33,7 @@ public class MesserschmittController : MonoBehaviour
         {
             if (!this.player.GetComponent<PlayerController>().stun)
             {
+                SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
                 Destroy(gameObject);
             }
         }
@@ -45,6 +47,7 @@ public class MesserschmittController : MonoBehaviour
         {
             DropItem();
         }
+        SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
             Destroy(gameObject);
         }
     }
@@ -61,6 +64,8 @@ public class MesserschmittController : MonoBehaviour
 
     void Start()
     {
+        this.SkillGenerator = GameObject.Find("SkillGenerator");
+
         this.player = GameObject.Find("Player");
         StartCoroutine(ShootRandomly());    // Shoot 메서드 코루틴
 
@@ -85,6 +90,7 @@ public class MesserschmittController : MonoBehaviour
         {
             DropItem();
         }
+            SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
             Destroy(gameObject);
         }
 

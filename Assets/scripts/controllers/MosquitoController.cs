@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MosquitoController : MonoBehaviour
 {
+    GameObject SkillGenerator;
+
     public float speed = 6.0f;          // 고정 이동 속도
     public float moveRange = 5.0f;      // X축 이동 범위
     public float descendSpeed = 1.0f;   // Y축 하강 속도
@@ -50,6 +52,7 @@ public class MosquitoController : MonoBehaviour
 
     void Start()
     {
+        this.SkillGenerator = GameObject.Find("SkillGenerator");
         audioSource = GetComponent<AudioSource>();
 
         this.player = GameObject.Find("Player");
@@ -78,6 +81,7 @@ public class MosquitoController : MonoBehaviour
                 {
                     DropItem();
                 }
+                SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
                 Destroy(gameObject); // 체력이 0 이하가 되면 적기 삭제
             }
         this.localTime += Time.deltaTime;
@@ -137,6 +141,7 @@ public class MosquitoController : MonoBehaviour
         {
             if (!this.player.GetComponent<PlayerController>().stun)
             {
+                SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
                 Destroy(gameObject);
             }
         }
@@ -146,6 +151,7 @@ public class MosquitoController : MonoBehaviour
             {
             DropItem();
         }
+            SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
             Destroy(gameObject);
         }
     }

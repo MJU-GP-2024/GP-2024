@@ -36,6 +36,8 @@ public class LightningController : MonoBehaviour
     private float minInterval = 3f;
     private float maxInterval = 4.5f;
 
+    GameObject SkillGenerator;
+
 
     public float localTime; // 개인 시간
 
@@ -58,6 +60,7 @@ public class LightningController : MonoBehaviour
         {
             if (!this.player.GetComponent<PlayerController>().stun)
             {
+                SkillGenerator.GetComponent<SkillGenerator>().Cooldown(3);
                 Destroy(gameObject);
             }
         }
@@ -66,6 +69,7 @@ public class LightningController : MonoBehaviour
          {
             DropItem();
          }
+            SkillGenerator.GetComponent<SkillGenerator>().Cooldown(3);
             Destroy(gameObject);
         }
     }
@@ -107,6 +111,7 @@ public class LightningController : MonoBehaviour
     {
         StartCoroutine(ShootRandomly()); 
         audioSource = GetComponent<AudioSource>();
+        this.SkillGenerator = GameObject.Find("SkillGenerator");
 
         this.player = GameObject.Find("Player");
         startPositionX = transform.position.x;
@@ -130,6 +135,7 @@ public class LightningController : MonoBehaviour
             {
             DropItem();
             }
+                SkillGenerator.GetComponent<SkillGenerator>().Cooldown(3);
                 Destroy(gameObject); // 체력이 0 이하가 되면 적기 삭제
             }
 

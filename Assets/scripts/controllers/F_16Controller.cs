@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class F_16Controller : MonoBehaviour
 {
+    GameObject SkillGenerator;
     public float horizontalSpeed = 5f;
     public float upwardSpeed = 6f;
     public float diveSpeed = 10f;
@@ -26,6 +27,7 @@ public class F_16Controller : MonoBehaviour
         {
             if (!this.player.GetComponent<PlayerController>().stun)
             {
+                SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
                 Destroy(gameObject);
             }
         }
@@ -39,6 +41,7 @@ public class F_16Controller : MonoBehaviour
             {
             DropItem();
             }
+            SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
             Destroy(gameObject);
         }
     }
@@ -57,6 +60,7 @@ public class F_16Controller : MonoBehaviour
     // 화면 하단에서 수평으로 비행하다 위로 올라와서 플레이어를 1초 동안 바라보다가 dive
     void Start()
     {
+        this.SkillGenerator = GameObject.Find("SkillGenerator");
         this.player = GameObject.Find("Player");
         playerTrans = GameObject.Find("Player").transform;
 
@@ -87,6 +91,7 @@ public class F_16Controller : MonoBehaviour
             {
             DropItem();
             }
+            SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
             Destroy(gameObject);
         }
 

@@ -273,11 +273,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0df0ac8d02c0c6241bef80dda309ca9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
+  speed: 4
   moveRange: 5
-  descendSpeed: 1
-  missilePrefab: {fileID: 0}
-  missileSpawnPoint: {fileID: 0}
+  descendSpeed: 3
+  minInterval: 2
+  maxInterval: 3
   initialSpeed: 3
   maxSpeed: 10
   acceleration: 0.1

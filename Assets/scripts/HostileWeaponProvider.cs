@@ -54,7 +54,7 @@ public class HostileWeaponProvider : MonoBehaviour
     private void SinglePatternVariant()
     {
         // ±10도 랜덤 오차 추가
-        float randomAngle = Random.Range(-15f, 15f);
+        float randomAngle = Random.Range(-8f, 8f);
         float angleInRadians = randomAngle * Mathf.Deg2Rad;
 
         // 기존 방향 벡터에 회전 적용

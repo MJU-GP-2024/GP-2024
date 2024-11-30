@@ -6,19 +6,15 @@ public class MosquitoController : MonoBehaviour
 {
     GameObject SkillGenerator;
 
-    public float speed = 6.0f;          // 고정 이동 속도
+    public float speed = 4.0f;          // 고정 이동 속도
     public float moveRange = 5.0f;      // X축 이동 범위
-    public float descendSpeed = 1.0f;   // Y축 하강 속도
+    public float descendSpeed = 3.0f;   // Y축 하강 속도
     private int Hp = 3;             // 적기 체력 (3번 맞으면 파괴)
-    public float minInterval = 1.5f; // 무기 발사 minimum interval time
-    public float maxInterval = 1.9f; // 무기 발사 max interval time
+    public float minInterval = 2.0f; // 무기 발사 minimum interval time
+    public float maxInterval = 3.0f; // 무기 발사 max interval time
 
     private float startPositionX;       // 시작 X 위치 저장
     private bool isDescending = true;   // Y축 하강 여부
-
-    public GameObject missilePrefab;    // 적 미사일 프리팹
-    public Transform missileSpawnPoint; // 미사일 발사 위치
-    private float missileCooldown = 1f; // 1초 간격
 
     private AudioSource audioSource;     // 오디오 소스 컴포넌트
 

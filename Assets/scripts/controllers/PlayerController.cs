@@ -253,4 +253,9 @@ public class PlayerController : MonoBehaviour
                 
         }
     }
+
+    public int getHp()
+    {
+        return this.Hp;
+    }
 }

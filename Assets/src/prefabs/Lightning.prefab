@@ -577,8 +577,6 @@ MonoBehaviour:
   speed: 2
   moveRange: 5
   descendSpeed: 0.6
-  missilePrefab: {fileID: 0}
-  missileSpawnPoint: {fileID: 0}
   initialSpeed: 1
   maxSpeed: 3
   acceleration: 0.1
@@ -588,7 +586,7 @@ MonoBehaviour:
   - {fileID: 6954477276852529659, guid: 7d5dfe63bd33da94cb995a7df0db1282, type: 3}
   - {fileID: 8212291923114141355, guid: 93505fed4aab83d46a77b730e4a256cf, type: 3}
   - {fileID: 5161092237043112884, guid: f0862df38a0cc784c8237b8ed400f22a, type: 3}
-  dropChance: 0.6
+  dropChance: 1
   Charge: {fileID: 9021249194131695598, guid: d8dc8b7aafad51b44bade7aefa8a207e, type: 3}
   Missile: {fileID: 1381455929821980339, guid: 1a0f5f86bd7202a49a1f608e062b822e, type: 3}
   localTime: 0

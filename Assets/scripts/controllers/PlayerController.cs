@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     GameObject SkillGenerator;
     public GameObject PlayerMissile;
+    public GameObject ShieldPrefab;
 
     int Master = 0;
     int ready = 0;
@@ -44,6 +45,8 @@ public class PlayerController : MonoBehaviour
     }
     public void Shield() {
         stun = true;
+        GameObject shield = Instantiate(ShieldPrefab);
+        Destroy(shield, 3f);
         Invoke("Recover", 3f);
     }
     public void SpeedUp() {

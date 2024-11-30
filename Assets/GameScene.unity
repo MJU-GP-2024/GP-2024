@@ -171,6 +171,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6898332952443867373, guid: 88dcbb9ecd0ff4842a1106fa3e3562a6, type: 3}
+      propertyPath: ShieldPrefab
+      value: 
+      objectReference: {fileID: 3883192996754339759, guid: 46c80c454eae94c42932961e52c08c1e, type: 3}
+    - target: {fileID: 6898332952443867373, guid: 88dcbb9ecd0ff4842a1106fa3e3562a6, type: 3}
       propertyPath: PlayerMissile
       value: 
       objectReference: {fileID: 502689967806002799, guid: 4f18a4cc787acef489141271f8a4d1c6, type: 3}

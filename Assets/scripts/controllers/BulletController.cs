@@ -16,6 +16,9 @@ public class BulletController : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        if (other.gameObject.tag == "Shield") {
+            Destroy(gameObject);
+        }
     }
     // Start is called before the first frame update
     void Start()

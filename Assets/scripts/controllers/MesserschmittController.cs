@@ -50,6 +50,9 @@ public class MesserschmittController : MonoBehaviour
         SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
             Destroy(gameObject);
         }
+        else if (other.gameObject.tag == "Shield") {
+            Destroy(gameObject);
+        }
     }
 
     private void DropItem()

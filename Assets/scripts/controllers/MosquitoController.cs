@@ -150,5 +150,8 @@ public class MosquitoController : MonoBehaviour
             SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
             Destroy(gameObject);
         }
+        else if (other.gameObject.tag == "Shield") {
+            Destroy(gameObject);
+        }
     }
 }

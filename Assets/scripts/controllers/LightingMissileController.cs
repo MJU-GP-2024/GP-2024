@@ -15,6 +15,9 @@ public class LightingMissileController : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        else if (other.gameObject.tag == "Shield") {
+            Destroy(gameObject);
+        }
     }
     
     // Start is called before the first frame update

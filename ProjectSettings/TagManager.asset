@@ -12,6 +12,7 @@ TagManager:
   - Menemy
   - Boss
   - Item
+  - Shield
   layers:
   - Default
   - TransparentFX

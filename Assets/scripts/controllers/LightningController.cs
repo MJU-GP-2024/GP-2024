@@ -12,10 +12,6 @@ public class LightningController : MonoBehaviour
     private float startPositionX;       // 시작 X 위치 저장
     private bool isDescending = true;   // Y축 하강 여부
 
-    public GameObject missilePrefab;    // 적 미사일 프리팹
-    public Transform missileSpawnPoint; // 미사일 발사 위치
-    private float missileCooldown = 1f; // 1초 간격
-
     private AudioSource audioSource;     // 오디오 소스 컴포넌트
 
     public float initialSpeed = 1.0f;   // 초기 이동 속도
@@ -25,7 +21,7 @@ public class LightningController : MonoBehaviour
     private float currentSpeed;         // 현재 X축 속도
     public float minYposition = 1f; // y축 최대하강 위치
     public GameObject[] itemPrefabs; // 아이템 프리팹 배열
-    public float dropChance = 0.6f;  // 아이템 드롭 확률
+    public float dropChance = 1f;  // 아이템 드롭 확률
 
     Vector3 left;
     Vector3 right;
@@ -70,6 +66,9 @@ public class LightningController : MonoBehaviour
             DropItem();
          }
             SkillGenerator.GetComponent<SkillGenerator>().Cooldown(3);
+            Destroy(gameObject);
+        }
+        else if (other.gameObject.tag == "Shield") {
             Destroy(gameObject);
         }
     }

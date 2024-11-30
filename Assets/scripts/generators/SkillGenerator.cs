@@ -11,10 +11,15 @@ public class SkillGenerator : MonoBehaviour
     public int TimeSkillActive = 0;
 
     public float MissileCharge = 20f;
-    public float TimeCharge = 16f;
+    public float TimeCharge = 14f;
 
     public void Cooldown(float a) {
-        MissileCharge += a;
+        if((MissileCharge + a) <= 20f) {
+            MissileCharge += a;
+        }
+        else {
+            MissileCharge = 20f;
+        }
     }
 
     IEnumerator Missile()
@@ -58,6 +63,20 @@ public class SkillGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(TimeSkillActive == 1) {
+            TimeCharge -= 2 * Time.unscaledDeltaTime;
+            if(TimeCharge <= 0f) {
+                TimeCharge = 0f;
+                TimeControl();
+            }
+        }
+        else if(TimeSkillActive == 0) {
+            TimeCharge += Time.deltaTime;
+            if (TimeCharge > 20f) {
+                TimeCharge = 20f;
+            }
+        }
+
         if(MissileCharge <= 20f) {
             MissileCharge += Time.deltaTime;
         }
@@ -76,7 +95,7 @@ public class SkillGenerator : MonoBehaviour
             StartCoroutine(Missile());
         }
 
-        if(Input.GetKeyDown(KeyCode.P)) {
+        if(Input.GetKeyDown(KeyCode.E)) {
             TimeControl();
         }
     }

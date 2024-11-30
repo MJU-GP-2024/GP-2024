@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7308186706261125038}
   - component: {fileID: 798123561826703333}
   - component: {fileID: 2843409738330165504}
-  - component: {fileID: 1946657945299924076}
+  - component: {fileID: 9222910055850496027}
   m_Layer: 0
   m_Name: PlayerMissile
   m_TagString: PlayerMissile
@@ -122,7 +122,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.26
---- !u!114 &1946657945299924076
+--- !u!114 &9222910055850496027
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,6 +134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f5e36990d982d14c9b196f43ee35927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Hit1: {fileID: 137562588689890360, guid: a58fe68bea54aba49a7db53fc96e0305, type: 3}
+  Hit2: {fileID: 2602528006596758708, guid: 69d0e8d5a0c4ff84db9b7db3ccef405f, type: 3}
+  Hit3: {fileID: 1342965321253196890, guid: af7cc5b639294924085a455739a5a199, type: 3}
 --- !u!1001 &685037895170495377
 PrefabInstance:
   m_ObjectHideFlags: 0

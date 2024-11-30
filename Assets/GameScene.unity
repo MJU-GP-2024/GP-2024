@@ -508,6 +508,8 @@ MonoBehaviour:
   TimeEffect: {fileID: 4333696086117515716, guid: 16b0282953850354984c79eac4b3f2e6, type: 3}
   slowMotionScale: 0.2
   TimeSkillActive: 0
+  MissileCharge: 20
+  TimeCharge: 16
 --- !u!4 &1222143761
 Transform:
   m_ObjectHideFlags: 0

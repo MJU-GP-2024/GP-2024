@@ -8,6 +8,8 @@ public class MosquitoController : MonoBehaviour
     public float moveRange = 5.0f;      // X축 이동 범위
     public float descendSpeed = 1.0f;   // Y축 하강 속도
     private int Hp = 3;             // 적기 체력 (3번 맞으면 파괴)
+    public float minInterval = 1.5f; // 무기 발사 minimum interval time
+    public float maxInterval = 1.9f; // 무기 발사 max interval time
 
     private float startPositionX;       // 시작 X 위치 저장
     private bool isDescending = true;   // Y축 하강 여부
@@ -52,7 +54,20 @@ public class MosquitoController : MonoBehaviour
 
         this.player = GameObject.Find("Player");
         startPositionX = transform.position.x;
-        StartCoroutine(FireMissile()); // 미사일 자동 발사 시작
+        StartCoroutine(ShootRandomly()); 
+    }
+
+    IEnumerator ShootRandomly()
+    {
+        while (true)
+        {
+            // 무작위 대기 시간
+            float waitTime = Random.Range(minInterval, maxInterval);
+            yield return new WaitForSeconds(waitTime);
+
+            // shoot() 메서드 실행
+            GetComponent<HostileWeaponProvider>().Shoot("single");
+        }
     }
 
     void Update()
@@ -97,14 +112,14 @@ public class MosquitoController : MonoBehaviour
         transform.position = new Vector3(newX, transform.position.y, transform.position.z);
     }
 
-    IEnumerator FireMissile()
-    {
-        while (true)
-        {
-            Instantiate(missilePrefab, missileSpawnPoint.position, Quaternion.identity);
-            yield return new WaitForSeconds(missileCooldown);
-        }
-    }
+    // IEnumerator FireMissile()
+    // {
+    //     while (true)
+    //     {
+    //         Instantiate(missilePrefab, missileSpawnPoint.position, Quaternion.identity);
+    //         yield return new WaitForSeconds(missileCooldown);
+    //     }
+    // }
 
     // 충돌 처리
     private void OnTriggerEnter2D(Collider2D other)

@@ -98,13 +98,6 @@ public class MesserschmittController : MonoBehaviour
         }
     }
 
-    void Flip() //현재 미구현
-    {
-        for (int i = 0; i < 180; i++)
-        {
-            transform.Rotate(1, 0, 0);
-        }
-    }
 
     IEnumerator ShootRandomly()
     {

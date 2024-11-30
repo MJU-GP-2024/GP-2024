@@ -27,6 +27,15 @@ public class LightningController : MonoBehaviour
     public GameObject[] itemPrefabs; // 아이템 프리팹 배열
     public float dropChance = 0.6f;  // 아이템 드롭 확률
 
+    Vector3 left;
+    Vector3 right;
+    public GameObject Charge;
+    public GameObject Missile;
+    GameObject lcharge;
+    GameObject rcharge;
+    private float minInterval = 3f;
+    private float maxInterval = 4.5f;
+
 
     public float localTime; // 개인 시간
 
@@ -35,15 +44,6 @@ public class LightningController : MonoBehaviour
     public void changeminY(float a)
     {
         this.minYposition = a;
-    }
-
-    IEnumerator FireMissile()
-    {
-        while (true)
-        {
-            Instantiate(missilePrefab, missileSpawnPoint.position, Quaternion.identity);
-            yield return new WaitForSeconds(missileCooldown);
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -80,22 +80,50 @@ public class LightningController : MonoBehaviour
         droppedItem.GetComponent<ItemDropController>().select(randomIndex);
     }
 
+    IEnumerator ShootRandomly()
+    {
+        while (true)
+        {
+            // 무작위 대기 시간
+            float waitTime = Random.Range(minInterval, maxInterval);
+            yield return new WaitForSeconds(waitTime);
+
+            this.lcharge = Instantiate(Charge, left, Quaternion.identity);
+            this.rcharge = Instantiate(Charge, right, Quaternion.identity);
+            Destroy(lcharge, 1.2f);
+            Destroy(rcharge, 1.2f);
+            yield return new WaitForSeconds(1.2f);
+            Instantiate(Missile, left, Quaternion.identity);
+            Instantiate(Missile, right, Quaternion.identity);
+
+
+        }
+    }
+
 
 
     // Start is called before the first frame update
     void Start()
     {
+        StartCoroutine(ShootRandomly()); 
         audioSource = GetComponent<AudioSource>();
 
         this.player = GameObject.Find("Player");
         startPositionX = transform.position.x;
-        StartCoroutine(FireMissile()); // 미사일 자동 발사 시작
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        this.left = new Vector3(transform.position.x - 0.35f, transform.position.y - 0.25f, 0);
+        this.right = new Vector3(transform.position.x + 0.35f, transform.position.y - 0.25f, 0);
+        if(lcharge != null) {
+            lcharge.transform.position = left;
+            rcharge.transform.position = right;
+        }
+
+
         if (Hp <= 0)
             {
                 if (Random.value < dropChance) // Random.value는 0~1 사이의 값

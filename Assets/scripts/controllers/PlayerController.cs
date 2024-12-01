@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -281,7 +282,7 @@ public class PlayerController : MonoBehaviour
 
                 }
                 audioSource.PlayOneShot(clip2);
-                         }
+            }
             yield return new WaitForSecondsRealtime(missileCooldown);
         }
     }
@@ -317,6 +318,8 @@ public class PlayerController : MonoBehaviour
         }
 
         Destroy(gameObject); // Player 오브젝트 삭제
+        // **씬 전환: 죽었으면, 다시 처음으로 이동**
+        SceneManager.LoadScene("goScene");
     }
 
     IEnumerator ShakeAndEffect(float duration, GameObject effectPrefab)

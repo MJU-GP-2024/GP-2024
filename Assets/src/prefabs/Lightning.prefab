@@ -577,6 +577,7 @@ MonoBehaviour:
   speed: 2
   moveRange: 5
   descendSpeed: 0.6
+  explosionEffectPrefab: {fileID: 4780252486588737105, guid: 194a68ba7cb75a7418af021b71b532a8, type: 3}
   initialSpeed: 1
   maxSpeed: 3
   acceleration: 0.1

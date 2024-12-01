@@ -24,11 +24,18 @@ public class BossGenerator : MonoBehaviour
         {
             GameObject boss_3 = Instantiate(Boss_3prefab, spawnPosition, Quaternion.identity);
         }
+    }
 
-        if (bossPrefab != null)
-        {
-            GameObject bossInstance = Instantiate(bossPrefab, spawnPosition, Quaternion.identity);
-        }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
 
     }
 }

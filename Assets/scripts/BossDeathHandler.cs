@@ -12,6 +12,7 @@ public class BossDeathHandler : MonoBehaviour
     public float hitEffectDuration = 0.1f;                // 피격 효과 지속 시간
 
     private bool isDying = false;
+    private bool isHit = false; // 피격 상태 플래그
     private float currentExplosionFrequency;
     private PolygonCollider2D polygonCollider;
     private SpriteRenderer spriteRenderer;
@@ -25,10 +26,14 @@ public class BossDeathHandler : MonoBehaviour
         currentExplosionFrequency = initialExplosionFrequency;
     }
 
-    /// 피격 효과: 주황빛으로 변했다가 원래 색상으로 복구
+    public bool IsHit
+    {
+        get { return isHit; }
+    }
+
     public void ApplyHitEffect()
     {
-        if (spriteRenderer != null)
+        if (!isHit)
         {
             StartCoroutine(FlashHitEffect());
         }
@@ -36,11 +41,14 @@ public class BossDeathHandler : MonoBehaviour
 
     private IEnumerator FlashHitEffect()
     {
+        isHit = true;
         Color originalColor = spriteRenderer.color;
-        spriteRenderer.color = hitColor; // 주황빛으로 변환
+        spriteRenderer.color = hitColor; // 주황빛으로 변경
         yield return new WaitForSeconds(hitEffectDuration);
-        spriteRenderer.color = originalColor; // 원래 색상으로 복구
+        isHit = false;
+        spriteRenderer.color = originalColor; // 원래 색상 복구
     }
+
 
     /// 보스가 죽었을 때 실행
     public void TriggerDeathSequence()
@@ -83,17 +91,14 @@ public class BossDeathHandler : MonoBehaviour
         {
             float shakeElapsedTime = 0f;
 
-            // 흔들림과 색상 변화 간격 유지
             while (shakeElapsedTime < 0.5f)
             {
-                // 보스 흔들림
                 float shakeAmountX = Random.Range(-shakeIntensity, shakeIntensity);
                 transform.position = originalPosition + new Vector3(shakeAmountX, 0, 0);
 
-                // 검은색으로 점차 변환
                 if (spriteRenderer != null)
                 {
-                    float t = elapsedTime / deathDuration; // 진행 비율 (0~1)
+                    float t = elapsedTime / deathDuration;
                     spriteRenderer.color = Color.Lerp(spriteRenderer.color, targetColor, t);
                 }
 
@@ -101,9 +106,8 @@ public class BossDeathHandler : MonoBehaviour
                 yield return null;
             }
 
-            // 흔들림 초기화 후 잠시 간격
             transform.position = originalPosition;
-            elapsedTime += 1.0f; // 간격 유지
+            elapsedTime += 1.0f;
             yield return new WaitForSeconds(1.0f);
         }
     }

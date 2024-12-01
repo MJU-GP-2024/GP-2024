@@ -17,8 +17,7 @@ public class MesserschmittController : MonoBehaviour
     private Color originalColor;      // 원래 색상
 
     private EnemyDestructionUtility destructionUtility;
-
-    // private ItemDropController itemDropController;
+    private bool isDestroyed = false; // 파괴 여부 플래그
 
     private int Hp = 1;
     public GameObject[] itemPrefabs; // 아이템 프리팹 배열
@@ -32,21 +31,27 @@ public class MesserschmittController : MonoBehaviour
         this.speed = speed;
     }
 
-
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (isDestroyed) return; // 이미 파괴된 경우 실행하지 않음
+
         if (other.gameObject.tag == "Player")
         {
             if (!this.player.GetComponent<PlayerController>().stun)
             {
                 SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
-                destructionUtility.TriggerDestruction(transform);
+                TriggerDestruction(); // 파괴 처리
             }
         }
         else if (other.gameObject.tag == "PlayerMissile")
         {
             this.Hp -= 1;
             StartCoroutine(destructionUtility.FlashRed());
+
+            if (this.Hp <= 0 && !isDestroyed)
+            {
+                TriggerDestruction(); // 파괴 처리
+            }
         }
         else if (other.gameObject.tag == "SkillMissile")
         {
@@ -55,12 +60,27 @@ public class MesserschmittController : MonoBehaviour
                 DropItem();
             }
             SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
-            destructionUtility.TriggerDestruction(transform);
+            TriggerDestruction(); // 파괴 처리
         }
         else if (other.gameObject.tag == "Shield")
         {
-            destructionUtility.TriggerDestruction(transform);
+            TriggerDestruction(); // 파괴 처리
         }
+    }
+
+    private void TriggerDestruction()
+    {
+        if (isDestroyed) return; // 이미 파괴된 경우 실행하지 않음
+
+        isDestroyed = true; // 파괴 상태 설정
+
+        if (Random.value < dropChance) // 아이템 드롭 확률
+        {
+            DropItem();
+        }
+
+        SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
+        destructionUtility.TriggerDestruction(transform);
     }
 
     private void DropItem()
@@ -76,7 +96,6 @@ public class MesserschmittController : MonoBehaviour
     void Start()
     {
         this.SkillGenerator = GameObject.Find("SkillGenerator");
-
         this.player = GameObject.Find("Player");
 
         // 렌더러 가져오기 및 색상 초기화
@@ -97,27 +116,19 @@ public class MesserschmittController : MonoBehaviour
         targetPoint = GameObject.Find("Player").transform.position;
         Vector2 direction = startPoint - targetPoint;
 
-        //float angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
-        //transform.Rotate(0, 0, -angle); // 생성시 플레이어를 바라봅니다
-
         if (transform.position.x > 0)   // 생성 위치에 따라 회전 방향이 바뀝니다
         {
             this.rotateSpeed = -this.rotateSpeed;
         }
-        //itemDropController = FindObjectOfType<ItemDropController>();
     }
 
     void Update()
     {
-        if (this.Hp <= 0)
+        if (this.Hp <= 0 && !isDestroyed)
         {
-            if (Random.value < dropChance) // Random.value는 0~1 사이의 값
-            {
-                DropItem();
-            }
-            SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
-            destructionUtility.TriggerDestruction(transform);
+            TriggerDestruction(); // 파괴 처리
         }
+
         // 이동 처리
         transform.Translate(0, speed * Time.deltaTime, 0);
         // 회전 처리
@@ -130,17 +141,18 @@ public class MesserschmittController : MonoBehaviour
         }
     }
 
-
     // 무작위 무기 발사
     IEnumerator ShootRandomly()
     {
-        while (true)
+        while (!isDestroyed)
         {
             float waitTime = Random.Range(minInterval, maxInterval);
             yield return new WaitForSeconds(waitTime);
 
-            // 무기 발사 호출 (HostileWeaponProvider 사용)
+            if (isDestroyed) yield break; // 파괴된 경우 코루틴 종료
+
             GetComponent<HostileWeaponProvider>().Shoot("single");
         }
     }
+
 }

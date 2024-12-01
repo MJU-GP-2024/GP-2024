@@ -32,6 +32,7 @@ public class MosquitoController : MonoBehaviour
     public GameObject explosionEffectPrefab;
     private Renderer[] renderers;     // 오브젝트의 렌더러
     private Color originalColor;      // 원래 색상
+    private bool isDestroyed = false; // 파괴 여부 플래그
 
     private EnemyDestructionUtility destructionUtility;
 
@@ -76,16 +77,17 @@ public class MosquitoController : MonoBehaviour
 
     IEnumerator ShootRandomly()
     {
-        while (true)
+        while (!isDestroyed)
         {
-            // 무작위 대기 시간
             float waitTime = Random.Range(minInterval, maxInterval);
             yield return new WaitForSeconds(waitTime);
 
-            // shoot() 메서드 실행
+            if (isDestroyed) yield break; // 파괴된 경우 코루틴 종료
+
             GetComponent<HostileWeaponProvider>().Shoot("single");
         }
     }
+
 
     void Update()
     {
@@ -153,7 +155,7 @@ public class MosquitoController : MonoBehaviour
             StartCoroutine(destructionUtility.FlashRed());
 
 
-            if (health <= 0)
+            if (Hp <= 0)
             {
                 destructionUtility.TriggerDestruction(transform); // 체력이 0 이하가 되면 적기 삭제
             }

@@ -23,6 +23,12 @@ public class Boss_2Controller : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>(); // SpriteRenderer 가져오기
         ScenarioDirector = GameObject.Find("ScenarioDirector");
 
+        // 체력 초기화
+        this.Hp = maxHp;
+        // SpriteRenderer 색상 초기화
+        spriteRenderer.color = Color.white;
+
+
         StartCoroutine(SinglePatternShooter());
         StartCoroutine(CirclePatternShooter());
     }
@@ -40,7 +46,7 @@ public class Boss_2Controller : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.X)) // 임시 파괴 코드
-            Hp -= 1001;
+            Hp -= maxHp;
 
         if (Hp <= 0 && !isDying)
         {
@@ -56,19 +62,17 @@ public class Boss_2Controller : MonoBehaviour
 
     private void UpdateColorByHealth()
     {
-        if (spriteRenderer != null)
+        if (spriteRenderer != null && !deathHandler.IsHit) // deathHandler의 isHit 상태 확인
         {
-            // 체력 비율 계산
             float healthRatio = Mathf.Clamp01(Hp / maxHp);
-
-            // 색상 조정 (빨간색으로 점차 변화, 파괴 직전엔 70% 붉게 변함)
-            float redIntensity = 1.0f - (healthRatio * 0.3f); // 최소 70% 붉은 기
-            spriteRenderer.color = new Color(1.0f, redIntensity, redIntensity, 1.0f);
+            float greenBlueIntensity = Mathf.Lerp(0.15f, 1.0f, healthRatio);
+            spriteRenderer.color = new Color(1.0f, greenBlueIntensity, greenBlueIntensity, 1.0f);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // 보스가 자리(ready == 1)에 도달했을 때만 공격을 받음
         if (ready == 1)
         {
             if (other.CompareTag("PlayerMissile")) // 플레이어 미사일과 충돌했을 경우
@@ -76,13 +80,14 @@ public class Boss_2Controller : MonoBehaviour
                 Hp -= 1; // 체력 감소
                 deathHandler.ApplyHitEffect(); // 피격 효과 호출
             }
-            else if (other.gameObject.tag == "SkillMissile")
+            else if (other.CompareTag("SkillMissile"))
             {
-                Hp -= 4;
+                Hp -= 4; // 체력 감소
                 deathHandler.ApplyHitEffect(); // 피격 효과 호출
             }
         }
     }
+
 
     IEnumerator SinglePatternShooter()
     {

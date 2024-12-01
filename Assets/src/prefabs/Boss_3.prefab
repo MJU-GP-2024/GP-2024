@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2100072924348739065}
   - component: {fileID: 4898233794732184697}
   - component: {fileID: 4425135711014696808}
+  - component: {fileID: -3050448769686362151}
   m_Layer: 0
   m_Name: Boss_3
   m_TagString: Boss
@@ -255,3 +256,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c363b7832d145d2a73f556ddb32b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-3050448769686362151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9072830712492717221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74243b6f0f93a644da24828fb54011e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionEffects:
+  - {fileID: 4780252486588737105, guid: 194a68ba7cb75a7418af021b71b532a8, type: 3}
+  - {fileID: 6078731712818867319, guid: 7dcafe9bee9cec74f9e4512a7a364bb4, type: 3}
+  - {fileID: 9025944782290901331, guid: c37a0d989d1de614cb66d20de1e5c68c, type: 3}
+  deathDuration: 5
+  initialExplosionFrequency: 0.05
+  shakeIntensity: 0.5
+  targetColor: {r: 0, g: 0, b: 0, a: 1}
+  hitColor: {r: 1, g: 0.5, b: 0, a: 1}
+  hitEffectDuration: 0.1

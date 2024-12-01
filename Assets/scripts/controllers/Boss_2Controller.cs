@@ -7,6 +7,8 @@ public class Boss_2Controller : MonoBehaviour
     public AudioClip clip1;
     public AudioClip clip2;
 
+    GameObject DeathSound;
+
     int ready = 0;
     float Hp = 160f;
     float maxHp = 160f; // 최대 체력
@@ -23,6 +25,8 @@ public class Boss_2Controller : MonoBehaviour
 
     private void Start()
     {
+        this.DeathSound = GameObject.Find("BossDeathSound");
+
         deathHandler = GetComponent<BossDeathHandler>();
         spriteRenderer = GetComponent<SpriteRenderer>(); // SpriteRenderer 가져오기
         ScenarioDirector = GameObject.Find("ScenarioDirector");
@@ -57,6 +61,7 @@ public class Boss_2Controller : MonoBehaviour
         if (Hp <= 0 && !isDying)
         {
             ScenarioDirector.GetComponent<ScenarioDirector>().bossDied();
+            DeathSound.GetComponent<BossDeathSound>().Death();
             isDying = true; // 파괴 상태로 설정
             deathHandler.TriggerDeathSequence();
         }

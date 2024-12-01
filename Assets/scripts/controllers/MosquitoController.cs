@@ -100,6 +100,7 @@ public class MosquitoController : MonoBehaviour
             }
 
             GetComponent<Collider2D>().enabled = false;
+            audioSource.PlayOneShot(clip1);
             SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
             destructionUtility.TriggerDestruction(transform); // 체력이 0 이하가 되면 적기 삭제
         }

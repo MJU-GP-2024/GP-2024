@@ -8,6 +8,7 @@ public class Boss_1Controller : MonoBehaviour
     public AudioClip clip1;
     public AudioClip clip2;
     
+    GameObject DeathSound;
     int ready = 0;
     float Hp = 130f;
     float maxHp = 100f; // 최대 체력
@@ -25,6 +26,8 @@ public class Boss_1Controller : MonoBehaviour
 
     private void Start()
     {
+        this.DeathSound = GameObject.Find("BossDeathSound");
+
         this.ScenarioDirector = GameObject.Find("ScenarioDirector");
         this.spriteRenderer = GetComponent<SpriteRenderer>(); // SpriteRenderer 가져오기
         deathHandler = GetComponent<BossDeathHandler>();
@@ -61,6 +64,7 @@ public class Boss_1Controller : MonoBehaviour
         if (this.Hp <= 0)
         {
             ScenarioDirector.GetComponent<ScenarioDirector>().bossDied();
+            DeathSound.GetComponent<BossDeathSound>().Death();
             isDying = true; // 파괴 상태로 설정
             deathHandler.TriggerDeathSequence();
         }
@@ -68,6 +72,7 @@ public class Boss_1Controller : MonoBehaviour
         {
             UpdateColorByHealth(); // 체력에 따라 색상 업데이트
         }
+
     }
 
     private void UpdateColorByHealth()

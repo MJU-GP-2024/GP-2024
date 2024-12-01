@@ -47,11 +47,11 @@ public class ScenarioDirector : MonoBehaviour
             this.time += Time.deltaTime;
         }
         
-        if(this.time >= 13.0f){
+        if(this.time >= 18.0f){
             EnemyGen.GetComponent<EnemyGenerator>().PauseInvoke();
         }
 
-        if(this.time >= 15.0f) {
+        if(this.time >= 20.0f) {
             bossOnStage = 1; //시간 측정 중단
             this.time = 0;
             BossGen.GetComponent<BossGenerator>().bossGetStage(this.chapter);

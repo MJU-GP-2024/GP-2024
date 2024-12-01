@@ -154,7 +154,7 @@ MonoBehaviour:
   itemPrefabs:
   - {fileID: 2455614493424208830, guid: 7abf7013150958a428c2c115c8126b30, type: 3}
   - {fileID: 6954477276852529659}
-  - {fileID: 8212291923114141355, guid: 93505fed4aab83d46a77b730e4a256cf, type: 3}
+  - {fileID: 6780475813141431252, guid: b099257ee8b0e17448bd8d3f73ee9f2c, type: 3}
   - {fileID: 5161092237043112884, guid: f0862df38a0cc784c8237b8ed400f22a, type: 3}
   fallSpeed: 2.3
   itemChangeInterval: 1

@@ -6,7 +6,7 @@ using UnityEngine;
 public class BackgroundController : MonoBehaviour
 {
     int Master = 0;
-    float speed = 1.5f;
+    float speed = 0.8f;
     int child = 0;
     GameObject BackgroundGenerator;
 

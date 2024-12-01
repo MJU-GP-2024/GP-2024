@@ -36,6 +36,11 @@ public class MesserschmittController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (this.Hp <= 0 && !isDestroyed)
+        {
+            TriggerDestruction(); // 파괴 처리
+        }
+
         if (isDestroyed) return; // 이미 파괴된 경우 실행하지 않음
 
         if (other.gameObject.tag == "Player")
@@ -133,10 +138,7 @@ public class MesserschmittController : MonoBehaviour
 
     private void Update()
     {
-        if (this.Hp <= 0 && !isDestroyed)
-        {
-            TriggerDestruction(); // 파괴 처리
-        }
+
 
         // 이동 처리
         transform.Translate(0, speed * Time.deltaTime, 0);

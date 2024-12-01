@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
 
     int Master = 0;
     int ready = 0;
-    int Hp = 4;
+    int Hp = 3;
     int Firemode = 1;
     public bool stun = false;
     private float speed = 3.5f; // 이동속도
@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (other.gameObject.tag == "Menemy")
             {
-                this.decreaseHp(2);
+                this.decreaseHp(1);
                 this.Hitted();
             }
         }
@@ -185,6 +185,22 @@ public class PlayerController : MonoBehaviour
                         this.transform.Translate(0, -speed * Time.deltaTime, 0);
                     }
                     if (Input.GetKey(KeyCode.D) && this.transform.position.x <= 4.7)
+                    {
+                        this.transform.Translate(speed * Time.deltaTime, 0, 0);
+                    }
+                    if (Input.GetKey(KeyCode.UpArrow) && this.transform.position.y <= 2.0f)
+                    {
+                        this.transform.Translate(0, speed * Time.deltaTime, 0);
+                    }
+                    if (Input.GetKey(KeyCode.LeftArrow) && this.transform.position.x >= -4.7)
+                    {
+                        this.transform.Translate(-speed * Time.deltaTime, 0, 0);
+                    }
+                    if (Input.GetKey(KeyCode.DownArrow) && this.transform.position.y >= -4.5)
+                    {
+                        this.transform.Translate(0, -speed * Time.deltaTime, 0);
+                    }
+                    if (Input.GetKey(KeyCode.RightArrow) && this.transform.position.x <= 4.7)
                     {
                         this.transform.Translate(speed * Time.deltaTime, 0, 0);
                     }

@@ -119,12 +119,9 @@ public class LightningController : MonoBehaviour
             TriggerDestruction();
         }
 
-        Debug.Log(hp + "remain");
-
         // 파괴 처리
         if (hp <= 0 && !isDestroyed)
         {
-            Debug.Log("라이트닝사망");
             TriggerDestruction();
         }
     }
@@ -174,5 +171,4 @@ public class LightningController : MonoBehaviour
             Instantiate(Missile, right, Quaternion.identity);
         }
     }
-
 }

@@ -10,8 +10,8 @@ public class BackgroundGenerator : MonoBehaviour
     public void Gen_NewBackground()
     {
         GameObject newbackground = Instantiate(BackgroundPrefab) as GameObject;
-        newbackground.transform.position = new Vector3(0, 23, 0);
-        newbackground.transform.localScale = new Vector3(1, flipBackground, 1);
+        newbackground.transform.position = new Vector3(0, 31.7f, 0);
+        newbackground.transform.localScale = new Vector3(1.5f, 1.5f * flipBackground, 1);
         flipBackground *= -1;
     }
     // Start is called before the first frame update

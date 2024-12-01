@@ -14,11 +14,14 @@ public class SkillGenerator : MonoBehaviour
     public float MissileCharge = 20f;
     public float TimeCharge = 14f;
 
-    public void Cooldown(float a) {
-        if((MissileCharge + a) <= 20f) {
+    public void Cooldown(float a)
+    {
+        if ((MissileCharge + a) <= 20f)
+        {
             MissileCharge += a;
         }
-        else {
+        else
+        {
             MissileCharge = 20f;
         }
     }
@@ -38,14 +41,17 @@ public class SkillGenerator : MonoBehaviour
         }
     }
 
-    private void TimeControl() {
-        if(TimeSkillActive == 0) {
+    private void TimeControl()
+    {
+        if (TimeSkillActive == 0)
+        {
             TimeSkillActive = 1;
             Time.timeScale = slowMotionScale;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
             TimeEffect.GetComponent<Renderer>().enabled = true;
         }
-        else if(TimeSkillActive == 1) {
+        else if (TimeSkillActive == 1)
+        {
             TimeSkillActive = 2;
             Time.timeScale = 1f;
             Time.fixedDeltaTime = 0.02f;
@@ -54,7 +60,8 @@ public class SkillGenerator : MonoBehaviour
         }
     }
 
-    IEnumerator Cool() {
+    IEnumerator Cool()
+    {
         yield return new WaitForSeconds(1.5f);
         TimeSkillActive = 0;
 
@@ -73,42 +80,53 @@ public class SkillGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(TimeSkillActive == 1) {
+        if (TimeSkillActive == 1)
+        {
             TimeCharge -= 2 * Time.unscaledDeltaTime;
-            if(TimeCharge <= 0f) {
+            if (TimeCharge <= 0f)
+            {
                 TimeCharge = 0f;
                 TimeControl();
             }
         }
-        else if(TimeSkillActive == 0) {
+        else if (TimeSkillActive == 0)
+        {
             TimeCharge += Time.deltaTime;
-            if (TimeCharge > 20f) {
+            if (TimeCharge > 20f)
+            {
                 TimeCharge = 20f;
             }
         }
 
-        if(MissileCharge <= 20f) {
+        if (MissileCharge <= 20f)
+        {
             MissileCharge += Time.deltaTime;
         }
-        else if(MissileCharge >= 20f) {
+        else if (MissileCharge >= 20f)
+        {
             MissileCharge = 20f;
         }
 
-        if(Input.GetKeyDown(KeyCode.Q)) {
-            if(MissileCharge>=20f) {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (MissileCharge >= 20f)
+            {
                 StartCoroutine(Missile());
                 MissileCharge = 0f;
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.O)) {
+        if (Input.GetKeyDown(KeyCode.O))
+        {
             StartCoroutine(Missile());
         }
 
-        if(Input.GetKeyDown(KeyCode.E)) {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
             TimeControl();
         }
-        if(Input.GetKeyDown(KeyCode.P)) {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
             TimeControl();
         }
     }

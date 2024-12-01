@@ -8,6 +8,9 @@ public class ScenarioDirector : MonoBehaviour
     GameObject EnemyGen;
     GameObject BossGen;
 
+    public AudioSource audioSource;
+    public AudioClip bgm;
+
 
     private int chapter = 1; //스테이지 카운터
     float time; //스테이지 진행시간
@@ -34,9 +37,12 @@ public class ScenarioDirector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         this.chapter = 1;
         this.EnemyGen = GameObject.Find("EnemyGenerator");
         this.BossGen = GameObject.Find("BossGenerator");
+        audioSource.clip = bgm;
+        audioSource.Play();
     }
 
 

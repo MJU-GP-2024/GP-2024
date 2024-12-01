@@ -10,28 +10,27 @@ public class BossGenerator : MonoBehaviour
 
     Vector3 spawnPosition = new Vector3(0.0f, 6.48f, 0.0f);
 
-    public void bossGetStage(int a) {
-        if(a == 1) {
-            GameObject boss = Instantiate(Boss1prefab, spawnPosition, Quaternion.identity);
-        }
-        else if(a == 2) { //임시로 동일보스 생성
-            GameObject boss = Instantiate(Boss1prefab, spawnPosition, Quaternion.identity);
-        }
-        else if(a == 3) { //임시로 동일보스 생성
-            GameObject boss = Instantiate(Boss1prefab, spawnPosition, Quaternion.identity);
-        }
-    }
-
-    
-    // Start is called before the first frame update
-    void Start()
+    public void bossGetStage(int stage)
     {
-        
-    }
+        GameObject bossPrefab = null;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (stage == 1)
+        {
+            bossPrefab = Boss1prefab;
+        }
+        else if (stage == 2)
+        {
+            bossPrefab = Boss2prefab;
+        }
+        else if (stage == 3)
+        {
+            bossPrefab = Boss3prefab;
+        }
+
+        if (bossPrefab != null)
+        {
+            GameObject bossInstance = Instantiate(bossPrefab, spawnPosition, Quaternion.identity);
+        }
+
     }
 }

@@ -50,7 +50,7 @@ public class F_16Controller : MonoBehaviour
             {
                 DropItem();
             }
-            SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
+            SkillGenerator.GetComponent<SkillGenerator>().Cooldown(0.5f);
             destructionUtility.TriggerDestruction(transform);
         }
         else if (other.gameObject.tag == "Shield")

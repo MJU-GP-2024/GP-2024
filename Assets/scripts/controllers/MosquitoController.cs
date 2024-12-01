@@ -180,7 +180,7 @@ public class MosquitoController : MonoBehaviour
             {
                 DropItem();
             }
-            SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
+            SkillGenerator.GetComponent<SkillGenerator>().Cooldown(0.5f);
             audioSource.PlayOneShot(clip1);
             destructionUtility.TriggerDestruction(transform);
         }

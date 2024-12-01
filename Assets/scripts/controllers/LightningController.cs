@@ -109,7 +109,7 @@ public class LightningController : MonoBehaviour
             {
                 DropItem();
             }
-            SkillGenerator.GetComponent<SkillGenerator>().Cooldown(3);
+            SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1.5f);
             audioSource.PlayOneShot(clip1);
             TriggerDestruction();
         }

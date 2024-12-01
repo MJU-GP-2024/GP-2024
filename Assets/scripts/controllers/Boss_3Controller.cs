@@ -8,8 +8,8 @@ public class Boss_3Controller : MonoBehaviour
     public AudioClip clip2;
 
     int ready = 0;
-    float Hp = 200f;
-    float maxHp = 200f; // 최대 체력
+    float Hp = 220f;
+    float maxHp = 220f; // 최대 체력
     float minSinglePatternInterval = 0.0f; // single 무기 발사 minimum interval time
     float maxSinglePatternInterval = 1.5f; // single 무기 발사 max interval time
     float minCirclePatternInterval = 7.0f; // circle 무기 발사 minimum interval time
@@ -32,7 +32,7 @@ public class Boss_3Controller : MonoBehaviour
             }
             else if (other.CompareTag("SkillMissile"))
             {
-                Hp -= 4; // 체력 감소
+                Hp -= 2.5f; // 체력 감소
                 deathHandler.ApplyHitEffect(); // 피격 효과 호출
             }
         }

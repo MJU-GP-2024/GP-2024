@@ -64,7 +64,7 @@ public class MesserschmittController : MonoBehaviour
             {
                 DropItem();
             }
-            SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
+            SkillGenerator.GetComponent<SkillGenerator>().Cooldown(0.5f);
             audioSource.PlayOneShot(clip1);
             TriggerDestruction(); // 파괴 처리
         }

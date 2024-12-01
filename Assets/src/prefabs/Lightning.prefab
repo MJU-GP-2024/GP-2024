@@ -580,6 +580,7 @@ MonoBehaviour:
   speed: 2
   moveRange: 5
   descendSpeed: 0.6
+  hp: 13
   explosionEffectPrefab: {fileID: 4780252486588737105, guid: 194a68ba7cb75a7418af021b71b532a8, type: 3}
   initialSpeed: 1
   maxSpeed: 3
@@ -606,7 +607,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.302
+  m_Volume: 0.22
   m_Pitch: 1
   Loop: 0
   Mute: 0

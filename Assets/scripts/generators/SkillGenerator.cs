@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SkillGenerator : MonoBehaviour
 {
+    public AudioSource audioSource;
+    public AudioClip clip1;
+
     public GameObject missilePrefab;
     public GameObject TimeEffect;
     public GameObject MissileEffect;
@@ -39,6 +42,7 @@ public class SkillGenerator : MonoBehaviour
     IEnumerator Missile()
     {
         float spawnDelay = 0.1f;
+        audioSource.PlayOneShot(clip1);
         Instantiate(MissileEffect, new Vector3(0, -8, 0), Quaternion.identity);
         yield return new WaitForSeconds(0.25f);
 
@@ -82,6 +86,7 @@ public class SkillGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         TimeEffect = GameObject.Find("TimeEffect");
         TimeEffect.GetComponent<Renderer>().enabled = false;
     }

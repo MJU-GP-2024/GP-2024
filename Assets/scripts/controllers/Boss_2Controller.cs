@@ -7,9 +7,11 @@ public class Boss_2Controller : MonoBehaviour
     public AudioClip clip1;
     public AudioClip clip2;
 
+    GameObject DeathSound;
+
     int ready = 0;
-    float Hp = 150f;
-    float maxHp = 150f; // 최대 체력
+    float Hp = 160f;
+    float maxHp = 160f; // 최대 체력
     float minSinglePatternInterval = 0.0f; // single 무기 발사 minimum interval time
     float maxSinglePatternInterval = 1.5f; // single 무기 발사 max interval time
     float minCirclePatternInterval = 7.0f; // circle 무기 발사 minimum interval time
@@ -23,6 +25,8 @@ public class Boss_2Controller : MonoBehaviour
 
     private void Start()
     {
+        this.DeathSound = GameObject.Find("BossDeathSound");
+
         deathHandler = GetComponent<BossDeathHandler>();
         spriteRenderer = GetComponent<SpriteRenderer>(); // SpriteRenderer 가져오기
         ScenarioDirector = GameObject.Find("ScenarioDirector");
@@ -57,6 +61,7 @@ public class Boss_2Controller : MonoBehaviour
         if (Hp <= 0 && !isDying)
         {
             ScenarioDirector.GetComponent<ScenarioDirector>().bossDied();
+            DeathSound.GetComponent<BossDeathSound>().Death();
             isDying = true; // 파괴 상태로 설정
             deathHandler.TriggerDeathSequence();
         }
@@ -88,7 +93,7 @@ public class Boss_2Controller : MonoBehaviour
             }
             else if (other.CompareTag("SkillMissile"))
             {
-                Hp -= 4; // 체력 감소
+                Hp -= 2.5f; // 체력 감소
                 deathHandler.ApplyHitEffect(); // 피격 효과 호출
             }
         }

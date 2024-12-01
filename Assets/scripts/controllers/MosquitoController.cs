@@ -92,7 +92,6 @@ public class MosquitoController : MonoBehaviour
 
     void Update()
     {
-
         this.localTime += Time.deltaTime;
 
         if (transform.position.y < -6f)
@@ -180,7 +179,7 @@ public class MosquitoController : MonoBehaviour
             {
                 DropItem();
             }
-            SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
+            SkillGenerator.GetComponent<SkillGenerator>().Cooldown(0.5f);
             audioSource.PlayOneShot(clip1);
             destructionUtility.TriggerDestruction(transform);
         }

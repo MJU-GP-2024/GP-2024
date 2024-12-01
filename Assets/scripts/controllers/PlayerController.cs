@@ -158,7 +158,7 @@ public class PlayerController : MonoBehaviour
 
         if (this.ready == 0 && this.transform.position.y <= -2)
         {
-            this.transform.Translate(0, 0.04f, 0);
+            this.transform.Translate(0, 3f * Time.deltaTime, 0);
         }
 
         if (this.ready == 0 && this.transform.position.y >= -2)

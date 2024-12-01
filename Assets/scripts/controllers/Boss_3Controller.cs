@@ -86,14 +86,23 @@ public class Boss_3Controller : MonoBehaviour
             DeathSound.GetComponent<BossDeathSound>().Death();
             isDying = true; // 파괴 상태로 설정
             deathHandler.TriggerDeathSequence();
-            SceneManager.LoadScene("EndScene");
 
+            // **4초 후 씬 전환**
+            StartCoroutine(LoadEndSceneAfterDelay(4.0f));
         }
         else
         {
             UpdateColorByHealth(); // 체력에 따라 색상 업데이트
         }
     }
+
+
+    private IEnumerator LoadEndSceneAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay); // 4초 대기
+        SceneManager.LoadScene("EndScene"); // EndScene으로 전환
+    }
+
 
     private void UpdateColorByHealth()
     {

@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class MesserschmittController : MonoBehaviour
 {
+
+    public AudioSource audioSource;
+    public AudioClip clip1;
     GameObject SkillGenerator;
     public float rotateSpeed = 5; // 회전 속도
     public float minInterval = 1.0f; // 무기 발사 minimum interval time
@@ -40,6 +43,7 @@ public class MesserschmittController : MonoBehaviour
             if (!this.player.GetComponent<PlayerController>().stun)
             {
                 SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
+                audioSource.PlayOneShot(clip1);
                 TriggerDestruction(); // 파괴 처리
             }
         }
@@ -50,6 +54,7 @@ public class MesserschmittController : MonoBehaviour
 
             if (this.Hp <= 0 && !isDestroyed)
             {
+                audioSource.PlayOneShot(clip1);
                 TriggerDestruction(); // 파괴 처리
             }
         }
@@ -60,10 +65,12 @@ public class MesserschmittController : MonoBehaviour
                 DropItem();
             }
             SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
+            audioSource.PlayOneShot(clip1);
             TriggerDestruction(); // 파괴 처리
         }
         else if (other.gameObject.tag == "Shield")
         {
+            audioSource.PlayOneShot(clip1);
             TriggerDestruction(); // 파괴 처리
         }
     }
@@ -95,6 +102,7 @@ public class MesserschmittController : MonoBehaviour
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         this.SkillGenerator = GameObject.Find("SkillGenerator");
         this.player = GameObject.Find("Player");
 

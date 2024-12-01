@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class F_16Controller : MonoBehaviour
 {
+    public AudioSource audioSource;
+    public AudioClip clip1;
+
+
     GameObject SkillGenerator;
     public float horizontalSpeed = 5f;
     public float upwardSpeed = 6f;
@@ -31,6 +35,7 @@ public class F_16Controller : MonoBehaviour
             if (!this.player.GetComponent<PlayerController>().stun)
             {
                 SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
+                audioSource.PlayOneShot(clip1);
                 destructionUtility.TriggerDestruction(transform);
             }
         }
@@ -68,6 +73,8 @@ public class F_16Controller : MonoBehaviour
     // 화면 하단에서 수평으로 비행하다 위로 올라와서 플레이어를 1초 동안 바라보다가 dive
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        
         // 공통 파괴 로직 초기화
         destructionUtility = gameObject.AddComponent<EnemyDestructionUtility>();
         Renderer[] renderers = GetComponentsInChildren<Renderer>();

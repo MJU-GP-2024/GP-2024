@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MosquitoController : MonoBehaviour
 {
+    public AudioSource audioSource;
+    public AudioClip clip1;
     GameObject SkillGenerator;
 
     public float speed = 4.0f;          // 고정 이동 속도
@@ -15,8 +17,6 @@ public class MosquitoController : MonoBehaviour
 
     private float startPositionX;       // 시작 X 위치 저장
     private bool isDescending = true;   // Y축 하강 여부
-
-    private AudioSource audioSource;     // 오디오 소스 컴포넌트
 
     public float initialSpeed = 3.0f;   // 초기 이동 속도
     public float maxSpeed = 6.0f;      // 최대 속도
@@ -55,6 +55,7 @@ public class MosquitoController : MonoBehaviour
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         this.SkillGenerator = GameObject.Find("SkillGenerator");
         audioSource = GetComponent<AudioSource>();
 
@@ -157,6 +158,7 @@ public class MosquitoController : MonoBehaviour
 
             if (Hp <= 0)
             {
+                audioSource.PlayOneShot(clip1);
                 destructionUtility.TriggerDestruction(transform); // 체력이 0 이하가 되면 적기 삭제
             }
         }
@@ -166,6 +168,7 @@ public class MosquitoController : MonoBehaviour
             if (!this.player.GetComponent<PlayerController>().stun)
             {
                 SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
+                audioSource.PlayOneShot(clip1);
                 destructionUtility.TriggerDestruction(transform);
             }
         }
@@ -176,10 +179,12 @@ public class MosquitoController : MonoBehaviour
                 DropItem();
             }
             SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
+            audioSource.PlayOneShot(clip1);
             destructionUtility.TriggerDestruction(transform);
         }
         else if (other.gameObject.tag == "Shield")
         {
+            audioSource.PlayOneShot(clip1);
             destructionUtility.TriggerDestruction(transform);
         }
     }

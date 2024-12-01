@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class LightningController : MonoBehaviour
 {
+    public AudioSource audioSource;
+    public AudioClip clip1;
+
     public float speed = 2.0f;          // 고정 이동 속도
     public float moveRange = 5.0f;      // X축 이동 범위
     public float descendSpeed = 0.6f;   // Y축 하강 속도
@@ -11,8 +14,6 @@ public class LightningController : MonoBehaviour
     private bool isDescending = true;   // Y축 하강 여부
     private bool isDestroyed = false;   // 파괴 여부 플래그
     public GameObject explosionEffectPrefab;
-
-    private AudioSource audioSource;    // 오디오 소스 컴포넌트
     private Renderer[] renderers;       // 오브젝트의 렌더러
     private Color originalColor;        // 원래 색상
 
@@ -104,6 +105,7 @@ public class LightningController : MonoBehaviour
             if (!player.GetComponent<PlayerController>().stun)
             {
                 SkillGenerator.GetComponent<SkillGenerator>().Cooldown(3);
+                audioSource.PlayOneShot(clip1);
                 TriggerDestruction();
             }
         }
@@ -114,10 +116,12 @@ public class LightningController : MonoBehaviour
                 DropItem();
             }
             SkillGenerator.GetComponent<SkillGenerator>().Cooldown(3);
+            audioSource.PlayOneShot(clip1);
             TriggerDestruction();
         }
         else if (other.CompareTag("Shield"))
         {
+            audioSource.PlayOneShot(clip1);
             TriggerDestruction();
         }
     }

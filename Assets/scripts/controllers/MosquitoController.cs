@@ -92,18 +92,6 @@ public class MosquitoController : MonoBehaviour
 
     void Update()
     {
-        if (Hp <= 0)
-        {
-            if (Random.value < dropChance) // Random.value는 0~1 사이의 값
-            {
-                DropItem();
-            }
-
-            GetComponent<Collider2D>().enabled = false;
-            audioSource.PlayOneShot(clip1);
-            SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
-            destructionUtility.TriggerDestruction(transform); // 체력이 0 이하가 되면 적기 삭제
-        }
         this.localTime += Time.deltaTime;
 
         if (transform.position.y < -6f)
@@ -161,7 +149,17 @@ public class MosquitoController : MonoBehaviour
 
             if (Hp <= 0)
             {
+                isDestroyed = true;
+
                 audioSource.PlayOneShot(clip1);
+
+                if (Random.value < dropChance) // Random.value는 0~1 사이의 값
+                {
+                    DropItem();
+                }
+
+                GetComponent<Collider2D>().enabled = false;
+                SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
                 destructionUtility.TriggerDestruction(transform); // 체력이 0 이하가 되면 적기 삭제
             }
         }

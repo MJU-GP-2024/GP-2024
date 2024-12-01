@@ -30,6 +30,18 @@ public class F_16Controller : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (this.Hp <= 0)
+        {
+            if (Random.value < dropChance) // Random.value는 0~1 사이의 값
+            {
+                DropItem();
+            }
+
+            GetComponent<Collider2D>().enabled = false;
+            SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
+            destructionUtility.TriggerDestruction(transform);
+        }
+
         if (other.gameObject.tag == "Player")
         {
             if (!this.player.GetComponent<PlayerController>().stun)
@@ -74,7 +86,7 @@ public class F_16Controller : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        
+
         // 공통 파괴 로직 초기화
         destructionUtility = gameObject.AddComponent<EnemyDestructionUtility>();
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
@@ -106,17 +118,7 @@ public class F_16Controller : MonoBehaviour
 
     void Update()
     {
-        if (this.Hp <= 0)
-        {
-            if (Random.value < dropChance) // Random.value는 0~1 사이의 값
-            {
-                DropItem();
-            }
 
-            GetComponent<Collider2D>().enabled = false;
-            SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
-            destructionUtility.TriggerDestruction(transform);
-        }
 
         if (isMovingHorizontally)
         {

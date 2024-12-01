@@ -171,22 +171,30 @@ public class MosquitoController : MonoBehaviour
                 SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
                 audioSource.PlayOneShot(clip1);
                 destructionUtility.TriggerDestruction(transform);
+                if (Random.value < dropChance) // Random.value는 0~1 사이의 값
+                {
+                    DropItem();
+                }
             }
         }
         else if (other.gameObject.tag == "SkillMissile")
         {
+            SkillGenerator.GetComponent<SkillGenerator>().Cooldown(0.5f);
+            audioSource.PlayOneShot(clip1);
+            destructionUtility.TriggerDestruction(transform);
             if (Random.value < dropChance) // Random.value는 0~1 사이의 값
             {
                 DropItem();
             }
-            SkillGenerator.GetComponent<SkillGenerator>().Cooldown(0.5f);
-            audioSource.PlayOneShot(clip1);
-            destructionUtility.TriggerDestruction(transform);
         }
         else if (other.gameObject.tag == "Shield")
         {
             audioSource.PlayOneShot(clip1);
             destructionUtility.TriggerDestruction(transform);
+            if (Random.value < dropChance) // Random.value는 0~1 사이의 값
+            {
+                DropItem();
+            }
         }
     }
 }

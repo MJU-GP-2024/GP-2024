@@ -370,7 +370,7 @@ MonoBehaviour:
   - {fileID: 6780475813141431252, guid: b099257ee8b0e17448bd8d3f73ee9f2c, type: 3}
   - {fileID: 5161092237043112884, guid: f0862df38a0cc784c8237b8ed400f22a, type: 3}
   dropChance: 0.25
-  explosionEffectPrefab: {fileID: 0}
+  explosionEffectPrefab: {fileID: 4780252486588737105, guid: 194a68ba7cb75a7418af021b71b532a8, type: 3}
 --- !u!60 &260087749759859409
 PolygonCollider2D:
   m_ObjectHideFlags: 0

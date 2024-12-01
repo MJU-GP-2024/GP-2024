@@ -11,19 +11,29 @@ public class SkillGenerator : MonoBehaviour
     public float slowMotionScale = 0.35f;
     public int TimeSkillActive = 0;
 
-    public float MissileCharge = 20f;
-    public float TimeCharge = 14f;
+    public float missileSkillCharged = 20f;
+    public float timeSkillCharged = 14f;
 
     public void Cooldown(float a)
     {
-        if ((MissileCharge + a) <= 20f)
+        if ((missileSkillCharged + a) <= 20f)
         {
-            MissileCharge += a;
+            missileSkillCharged += a;
         }
         else
         {
-            MissileCharge = 20f;
+            missileSkillCharged = 20f;
         }
+    }
+
+    public float GetMissileSkillCharged()
+    {
+        return this.missileSkillCharged;
+    }
+
+    public float GetTimeSkillCharged()
+    {
+        return this.timeSkillCharged;
     }
 
     IEnumerator Missile()
@@ -82,37 +92,40 @@ public class SkillGenerator : MonoBehaviour
     {
         if (TimeSkillActive == 1)
         {
-            TimeCharge -= 2 * Time.unscaledDeltaTime;
-            if (TimeCharge <= 0f)
+            timeSkillCharged -= 2 * Time.unscaledDeltaTime;
+            if (timeSkillCharged <= 0f)
             {
-                TimeCharge = 0f;
+                timeSkillCharged = 0f;
                 TimeControl();
             }
         }
         else if (TimeSkillActive == 0)
         {
-            TimeCharge += Time.deltaTime;
-            if (TimeCharge > 20f)
+            if (timeSkillCharged < 20f)
             {
-                TimeCharge = 20f;
+                timeSkillCharged += Time.deltaTime;
+            }
+            else
+            {
+                timeSkillCharged = 20f;
             }
         }
 
-        if (MissileCharge <= 20f)
+        if (missileSkillCharged < 20f)
         {
-            MissileCharge += Time.deltaTime;
+            missileSkillCharged += Time.deltaTime;
         }
-        else if (MissileCharge >= 20f)
+        else if (missileSkillCharged >= 20f)
         {
-            MissileCharge = 20f;
+            missileSkillCharged = 20f;
         }
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (MissileCharge >= 20f)
+            if (missileSkillCharged >= 20f)
             {
                 StartCoroutine(Missile());
-                MissileCharge = 0f;
+                missileSkillCharged = 0f;
             }
         }
 

@@ -5,7 +5,6 @@ public class F_16Controller : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip clip1;
 
-
     GameObject SkillGenerator;
     public float horizontalSpeed = 5f;
     public float upwardSpeed = 6f;
@@ -15,6 +14,7 @@ public class F_16Controller : MonoBehaviour
     private bool isDiving = false;
     private bool isMovingHorizontally = true;
     private bool isPausedAtDivePoint = false;
+    private bool isDestroyed = false; // 파괴 여부 플래그
     private float pauseTimer = 0f;
     private float divePoint;
     private float upwardPointRight;
@@ -30,45 +30,59 @@ public class F_16Controller : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (isDestroyed) return; // 이미 파괴된 경우 처리하지 않음
+
         if (this.Hp <= 0)
         {
-            if (Random.value < dropChance) // Random.value는 0~1 사이의 값
-            {
-                DropItem();
-            }
-
-            GetComponent<Collider2D>().enabled = false;
-            SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
-            destructionUtility.TriggerDestruction(transform);
+            TriggerDestruction();
         }
 
-        if (other.gameObject.tag == "Player")
+        if (other.CompareTag("Player"))
         {
-            if (!this.player.GetComponent<PlayerController>().stun)
+            if (!player.GetComponent<PlayerController>().stun)
             {
-                SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
                 audioSource.PlayOneShot(clip1);
-                destructionUtility.TriggerDestruction(transform);
+                TriggerDestruction();
             }
         }
-        else if (other.gameObject.tag == "PlayerMissile")
+        else if (other.CompareTag("PlayerMissile"))
         {
             this.Hp -= 1;
             StartCoroutine(destructionUtility.FlashRed());
-        }
-        else if (other.gameObject.tag == "SkillMissile")
-        {
-            if (Random.value < dropChance) // Random.value는 0~1 사이의 값
+
+            if (this.Hp <= 0 && !isDestroyed)
             {
-                DropItem();
+                audioSource.PlayOneShot(clip1);
+                TriggerDestruction();
             }
-            SkillGenerator.GetComponent<SkillGenerator>().Cooldown(0.5f);
-            destructionUtility.TriggerDestruction(transform);
         }
-        else if (other.gameObject.tag == "Shield")
+        else if (other.CompareTag("SkillMissile"))
         {
-            destructionUtility.TriggerDestruction(transform);
+            SkillGenerator.GetComponent<SkillGenerator>().Cooldown(0.5f);
+            TriggerDestruction();
         }
+        else if (other.CompareTag("Shield"))
+        {
+            TriggerDestruction();
+        }
+    }
+
+    private void TriggerDestruction()
+    {
+        if (isDestroyed) return;
+
+        isDestroyed = true;
+
+        // 아이템 드롭
+        if (Random.value < dropChance)
+        {
+            DropItem();
+        }
+
+        // 충돌 비활성화 및 파괴 이펙트 실행
+        GetComponent<Collider2D>().enabled = false;
+        SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
+        destructionUtility.TriggerDestruction(transform);
     }
 
     private void DropItem()
@@ -81,8 +95,6 @@ public class F_16Controller : MonoBehaviour
         droppedItem.GetComponent<ItemDropController>().select(randomIndex);
     }
 
-
-    // 화면 하단에서 수평으로 비행하다 위로 올라와서 플레이어를 1초 동안 바라보다가 dive
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -118,7 +130,11 @@ public class F_16Controller : MonoBehaviour
 
     void Update()
     {
-
+        if (isDestroyed)
+        {
+            // TriggerDestruction 호출 후 파괴 상태에서는 별도 로직 없음
+            return;
+        }
 
         if (isMovingHorizontally)
         {

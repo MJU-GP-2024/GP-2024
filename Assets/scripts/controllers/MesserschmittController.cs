@@ -65,10 +65,6 @@ public class MesserschmittController : MonoBehaviour
         }
         else if (other.gameObject.tag == "SkillMissile")
         {
-            if (Random.value < dropChance) // Random.value는 0~1 사이의 값
-            {
-                DropItem();
-            }
             SkillGenerator.GetComponent<SkillGenerator>().Cooldown(0.5f);
             audioSource.PlayOneShot(clip1);
             TriggerDestruction(); // 파괴 처리

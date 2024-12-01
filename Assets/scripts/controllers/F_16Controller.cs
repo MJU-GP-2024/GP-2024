@@ -15,63 +15,49 @@ public class F_16Controller : MonoBehaviour
     private float upwardPointRight;
     private float upwardPointLeft;
     private Vector2 diveDirection;
-    GameObject player;
+    public GameObject explosionEffectPrefab;
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            if (!this.player.GetComponent<PlayerController>().stun)
-            {
-                Destroy(gameObject);
-            }
-        }
-        else if (other.gameObject.tag == "bullet0")
-        {
-            Destroy(gameObject);
-        }
-        else if (other.gameObject.tag == "SkillMissile")
-        {
-            Destroy(gameObject);
-        }
-    }
+    private EnemyDestructionUtility destructionUtility;
+    public int maxHits = 3;           // 파괴되기까지 필요한 공격 횟수
+    private int currentHits = 0;      // 현재 공격받은 횟수
 
-
-    // 화면 하단에서 수평으로 비행하다 위로 올라와서 플레이어를 1초 동안 바라보다가 dive
     void Start()
     {
-        this.player = GameObject.Find("Player");
+        // 공통 파괴 로직 초기화
+        destructionUtility = gameObject.AddComponent<EnemyDestructionUtility>();
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        Color originalColor = renderers[0].material.color;
+        destructionUtility.InitializeDestruction(renderers, originalColor, explosionEffectPrefab);
+
+        // 플레이어 위치 참조
         playerTrans = GameObject.Find("Player").transform;
 
-        // 2와 4.5 사이에서 랜덤하게 다이브 포인트 설정
+        // 랜덤으로 다이브 포인트 및 이동 범위 설정
         divePoint = Random.Range(2f, 4.5f);
         upwardPointRight = Random.Range(2f, 4.8f);
         upwardPointLeft = Random.Range(-2f, -4.8f);
 
-        // 스폰 위치에 따라 바라보는 방향 설정
+        // 스폰 위치에 따라 초기 방향 설정
         if (transform.position.x < 0)
         {
-            // 왼쪽에서 스폰되면 오른쪽으로 이동
             horizontalSpeed = Mathf.Abs(horizontalSpeed);
-            transform.localRotation = Quaternion.Euler(0f, 0f, -90f); // 오른쪽을 바라보도록 회전
+            transform.localRotation = Quaternion.Euler(0f, 0f, -90f); // 오른쪽으로 이동
         }
         else
         {
-            // 오른쪽에서 스폰되면 왼쪽으로 이동
             horizontalSpeed = -Mathf.Abs(horizontalSpeed);
-            transform.localRotation = Quaternion.Euler(0f, 0f, 90f); // 왼쪽을 바라보도록 회전
+            transform.localRotation = Quaternion.Euler(0f, 0f, 90f); // 왼쪽으로 이동
         }
     }
 
     void Update()
     {
-
+        // 수평 이동 단계
         if (isMovingHorizontally)
         {
-            // 수평 이동 (world space)
             transform.Translate(Vector3.right * horizontalSpeed * Time.deltaTime, Space.World);
 
-            // 스폰된 위치의 각 반대편 끝에 다다르면 각각의 upwardPoint 설정
+            // 수평 이동이 끝나면 위로 이동
             if ((horizontalSpeed > 0 && transform.position.x >= upwardPointRight) ||
                 (horizontalSpeed < 0 && transform.position.x <= upwardPointLeft))
             {
@@ -79,38 +65,37 @@ public class F_16Controller : MonoBehaviour
                 transform.localRotation = Quaternion.Euler(0f, 0f, 0f); // 위를 바라보도록 회전
             }
         }
+        // 위로 상승 단계
         else if (!isDiving)
         {
-            // dive point까지 위로 이동 (world space)
             transform.Translate(Vector3.up * upwardSpeed * Time.deltaTime, Space.World);
 
             if (transform.position.y >= divePoint && playerTrans != null)
             {
                 isDiving = true;
-                isPausedAtDivePoint = true; // dive point에서 pause
+                isPausedAtDivePoint = true; // 다이브 포인트에서 멈춤
             }
         }
+        // 다이브 포인트에서 1초 멈춤
         else if (isPausedAtDivePoint)
         {
-            // dive point에서 1초 플레이어를 바라보며 pause
             pauseTimer += Time.deltaTime;
-            transform.position = new Vector2(transform.position.x, divePoint); // Keep the enemy at the dive point
+            transform.position = new Vector2(transform.position.x, divePoint); // 다이브 포인트 고정
 
-            // pause 했을 때 플레이어를 바라보도록 회전
+            // 플레이어를 바라보도록 회전
             Vector2 directionToPlayer = (playerTrans.position - transform.position).normalized;
             float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
-            transform.localRotation = Quaternion.Euler(0f, 0f, angle - 90f); // Adjust image rotation to face player
+            transform.localRotation = Quaternion.Euler(0f, 0f, angle - 90f);
 
             if (pauseTimer >= 1f)
             {
                 isPausedAtDivePoint = false;
-                // 플레이어를 향한 최종 direction 결정
-                diveDirection = directionToPlayer;
+                diveDirection = directionToPlayer; // 다이브 방향 결정
             }
         }
+        // 다이브 단계
         else
         {
-            // Dive in the direction calculated after the pause (world space)
             diveSpeed += diveAcceleration * Time.deltaTime;
             transform.Translate(diveDirection * diveSpeed * Time.deltaTime, Space.World);
         }
@@ -122,5 +107,30 @@ public class F_16Controller : MonoBehaviour
         }
     }
 
+    // 마우스 클릭 시 호출
+    void OnMouseDown()
+    {
+        currentHits++;
+        StartCoroutine(destructionUtility.FlashRed());
 
+        if (currentHits >= maxHits)
+        {
+            destructionUtility.TriggerDestruction(transform);
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            if (!GameObject.Find("Player").GetComponent<PlayerController>().stun)
+            {
+                destructionUtility.TriggerDestruction(transform);
+            }
+        }
+        else if (other.gameObject.tag == "bullet0" || other.gameObject.tag == "SkillMissile")
+        {
+            destructionUtility.TriggerDestruction(transform);
+        }
+    }
 }

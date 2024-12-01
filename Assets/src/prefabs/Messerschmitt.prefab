@@ -276,6 +276,8 @@ MonoBehaviour:
   rotateSpeed: 5
   minInterval: 1
   maxInterval: 2
+  maxHits: 3
+  explosionEffectPrefab: {fileID: 4780252486588737105, guid: 194a68ba7cb75a7418af021b71b532a8, type: 3}
 --- !u!60 &8357892306021835119
 PolygonCollider2D:
   m_ObjectHideFlags: 0

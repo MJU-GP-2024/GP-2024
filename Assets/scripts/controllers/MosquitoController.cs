@@ -26,6 +26,14 @@ public class MosquitoController : MonoBehaviour
     public float minYposition = 2.5f; // y축 최대하강 위치
 
     public float localTime; // 개인 시간
+    public int maxHits = 3;           // 파괴되기까지 필요한 공격 횟수
+    private int currentHits = 0;      // 현재 공격받은 횟수
+
+    public GameObject explosionEffectPrefab; 
+    private Renderer[] renderers;     // 오브젝트의 렌더러
+    private Color originalColor;      // 원래 색상
+
+    private EnemyDestructionUtility destructionUtility;
 
     GameObject player;
 
@@ -40,6 +48,18 @@ public class MosquitoController : MonoBehaviour
 
         this.player = GameObject.Find("Player");
         startPositionX = transform.position.x;
+
+        // 렌더러 가져오기 및 색상 초기화
+        renderers = GetComponentsInChildren<Renderer>();
+        if (renderers.Length > 0)
+        {
+            originalColor = renderers[0].material.color;
+        }
+
+        // 파괴 로직 유틸리티 초기화
+        destructionUtility = gameObject.AddComponent<EnemyDestructionUtility>();
+        destructionUtility.InitializeDestruction(renderers, originalColor, explosionEffectPrefab);
+
         StartCoroutine(FireMissile()); // 미사일 자동 발사 시작
     }
 
@@ -72,6 +92,18 @@ public class MosquitoController : MonoBehaviour
         // PingPong 함수와 증가된 속도를 사용하여 X축 이동
         transform.position = new Vector3(newX, transform.position.y, transform.position.z);
     }
+    
+    // 마우스 클릭 시 호출
+    void OnMouseDown()
+    {
+        currentHits++;
+        StartCoroutine(destructionUtility.FlashRed());
+
+        if (currentHits >= maxHits)
+        {
+            destructionUtility.TriggerDestruction(transform);
+        }
+    }
 
     IEnumerator FireMissile()
     {
@@ -102,7 +134,7 @@ public class MosquitoController : MonoBehaviour
 
             if (health <= 0)
             {
-                Destroy(gameObject); // 체력이 0 이하가 되면 적기 삭제
+                destructionUtility.TriggerDestruction(transform); // 체력이 0 이하가 되면 적기 삭제
             }
         }
 
@@ -110,7 +142,7 @@ public class MosquitoController : MonoBehaviour
         {
             if (!this.player.GetComponent<PlayerController>().stun)
             {
-                Destroy(gameObject);
+                destructionUtility.TriggerDestruction(transform);
             }
         }
 
@@ -120,7 +152,7 @@ public class MosquitoController : MonoBehaviour
         }
         else if (other.gameObject.tag == "SkillMissile")
         {
-            Destroy(gameObject);
+            destructionUtility.TriggerDestruction(transform);
         }
     }
 }

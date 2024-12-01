@@ -273,13 +273,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0df0ac8d02c0c6241bef80dda309ca9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 4
+  moveRange: 5
+  descendSpeed: 1
+  health: 5
+  missilePrefab: {fileID: 0}
+  missileSpawnPoint: {fileID: 0}
   initialSpeed: 3
   maxSpeed: 10
   acceleration: 0.1
-  moveRange: 5
-  descendSpeed: 1
   minYposition: 2.5
   localTime: 0
+  maxHits: 3
+  explosionEffectPrefab: {fileID: 4780252486588737105, guid: 194a68ba7cb75a7418af021b71b532a8, type: 3}
 --- !u!60 &4364833663572716262
 PolygonCollider2D:
   m_ObjectHideFlags: 0

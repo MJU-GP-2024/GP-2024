@@ -282,7 +282,7 @@ Transform:
   m_GameObject: {fileID: 5051268243270119762}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.8145556, y: -2.4416637, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -361,6 +361,8 @@ MonoBehaviour:
   upwardSpeed: 6
   diveSpeed: 10
   diveAcceleration: 5
+  explosionEffectPrefab: {fileID: 4780252486588737105, guid: 194a68ba7cb75a7418af021b71b532a8, type: 3}
+  maxHits: 3
 --- !u!60 &260087749759859409
 PolygonCollider2D:
   m_ObjectHideFlags: 0

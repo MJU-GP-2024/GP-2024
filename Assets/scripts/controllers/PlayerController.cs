@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public AudioSource audioSource;
+    public AudioClip clip1;
+    public AudioClip clip2;
+
     GameObject SkillGenerator;
     public GameObject PlayerMissile;
     public GameObject ShieldPrefab;
@@ -39,6 +43,7 @@ public class PlayerController : MonoBehaviour
 
     public void PowerUp()
     {
+        audioSource.PlayOneShot(clip1);
         if (this.Firemode < 3)
         {
             Firemode += 1;
@@ -46,6 +51,7 @@ public class PlayerController : MonoBehaviour
     }
     public void HpUp()
     {
+        audioSource.PlayOneShot(clip1);
         if (Hp < 4)
         {
             Hp += 1;
@@ -53,6 +59,7 @@ public class PlayerController : MonoBehaviour
     }
     public void Shield()
     {
+        audioSource.PlayOneShot(clip1);
         stun = true;
         GameObject shield = Instantiate(ShieldPrefab);
         Destroy(shield, 3f);
@@ -60,6 +67,7 @@ public class PlayerController : MonoBehaviour
     }
     public void SpeedUp()
     {
+        audioSource.PlayOneShot(clip1);
         maxSpeed = 5f;
     }
 
@@ -140,6 +148,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         this.SkillGenerator = GameObject.Find("SkillGenerator");
         playerCollider = GetComponent<Collider2D>(); // Player의 Collider 참조
         StartCoroutine(FireMissilesContinuously()); // 미사일 자동 발사 시작
@@ -270,7 +279,7 @@ public class PlayerController : MonoBehaviour
                     Instantiate(PlayerMissile, transform.position + new Vector3(-0.3f, 0.1f, 0), Quaternion.Euler(0, 0, 17f));
 
                 }
-            }
+                audioSource.Play(clip2);            }
             yield return new WaitForSecondsRealtime(missileCooldown);
         }
     }

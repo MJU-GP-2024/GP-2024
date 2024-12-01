@@ -135,6 +135,7 @@ public class LightningController : MonoBehaviour
 
         SkillGenerator.GetComponent<SkillGenerator>().Cooldown(3);
         destructionUtility.TriggerDestruction(transform);
+        StopCoroutine(ShootRandomly());
     }
 
     private void DropItem()

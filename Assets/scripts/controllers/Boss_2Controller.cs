@@ -1,62 +1,86 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Boss_2Controller : MonoBehaviour
 {
     int ready = 0;
     float Hp = 150f;
+    float maxHp = 150f; // 최대 체력
     float minSinglePatternInterval = 0.0f; // single 무기 발사 minimum interval time
     float maxSinglePatternInterval = 1.5f; // single 무기 발사 max interval time
     float minCirclePatternInterval = 7.0f; // circle 무기 발사 minimum interval time
-    float maxCirclePatternInterval = 10.0f; // circle무기 발사 max interval time
+    float maxCirclePatternInterval = 10.0f; // circle 무기 발사 max interval time
+
+    private BossDeathHandler deathHandler;
+    private bool isDying = false; // 보스 파괴 상태를 나타내는 플래그
+    private SpriteRenderer spriteRenderer; // 보스의 SpriteRenderer
 
     GameObject ScenarioDirector;
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {if(this.ready == 1){
-        if (other.CompareTag("PlayerMissile")) // 플레이어 미사일과 충돌했을 경우
-        {   this.Hp -= 1; // 체력 감소
-
-        }
-        else if(other.gameObject.tag == "SkillMissile") {
-            this.Hp -= 4;
-        }
-        }
-    }
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        this.ScenarioDirector = GameObject.Find("ScenarioDirector");
+        deathHandler = GetComponent<BossDeathHandler>();
+        spriteRenderer = GetComponent<SpriteRenderer>(); // SpriteRenderer 가져오기
+        ScenarioDirector = GameObject.Find("ScenarioDirector");
 
-        // Shoot 메서드 코루틴
         StartCoroutine(SinglePatternShooter());
         StartCoroutine(CirclePatternShooter());
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (this.ready == 0 && this.transform.position.y >= 4.7)
+        if (ready == 0 && transform.position.y >= 4.7)
         {
-            this.transform.Translate(0, -0.6f * Time.deltaTime, 0);
+            transform.Translate(0, -0.6f * Time.deltaTime, 0);
         }
 
-        if (this.ready == 0 && this.transform.position.y <= 4.7)
+        if (ready == 0 && transform.position.y <= 4.7)
         {
-            this.ready = 1;
+            ready = 1;
         }
 
-        if (Input.GetKeyDown(KeyCode.X))
-        { //임시 파괴 코드
-            this.Hp -= 1001;
-        }
+        if (Input.GetKeyDown(KeyCode.X)) // 임시 파괴 코드
+            Hp -= 1001;
 
-        if (this.Hp <= 0)
+        if (Hp <= 0 && !isDying)
         {
             ScenarioDirector.GetComponent<ScenarioDirector>().bossDied();
-            Destroy(gameObject);
+            isDying = true; // 파괴 상태로 설정
+            deathHandler.TriggerDeathSequence();
+        }
+        else
+        {
+            UpdateColorByHealth(); // 체력에 따라 색상 업데이트
+        }
+    }
+
+    private void UpdateColorByHealth()
+    {
+        if (spriteRenderer != null)
+        {
+            // 체력 비율 계산
+            float healthRatio = Mathf.Clamp01(Hp / maxHp);
+
+            // 색상 조정 (빨간색으로 점차 변화, 파괴 직전엔 70% 붉게 변함)
+            float redIntensity = 1.0f - (healthRatio * 0.3f); // 최소 70% 붉은 기
+            spriteRenderer.color = new Color(1.0f, redIntensity, redIntensity, 1.0f);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (ready == 1)
+        {
+            if (other.CompareTag("PlayerMissile")) // 플레이어 미사일과 충돌했을 경우
+            {
+                Hp -= 1; // 체력 감소
+                deathHandler.ApplyHitEffect(); // 피격 효과 호출
+            }
+            else if (other.gameObject.tag == "SkillMissile")
+            {
+                Hp -= 4;
+                deathHandler.ApplyHitEffect(); // 피격 효과 호출
+            }
         }
     }
 
@@ -64,12 +88,13 @@ public class Boss_2Controller : MonoBehaviour
     {
         while (true)
         {
-            // 무작위 대기 시간
+            if (isDying) yield break; // 보스가 파괴 중일 때는 발사 중단
+
             float waitTime = Random.Range(minSinglePatternInterval, maxSinglePatternInterval);
             yield return new WaitForSeconds(waitTime);
 
-            // shoot() 메서드 실행
-            GetComponent<HostileWeaponProvider>().Shoot("single");
+            if (!isDying) // 파괴 상태가 아닐 때만 발사
+                GetComponent<HostileWeaponProvider>().Shoot("single");
         }
     }
 
@@ -77,12 +102,13 @@ public class Boss_2Controller : MonoBehaviour
     {
         while (true)
         {
-            // 무작위 대기 시간
+            if (isDying) yield break; // 보스가 파괴 중일 때는 발사 중단
+
             float waitTime = 4 + Random.Range(minCirclePatternInterval, maxCirclePatternInterval);
             yield return new WaitForSeconds(waitTime);
 
-            // shoot() 메서드 실행
-            GetComponent<HostileWeaponProvider>().Shoot("circle");
+            if (!isDying) // 파괴 상태가 아닐 때만 발사
+                GetComponent<HostileWeaponProvider>().Shoot("circle");
         }
     }
 }

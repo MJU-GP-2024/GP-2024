@@ -289,6 +289,8 @@ MonoBehaviour:
   - {fileID: 5161092237043112884, guid: f0862df38a0cc784c8237b8ed400f22a, type: 3}
   dropChance: 0.25
   localTime: 0
+  maxHits: 3
+  explosionEffectPrefab: {fileID: 4780252486588737105, guid: 194a68ba7cb75a7418af021b71b532a8, type: 3}
 --- !u!60 &4364833663572716262
 PolygonCollider2D:
   m_ObjectHideFlags: 0

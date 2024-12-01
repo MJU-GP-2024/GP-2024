@@ -350,7 +350,7 @@ GameObject:
   - component: {fileID: 7277368996245818209}
   - component: {fileID: 107083450611698094}
   m_Layer: 0
-  m_Name: Player
+  m_Name: player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -440,6 +440,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93d46afaf4acb4840826ebf941973198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stun: 0
+  missilePrefab: {fileID: 0}
+  missileSpawnPoint: {fileID: 0}
+  destructionEffectPrefab: {fileID: 4780252486588737105, guid: 194a68ba7cb75a7418af021b71b532a8, type: 3}
+  finalDestructionEffectPrefab: {fileID: 9025944782290901331, guid: c37a0d989d1de614cb66d20de1e5c68c, type: 3}
 --- !u!60 &7277368996245818209
 PolygonCollider2D:
   m_ObjectHideFlags: 0

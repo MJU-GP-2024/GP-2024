@@ -29,6 +29,12 @@ public class MosquitoController : MonoBehaviour
 
     public float localTime; // 개인 시간
 
+    public GameObject explosionEffectPrefab;
+    private Renderer[] renderers;     // 오브젝트의 렌더러
+    private Color originalColor;      // 원래 색상
+
+    private EnemyDestructionUtility destructionUtility;
+
     GameObject player;
 
     private void DropItem()
@@ -53,7 +59,19 @@ public class MosquitoController : MonoBehaviour
 
         this.player = GameObject.Find("Player");
         startPositionX = transform.position.x;
-        StartCoroutine(ShootRandomly()); 
+
+        // 렌더러 가져오기 및 색상 초기화
+        renderers = GetComponentsInChildren<Renderer>();
+        if (renderers.Length > 0)
+        {
+            originalColor = renderers[0].material.color;
+        }
+
+        // 파괴 로직 유틸리티 초기화
+        destructionUtility = gameObject.AddComponent<EnemyDestructionUtility>();
+        destructionUtility.InitializeDestruction(renderers, originalColor, explosionEffectPrefab);
+
+        StartCoroutine(ShootRandomly());
     }
 
     IEnumerator ShootRandomly()
@@ -72,17 +90,18 @@ public class MosquitoController : MonoBehaviour
     void Update()
     {
         if (Hp <= 0)
+        {
+            if (Random.value < dropChance) // Random.value는 0~1 사이의 값
             {
-                if (Random.value < dropChance) // Random.value는 0~1 사이의 값
-                {
-                    DropItem();
-                }
-                SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
-                Destroy(gameObject); // 체력이 0 이하가 되면 적기 삭제
+                DropItem();
             }
+            SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
+            destructionUtility.TriggerDestruction(transform); // 체력이 0 이하가 되면 적기 삭제
+        }
         this.localTime += Time.deltaTime;
 
-        if(transform.position.y < -6f) {
+        if (transform.position.y < -6f)
+        {
             Destroy(gameObject);
         }
 
@@ -131,6 +150,13 @@ public class MosquitoController : MonoBehaviour
             // 충돌 이펙트 생성
             // 충돌 사운드 재생
             audioSource.Play();
+            StartCoroutine(destructionUtility.FlashRed());
+
+
+            if (health <= 0)
+            {
+                destructionUtility.TriggerDestruction(transform); // 체력이 0 이하가 되면 적기 삭제
+            }
         }
 
         if (other.gameObject.tag == "Player")
@@ -138,20 +164,21 @@ public class MosquitoController : MonoBehaviour
             if (!this.player.GetComponent<PlayerController>().stun)
             {
                 SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
-                Destroy(gameObject);
+                destructionUtility.TriggerDestruction(transform);
             }
         }
         else if (other.gameObject.tag == "SkillMissile")
         {
             if (Random.value < dropChance) // Random.value는 0~1 사이의 값
             {
-            DropItem();
-        }
+                DropItem();
+            }
             SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
-            Destroy(gameObject);
+            destructionUtility.TriggerDestruction(transform);
         }
-        else if (other.gameObject.tag == "Shield") {
-            Destroy(gameObject);
+        else if (other.gameObject.tag == "Shield")
+        {
+            destructionUtility.TriggerDestruction(transform);
         }
     }
 }

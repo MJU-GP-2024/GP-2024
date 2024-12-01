@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MesserschmittController : MonoBehaviour
@@ -12,8 +11,15 @@ public class MesserschmittController : MonoBehaviour
     private Vector2 startPoint;
     private Vector2 targetPoint; // player를 endpoint로 잡는 경우
     private GameObject player;
+
+    public GameObject explosionEffectPrefab;
+    private Renderer[] renderers;     // 오브젝트의 렌더러
+    private Color originalColor;      // 원래 색상
+
+    private EnemyDestructionUtility destructionUtility;
+
     // private ItemDropController itemDropController;
-    
+
     private int Hp = 1;
     public GameObject[] itemPrefabs; // 아이템 프리팹 배열
     public float dropChance = 0.25f;  // 아이템 드롭 확률
@@ -34,24 +40,26 @@ public class MesserschmittController : MonoBehaviour
             if (!this.player.GetComponent<PlayerController>().stun)
             {
                 SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
-                Destroy(gameObject);
+                destructionUtility.TriggerDestruction(transform);
             }
         }
         else if (other.gameObject.tag == "PlayerMissile")
         {
             this.Hp -= 1;
+            StartCoroutine(destructionUtility.FlashRed());
         }
         else if (other.gameObject.tag == "SkillMissile")
         {
             if (Random.value < dropChance) // Random.value는 0~1 사이의 값
+            {
+                DropItem();
+            }
+            SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
+            destructionUtility.TriggerDestruction(transform);
+        }
+        else if (other.gameObject.tag == "Shield")
         {
-            DropItem();
-        }
-        SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
-            Destroy(gameObject);
-        }
-        else if (other.gameObject.tag == "Shield") {
-            Destroy(gameObject);
+            destructionUtility.TriggerDestruction(transform);
         }
     }
 
@@ -70,6 +78,19 @@ public class MesserschmittController : MonoBehaviour
         this.SkillGenerator = GameObject.Find("SkillGenerator");
 
         this.player = GameObject.Find("Player");
+
+        // 렌더러 가져오기 및 색상 초기화
+        renderers = GetComponentsInChildren<Renderer>();
+        if (renderers.Length > 0)
+        {
+            originalColor = renderers[0].material.color;
+        }
+
+        // 파괴 로직 유틸리티 초기화
+        destructionUtility = gameObject.AddComponent<EnemyDestructionUtility>();
+        destructionUtility.InitializeDestruction(renderers, originalColor, explosionEffectPrefab);
+
+        // 무작위 무기 발사 시작
         StartCoroutine(ShootRandomly());    // Shoot 메서드 코루틴
 
         startPoint = transform.position;
@@ -88,19 +109,21 @@ public class MesserschmittController : MonoBehaviour
 
     void Update()
     {
-        if(this.Hp <= 0) {
-            if (Random.value < dropChance) // Random.value는 0~1 사이의 값
+        if (this.Hp <= 0)
         {
-            DropItem();
-        }
+            if (Random.value < dropChance) // Random.value는 0~1 사이의 값
+            {
+                DropItem();
+            }
             SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
-            Destroy(gameObject);
+            destructionUtility.TriggerDestruction(transform);
         }
+        // 이동 처리
+        transform.Translate(0, speed * Time.deltaTime, 0);
+        // 회전 처리
+        transform.Rotate(0, 0, rotateSpeed * Time.deltaTime);
 
-        transform.Translate(0, this.speed * Time.deltaTime, 0);
-        transform.Rotate(0, 0, this.rotateSpeed * Time.deltaTime);
-
-        // 화면에서 벗어나면 객체 삭제
+        // 화면 밖으로 벗어났을 경우 삭제
         if (transform.position.y < -6.0f || transform.position.x < -6f || transform.position.x > 6f)
         {
             Destroy(gameObject);
@@ -108,15 +131,15 @@ public class MesserschmittController : MonoBehaviour
     }
 
 
+    // 무작위 무기 발사
     IEnumerator ShootRandomly()
     {
         while (true)
         {
-            // 무작위 대기 시간
             float waitTime = Random.Range(minInterval, maxInterval);
             yield return new WaitForSeconds(waitTime);
 
-            // shoot() 메서드 실행
+            // 무기 발사 호출 (HostileWeaponProvider 사용)
             GetComponent<HostileWeaponProvider>().Shoot("single");
         }
     }

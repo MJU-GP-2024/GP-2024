@@ -86,6 +86,7 @@ public class MesserschmittController : MonoBehaviour
             DropItem();
         }
 
+        GetComponent<Collider2D>().enabled = false;
         SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
         destructionUtility.TriggerDestruction(transform);
     }
@@ -100,7 +101,7 @@ public class MesserschmittController : MonoBehaviour
         droppedItem.GetComponent<ItemDropController>().select(randomIndex);
     }
 
-    void Start()
+    private void Start()
     {
         audioSource = GetComponent<AudioSource>();
         this.SkillGenerator = GameObject.Find("SkillGenerator");
@@ -130,7 +131,7 @@ public class MesserschmittController : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         if (this.Hp <= 0 && !isDestroyed)
         {
@@ -150,7 +151,7 @@ public class MesserschmittController : MonoBehaviour
     }
 
     // 무작위 무기 발사
-    IEnumerator ShootRandomly()
+    private IEnumerator ShootRandomly()
     {
         while (!isDestroyed)
         {

@@ -112,6 +112,8 @@ public class F_16Controller : MonoBehaviour
             {
                 DropItem();
             }
+
+            GetComponent<Collider2D>().enabled = false;
             SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
             destructionUtility.TriggerDestruction(transform);
         }

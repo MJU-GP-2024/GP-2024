@@ -9,7 +9,7 @@ public class LightningController : MonoBehaviour
     public float speed = 2.0f;          // 고정 이동 속도
     public float moveRange = 5.0f;      // X축 이동 범위
     public float descendSpeed = 0.6f;   // Y축 하강 속도
-    private int Hp = 13;                // 적기 체력
+    public int hp = 13;                // 적기 체력
     private float startPositionX;       // 시작 X 위치 저장
     private bool isDescending = true;   // Y축 하강 여부
     private bool isDestroyed = false;   // 파괴 여부 플래그
@@ -83,12 +83,6 @@ public class LightningController : MonoBehaviour
         // X축 이동 및 PingPong
         float newX = startPositionX + Mathf.PingPong(Time.time * speed, moveRange) - moveRange / 2;
         transform.position = new Vector3(newX, transform.position.y, transform.position.z);
-
-        // 파괴 처리
-        if (Hp <= 0 && !isDestroyed)
-        {
-            TriggerDestruction();
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -97,7 +91,7 @@ public class LightningController : MonoBehaviour
 
         if (other.CompareTag("PlayerMissile"))
         {
-            Hp -= 1;
+            hp -= 1;
             StartCoroutine(destructionUtility.FlashRed());
         }
         else if (other.CompareTag("Player"))
@@ -124,6 +118,15 @@ public class LightningController : MonoBehaviour
             audioSource.PlayOneShot(clip1);
             TriggerDestruction();
         }
+
+        Debug.Log(hp + "remain");
+
+        // 파괴 처리
+        if (hp <= 0 && !isDestroyed)
+        {
+            Debug.Log("라이트닝사망");
+            TriggerDestruction();
+        }
     }
 
     private void TriggerDestruction()
@@ -137,6 +140,7 @@ public class LightningController : MonoBehaviour
             DropItem();
         }
 
+        GetComponent<Collider2D>().enabled = false;
         SkillGenerator.GetComponent<SkillGenerator>().Cooldown(3);
         destructionUtility.TriggerDestruction(transform);
         StopCoroutine(ShootRandomly());
@@ -149,7 +153,7 @@ public class LightningController : MonoBehaviour
         droppedItem.GetComponent<ItemDropController>().select(randomIndex);
     }
 
-    IEnumerator ShootRandomly()
+    private IEnumerator ShootRandomly()
     {
         while (!isDestroyed)
         {

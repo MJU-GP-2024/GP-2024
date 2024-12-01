@@ -97,6 +97,8 @@ public class MosquitoController : MonoBehaviour
             {
                 DropItem();
             }
+
+            GetComponent<Collider2D>().enabled = false;
             SkillGenerator.GetComponent<SkillGenerator>().Cooldown(1);
             destructionUtility.TriggerDestruction(transform); // 체력이 0 이하가 되면 적기 삭제
         }

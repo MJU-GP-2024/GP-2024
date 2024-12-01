@@ -134,6 +134,7 @@ public class PlayerController : MonoBehaviour
 
         if (this.Hp <= 0 && !this.isDestroyed)
         {
+            GetComponent<Collider2D>().enabled = false;
             StartCoroutine(DestroyPlayer()); // 파괴 루틴 시작
         }
     }

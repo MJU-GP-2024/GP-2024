@@ -133,6 +133,7 @@ public class LightningController : MonoBehaviour
             DropItem();
         }
 
+        GetComponent<Collider2D>().enabled = false;
         SkillGenerator.GetComponent<SkillGenerator>().Cooldown(3);
         destructionUtility.TriggerDestruction(transform);
     }
@@ -144,7 +145,7 @@ public class LightningController : MonoBehaviour
         droppedItem.GetComponent<ItemDropController>().select(randomIndex);
     }
 
-    IEnumerator ShootRandomly()
+    private IEnumerator ShootRandomly()
     {
         while (!isDestroyed)
         {

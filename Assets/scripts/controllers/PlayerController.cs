@@ -279,7 +279,7 @@ public class PlayerController : MonoBehaviour
                     Instantiate(PlayerMissile, transform.position + new Vector3(-0.3f, 0.1f, 0), Quaternion.Euler(0, 0, 17f));
 
                 }
-                audioSource.Play(clip2);            }
+                         }
             yield return new WaitForSecondsRealtime(missileCooldown);
         }
     }

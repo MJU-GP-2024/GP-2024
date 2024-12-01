@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class MissileController : MonoBehaviour
 {
-    public AudioSource audioSource;
-    public AudioClip clip1;
     private int Choose;
     public GameObject explode1;
     public GameObject explode2;
@@ -24,7 +22,6 @@ public class MissileController : MonoBehaviour
                 GameObject effect = Instantiate(explode2, location, Quaternion.identity);
                 Destroy(effect, 0.4f);
             }
-            audioSource.PlayOneShot(clip1);
             Destroy(gameObject);
         }
         else if(other.gameObject.tag == "Boss") {
@@ -36,7 +33,6 @@ public class MissileController : MonoBehaviour
                 GameObject effect = Instantiate(explode2, location, Quaternion.identity);
                 Destroy(effect, 0.4f);
             }
-            audioSource.PlayOneShot(clip1);
             Destroy(gameObject);
         }
         else if(other.gameObject.tag == "Menemy") {
@@ -48,14 +44,13 @@ public class MissileController : MonoBehaviour
                 GameObject effect = Instantiate(explode2, location, Quaternion.identity);
                 Destroy(effect, 0.4f);
             }
-            audioSource.PlayOneShot(clip1);
             Destroy(gameObject);
         }
     }
     // Start is called before the first frame update
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        
         Choose = Random.Range(0,2);
     }
 

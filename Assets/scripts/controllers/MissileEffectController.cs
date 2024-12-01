@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MissileEffectController : MonoBehaviour
 {
+
     private float speed = 1f;
 
     // Start is called before the first frame update

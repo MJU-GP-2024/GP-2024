@@ -175,6 +175,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 6dc6e88cfa2b3574f805734185986f50, type: 3}
     - target: {fileID: 6898332952443867373, guid: 88dcbb9ecd0ff4842a1106fa3e3562a6, type: 3}
+      propertyPath: clip2
+      value: 
+      objectReference: {fileID: 8300000, guid: e9a5d89bd7bddb2449c38f4fdea95231, type: 3}
+    - target: {fileID: 6898332952443867373, guid: 88dcbb9ecd0ff4842a1106fa3e3562a6, type: 3}
       propertyPath: ShieldPrefab
       value: 
       objectReference: {fileID: 3883192996754339759, guid: 46c80c454eae94c42932961e52c08c1e, type: 3}
@@ -524,8 +528,8 @@ MonoBehaviour:
   MissileEffect: {fileID: 9188231254609532510, guid: e782abc664b99cb4fb3b8b99d1084e57, type: 3}
   slowMotionScale: 0.2
   TimeSkillActive: 0
-  MissileCharge: 20
-  TimeCharge: 16
+  missileSkillCharged: 20
+  timeSkillCharged: 14
 --- !u!4 &1222143761
 Transform:
   m_ObjectHideFlags: 0
@@ -605,7 +609,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.69
+  m_Volume: 0.328
   m_Pitch: 1
   Loop: 0
   Mute: 0

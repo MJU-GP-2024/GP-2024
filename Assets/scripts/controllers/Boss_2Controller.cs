@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class Boss_2Controller : MonoBehaviour
 {
+    public AudioSource audioSource;
+    public AudioClip clip1;
+    public AudioClip clip2;
+
     int ready = 0;
     float Hp = 150f;
     float maxHp = 150f; // 최대 체력
@@ -22,6 +26,8 @@ public class Boss_2Controller : MonoBehaviour
         deathHandler = GetComponent<BossDeathHandler>();
         spriteRenderer = GetComponent<SpriteRenderer>(); // SpriteRenderer 가져오기
         ScenarioDirector = GameObject.Find("ScenarioDirector");
+
+        audioSource = GetComponent<AudioSource>();
 
         // 체력 초기화
         this.Hp = maxHp;
@@ -107,13 +113,19 @@ public class Boss_2Controller : MonoBehaviour
     {
         while (true)
         {
-            if (isDying) yield break; // 보스가 파괴 중일 때는 발사 중단
+            if(ready == 1) {
+                // 무작위 대기 시간
+                float waitTime = 4 + Random.Range(minCirclePatternInterval, maxCirclePatternInterval);
+                yield return new WaitForSeconds(waitTime);
 
-            float waitTime = 4 + Random.Range(minCirclePatternInterval, maxCirclePatternInterval);
-            yield return new WaitForSeconds(waitTime);
-
-            if (!isDying) // 파괴 상태가 아닐 때만 발사
-                GetComponent<HostileWeaponProvider>().Shoot("circle");
+                if (!isDying) // 파괴 상태가 아닐 때만 발사
+                    GetComponent<HostileWeaponProvider>().Shoot("circle");
+                    yield return new WaitForSeconds(0.2f);
+                    for(int i=0; i < 2; i++) {
+                        audioSource.PlayOneShot(clip2);
+                        yield return new WaitForSeconds(0.45f);
+                    }
+            }
         }
     }
 }

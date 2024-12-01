@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Boss_1Controller : MonoBehaviour
 {
+    public AudioSource audioSource;
+    public AudioClip clip1;
+    public AudioClip clip2;
+    
     int ready = 0;
     float Hp = 100f;
     float maxHp = 100f; // 최대 체력
@@ -24,6 +28,7 @@ public class Boss_1Controller : MonoBehaviour
         this.ScenarioDirector = GameObject.Find("ScenarioDirector");
         this.spriteRenderer = GetComponent<SpriteRenderer>(); // SpriteRenderer 가져오기
         deathHandler = GetComponent<BossDeathHandler>();
+        audioSource = GetComponent<AudioSource>();
 
         // 체력 초기화
         this.Hp = maxHp;
@@ -110,12 +115,18 @@ public class Boss_1Controller : MonoBehaviour
     {
         while (true)
         {
-            // 무작위 대기 시간
-            float waitTime = Random.Range(minLinearPatternInterval, maxLinearPatternInterval);
-            yield return new WaitForSeconds(waitTime);
+            if(ready == 1) {
+                // 무작위 대기 시간
+                float waitTime = Random.Range(minLinearPatternInterval, maxLinearPatternInterval);
+                yield return new WaitForSeconds(waitTime);
 
-            if (!isDying) // 파괴 상태가 아닐 때만 발사
-                GetComponent<HostileWeaponProvider>().Shoot("linear");
+                if (!isDying) // 파괴 상태가 아닐 때만 발사
+                    GetComponent<HostileWeaponProvider>().Shoot("linear");
+                    for(int i=0; i < 4; i++) {
+                        audioSource.PlayOneShot(clip1);
+                        yield return new WaitForSeconds(0.2f);
+                    }
+            }
         }
     }
 
@@ -123,12 +134,19 @@ public class Boss_1Controller : MonoBehaviour
     {
         while (true)
         {
-            // 무작위 대기 시간
-            float waitTime = 4 + Random.Range(minCirclePatternInterval, maxCirclePatternInterval);
-            yield return new WaitForSeconds(waitTime);
+            if(ready == 1) {
+                // 무작위 대기 시간
+                float waitTime = 4 + Random.Range(minCirclePatternInterval, maxCirclePatternInterval);
+                yield return new WaitForSeconds(waitTime);
 
-            if (!isDying) // 파괴 상태가 아닐 때만 발사
-                GetComponent<HostileWeaponProvider>().Shoot("circle");
+                if (!isDying) // 파괴 상태가 아닐 때만 발사
+                    GetComponent<HostileWeaponProvider>().Shoot("circle");
+                    yield return new WaitForSeconds(0.2f);
+                    for(int i=0; i < 2; i++) {
+                        audioSource.PlayOneShot(clip2);
+                        yield return new WaitForSeconds(0.45f);
+                    }
+            }
         }
     }
 }

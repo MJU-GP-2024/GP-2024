@@ -36,6 +36,7 @@ public class MissileController : MonoBehaviour
                 GameObject effect = Instantiate(explode2, location, Quaternion.identity);
                 Destroy(effect, 0.4f);
             }
+            audioSource.PlayOneShot(clip1);
             Destroy(gameObject);
         }
         else if(other.gameObject.tag == "Menemy") {
@@ -47,6 +48,7 @@ public class MissileController : MonoBehaviour
                 GameObject effect = Instantiate(explode2, location, Quaternion.identity);
                 Destroy(effect, 0.4f);
             }
+            audioSource.PlayOneShot(clip1);
             Destroy(gameObject);
         }
     }

@@ -170,6 +170,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6652899674735154747, guid: 88dcbb9ecd0ff4842a1106fa3e3562a6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7113028516420182008, guid: 88dcbb9ecd0ff4842a1106fa3e3562a6, type: 3}
       propertyPath: m_Name
       value: Player
@@ -188,7 +192,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 345385229}
-  - component: {fileID: 345385228}
+  - component: {fileID: 345385230}
   m_Layer: 0
   m_Name: ScenarioDirector
   m_TagString: Untagged
@@ -196,18 +200,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &345385228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 345385227}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29241aac7b34f1443b6879f50db44fda, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &345385229
 Transform:
   m_ObjectHideFlags: 0
@@ -223,6 +215,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &345385230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345385227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29241aac7b34f1443b6879f50db44fda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,6 +330,10 @@ PrefabInstance:
     - target: {fileID: 4333696086117515716, guid: 16b0282953850354984c79eac4b3f2e6, type: 3}
       propertyPath: m_Name
       value: TimeEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 4333696086117515716, guid: 16b0282953850354984c79eac4b3f2e6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5527794851103963773, guid: 16b0282953850354984c79eac4b3f2e6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -543,7 +551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 912411f88998b5249b5710b5a59b2d5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Boss1prefab: {fileID: 435442031612239112, guid: ceef6c6edaa2c4f41ba269103ca02d07, type: 3}
+  Boss1prefab: {fileID: 1567265374376296328, guid: 80f924996842f164e95700da1e59ad2f, type: 3}
   Boss2prefab: {fileID: 0}
   Boss3prefab: {fileID: 0}
 --- !u!4 &1809121035

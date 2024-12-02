@@ -97,7 +97,7 @@ public class SkillGenerator : MonoBehaviour
     {
         if (TimeSkillActive == 1)
         {
-            timeSkillCharged -= 2 * Time.unscaledDeltaTime;
+            timeSkillCharged -= 3 * Time.unscaledDeltaTime;
             if (timeSkillCharged <= 0f)
             {
                 timeSkillCharged = 0f;

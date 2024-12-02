@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip clip1;
     public AudioClip clip2;
+    public AudioClip clip3;
 
     GameObject SkillGenerator;
     public GameObject PlayerMissile;
@@ -143,6 +144,7 @@ public class PlayerController : MonoBehaviour
 
         if (this.Hp <= 0 && !this.isDestroyed)
         {
+            audioSource.PlayOneShot(clip3, 2.5f);
             GetComponent<Collider2D>().enabled = false;
             StartCoroutine(DestroyPlayer()); // 파괴 루틴 시작
         }

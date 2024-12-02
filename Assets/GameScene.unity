@@ -179,6 +179,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: e9a5d89bd7bddb2449c38f4fdea95231, type: 3}
     - target: {fileID: 6898332952443867373, guid: 88dcbb9ecd0ff4842a1106fa3e3562a6, type: 3}
+      propertyPath: clip3
+      value: 
+      objectReference: {fileID: 8300000, guid: fe84dbf40597dcd409eae4cddcd3a6ec, type: 3}
+    - target: {fileID: 6898332952443867373, guid: 88dcbb9ecd0ff4842a1106fa3e3562a6, type: 3}
       propertyPath: ShieldPrefab
       value: 
       objectReference: {fileID: 3883192996754339759, guid: 46c80c454eae94c42932961e52c08c1e, type: 3}
@@ -807,7 +811,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.246
+  m_Volume: 0.263
   m_Pitch: 1
   Loop: 0
   Mute: 0

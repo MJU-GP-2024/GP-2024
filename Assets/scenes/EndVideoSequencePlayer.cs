@@ -3,13 +3,14 @@ using UnityEngine.UI;
 using UnityEngine.Video;
 using UnityEngine.SceneManagement;
 using System.Collections;
+
 public class EndVideoSequencePlayer : MonoBehaviour
 {
     public VideoPlayer EndvideoPlayer; // VideoPlayer 컴포넌트
     public VideoClip EndVideo1; // 첫 번째 동영상
     public VideoClip EndVideo2; // 두 번째 동영상
 
-    public GameObject textPrefab; // 텍스트 오브젝트
+    public GameObject OutroImagePrefab; // Outro 이미지 오브젝트
 
     private bool EndisSecondVideoPlaying = false; // 두 번째 동영상 재생 여부 확인
     private bool isBlinking = false; // 텍스트 깜빡임 상태 확인
@@ -23,8 +24,8 @@ public class EndVideoSequencePlayer : MonoBehaviour
         // 동영상 끝날 때 이벤트 연결
         EndvideoPlayer.loopPointReached += OnVideoEnd;
 
-        // 아웃트로 오브젝트 초기 비활성화
-        textPrefab.SetActive(false);
+        // 텍스트 및 Outro 이미지 초기 비활성화
+        OutroImagePrefab.SetActive(false);
     }
 
     void OnVideoEnd(VideoPlayer vp)
@@ -38,25 +39,22 @@ public class EndVideoSequencePlayer : MonoBehaviour
         }
         else
         {
-            // 두 번째 동영상 끝난 후 오브젝트 활성화
+            // VideoPlayer 비활성화
+            EndvideoPlayer.gameObject.SetActive(false);
 
-            if (!isBlinking)
-            {
-                StartCoroutine(BlinkText()); // 텍스트 깜빡임 시작
-            }
+            // Outro 이미지 활성화
+            ShowEndTextAndOutro();
         }
     }
 
-    private IEnumerator BlinkText()
+    private void ShowEndTextAndOutro()
     {
-        isBlinking = true;
-
-        while (true)
+        if (!isBlinking)
         {
-            textPrefab.SetActive(true); // 텍스트 활성화
-            yield return new WaitForSeconds(1f); // 0.5초 대기
-            textPrefab.SetActive(false); // 텍스트 비활성화
-            yield return new WaitForSeconds(1f); // 0.5초 대기
+            isBlinking = true;
+
+            // 텍스트와 Outro 이미지를 활성화
+            OutroImagePrefab.SetActive(true);
         }
     }
 }

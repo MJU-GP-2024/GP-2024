@@ -14,8 +14,8 @@ public class SkillGenerator : MonoBehaviour
     public float slowMotionScale = 0.35f;
     public int TimeSkillActive = 0;
 
-    public float missileSkillCharged = 20f;
-    public float timeSkillCharged = 14f;
+    public float missileSkillCharged = 30f;
+    public float timeSkillCharged = 9f;
 
     public void Cooldown(float a)
     {
@@ -44,14 +44,14 @@ public class SkillGenerator : MonoBehaviour
         float spawnDelay = 0.1f;
         audioSource.PlayOneShot(clip1);
         Instantiate(MissileEffect, new Vector3(0, -8, 0), Quaternion.identity);
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSecondsRealtime(0.25f);
 
         for (int i = 0; i < 15; i++)
         {
             float spawnX = Random.Range(-4f, 4f);
             Vector3 spawnPosition = new Vector3(spawnX, -6f, 0f);
             GameObject missile = Instantiate(missilePrefab, spawnPosition, Quaternion.Euler(0f, 0f, 90f));
-            yield return new WaitForSeconds(spawnDelay); // 생성간격
+            yield return new WaitForSecondsRealtime(spawnDelay); // 생성간격
         }
     }
 

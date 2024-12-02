@@ -17,14 +17,14 @@ public class MissileEffectController : MonoBehaviour
     void Update()
     {
         if(transform.position.y <= -3.5f) {
-            transform.Translate(0, 11f * Time.deltaTime, 0);
+            transform.Translate(0, 11f * Time.unscaledDeltaTime, 0);
         }
         else if(transform.position.y <= -2.8f) {
-            transform.Translate(0, 0.7f * Time.deltaTime, 0);
+            transform.Translate(0, 0.7f * Time.unscaledDeltaTime, 0);
         }
         else {
             speed *= 1.1f;
-            transform.Translate(0, speed * Time.deltaTime, 0);
+            transform.Translate(0, speed * Time.unscaledDeltaTime, 0);
         }
 
         if(transform.position.y >= 10f) {

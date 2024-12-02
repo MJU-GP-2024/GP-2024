@@ -59,7 +59,7 @@ public class MissileController : MonoBehaviour
     {
         location = new Vector3(transform.position.x, transform.position.y + 0.5f, 0);
 
-        transform.Translate(0.5f, 0, 0);
+        transform.Translate(18f * Time.unscaledDeltaTime, 0, 0);
 
         if(this.transform.position.y > 5.3f) {
             Destroy(gameObject);

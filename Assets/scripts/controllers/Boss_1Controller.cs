@@ -11,13 +11,13 @@ public class Boss_1Controller : MonoBehaviour
     GameObject DeathSound;
     int ready = 0;
     float Hp = 130f;
-    float maxHp = 100f; // 최대 체력
+    float maxHp = 130f; // 최대 체력
     float minSinglePatternInterval = 0.0f; // single 무기 발사 minimum interval time
     float maxSinglePatternInterval = 1.5f; // single 무기 발사 max interval time
-    float minLinearPatternInterval = 3.0f;
-    float maxLinearPatternInterval = 5.0f;
-    float minCirclePatternInterval = 7.0f; // circle 무기 발사 minimum interval time
-    float maxCirclePatternInterval = 10.0f; // circle 무기 발사 max interval time
+    // float minLinearPatternInterval = 3.0f;
+    // float maxLinearPatternInterval = 5.0f;
+    float minCirclePatternInterval = 5.0f; // circle 무기 발사 minimum interval time
+    float maxCirclePatternInterval = 6.5f; // circle 무기 발사 max interval time
 
     GameObject ScenarioDirector;
     private SpriteRenderer spriteRenderer; // 보스의 SpriteRenderer
@@ -40,7 +40,7 @@ public class Boss_1Controller : MonoBehaviour
 
         // Shoot 메서드 코루틴
         StartCoroutine(SinglePatternShooter());
-        StartCoroutine(LinearPatternShooter());
+        // StartCoroutine(LinearPatternShooter());
         StartCoroutine(CirclePatternShooter());
     }
 
@@ -61,21 +61,7 @@ public class Boss_1Controller : MonoBehaviour
             this.Hp -= maxHp;
         }
 
-        if (this.Hp <= 0)
-        {
-            if (!isDying)
-            {
-                ScenarioDirector.GetComponent<ScenarioDirector>().bossDied();
-            }
-
-            DeathSound.GetComponent<BossDeathSound>().Death();
-            isDying = true; // 파괴 상태로 설정
-            deathHandler.TriggerDeathSequence();
-        }
-        else
-        {
-            UpdateColorByHealth(); // 체력에 따라 색상 업데이트
-        }
+        UpdateColorByHealth(); // 체력에 따라 색상 업데이트
 
     }
 
@@ -98,11 +84,40 @@ public class Boss_1Controller : MonoBehaviour
             {
                 Hp -= 1; // 체력 감소
                 deathHandler.ApplyHitEffect(); // 피격 효과 호출
+
+                if (this.Hp <= 0)
+                    {
+                        if (!isDying)
+                        {
+                            ScenarioDirector.GetComponent<ScenarioDirector>().bossDied();
+                            DeathSound.GetComponent<BossDeathSound>().Death();
+                        }
+                        isDying = true; // 파괴 상태로 설정
+                        deathHandler.TriggerDeathSequence();
+                    }
+                    else
+                    {
+                        UpdateColorByHealth(); // 체력에 따라 색상 업데이트
+                    }
             }
             else if (other.CompareTag("SkillMissile"))
             {
                 Hp -= 2.5f; // 체력 감소
                 deathHandler.ApplyHitEffect(); // 피격 효과 호출
+                if (this.Hp <= 0)
+                    {
+                        if (!isDying)
+                        {
+                            ScenarioDirector.GetComponent<ScenarioDirector>().bossDied();
+                            DeathSound.GetComponent<BossDeathSound>().Death();
+                        }
+                        isDying = true; // 파괴 상태로 설정
+                        deathHandler.TriggerDeathSequence();
+                    }
+                    else
+                    {
+                        UpdateColorByHealth(); // 체력에 따라 색상 업데이트
+                    }
             }
         }
     }
@@ -120,24 +135,25 @@ public class Boss_1Controller : MonoBehaviour
         }
     }
 
-    IEnumerator LinearPatternShooter()
-    {
-        while (true)
-        {
-            // 무작위 대기 시간
-            float waitTime = Random.Range(minLinearPatternInterval, maxLinearPatternInterval);
-            yield return new WaitForSeconds(waitTime);
+    // IEnumerator LinearPatternShooter()
+    // {
+    //     while (true)
+    //     {
+    //         // 무작위 대기 시간
+    //         float waitTime = Random.Range(minLinearPatternInterval, maxLinearPatternInterval);
+    //         yield return new WaitForSeconds(waitTime);
 
-            if (!isDying) // 파괴 상태가 아닐 때만 발사
-                GetComponent<HostileWeaponProvider>().Shoot("linear");
-            for (int i = 0; i < 4; i++)
-            {
-                audioSource.PlayOneShot(clip1);
-                yield return new WaitForSeconds(0.2f);
-            }
+    //         if (!isDying && ready == 1) {// 파괴 상태가 아닐 때만 발사
+    //             GetComponent<HostileWeaponProvider>().Shoot("linear");
+    //             for (int i = 0; i < 4; i++)
+    //             {
+    //                 audioSource.PlayOneShot(clip1);
+    //                 yield return new WaitForSeconds(0.2f);
+    //             }
+    //         }
 
-        }
-    }
+    //     }
+    // }
 
     IEnumerator CirclePatternShooter()
     {
@@ -147,13 +163,14 @@ public class Boss_1Controller : MonoBehaviour
             float waitTime = 4 + Random.Range(minCirclePatternInterval, maxCirclePatternInterval);
             yield return new WaitForSeconds(waitTime);
 
-            if (!isDying) // 파괴 상태가 아닐 때만 발사
+            if (!isDying && ready == 1) {// 파괴 상태가 아닐 때만 발사
                 GetComponent<HostileWeaponProvider>().Shoot("circle");
-            yield return new WaitForSeconds(0.2f);
-            for (int i = 0; i < 2; i++)
-            {
-                audioSource.PlayOneShot(clip2);
-                yield return new WaitForSeconds(0.45f);
+                yield return new WaitForSeconds(0.2f);
+                for (int i = 0; i < 2; i++)
+                {
+                    audioSource.PlayOneShot(clip2);
+                    yield return new WaitForSeconds(0.45f);
+                }
             }
 
         }

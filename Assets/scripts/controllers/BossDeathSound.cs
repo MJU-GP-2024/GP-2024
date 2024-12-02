@@ -16,7 +16,7 @@ public class BossDeathSound : MonoBehaviour
     }
 
     IEnumerator BossDeath() {
-        for(int i=0; i < 1; i++) {
+        for(int i=0; i < 90; i++) {
             int t = Random.Range(0,5);
             if(t==0) {
                 audioSource.PlayOneShot(ex1);
@@ -33,9 +33,9 @@ public class BossDeathSound : MonoBehaviour
             else if(t==4) {
                 audioSource.PlayOneShot(ex5);
             }
-            yield return new WaitForSeconds(0.15f);
+            yield return new WaitForSeconds(0.07f);
         }
-        StopAllProcesses();
+        // StopAllProcesses();
     }
 
     public void Death() {

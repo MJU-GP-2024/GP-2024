@@ -16,8 +16,10 @@ public class Boss_3Controller : MonoBehaviour
     float maxHp = 220f; // 최대 체력
     float minSinglePatternInterval = 0.0f; // single 무기 발사 minimum interval time
     float maxSinglePatternInterval = 1.5f; // single 무기 발사 max interval time
-    float minCirclePatternInterval = 7.0f; // circle 무기 발사 minimum interval time
-    float maxCirclePatternInterval = 10.0f; // circle 무기 발사 max interval time
+    float minCirclePatternInterval = 4.0f; // circle 무기 발사 minimum interval time
+    float maxCirclePatternInterval = 6.0f; // circle 무기 발사 max interval time
+    float minLinearPatternInterval = 2.0f;
+    float maxLinearPatternInterval = 4.0f;
 
     GameObject ScenarioDirector;
     private SpriteRenderer spriteRenderer; // 보스의 SpriteRenderer
@@ -33,11 +35,39 @@ public class Boss_3Controller : MonoBehaviour
             {
                 Hp -= 1; // 체력 감소
                 deathHandler.ApplyHitEffect(); // 피격 효과 호출
+                if (this.Hp <= 0 && !isDying)
+                {
+                    ScenarioDirector.GetComponent<ScenarioDirector>().bossDied();
+                    DeathSound.GetComponent<BossDeathSound>().Death();
+                    isDying = true; // 파괴 상태로 설정
+                    deathHandler.TriggerDeathSequence();
+
+                    // **6초 후 씬 전환**
+                    StartCoroutine(LoadEndSceneAfterDelay(6.0f));
+                }
+                else
+                {
+                    UpdateColorByHealth(); // 체력에 따라 색상 업데이트
+                }
             }
             else if (other.CompareTag("SkillMissile"))
             {
                 Hp -= 2.5f; // 체력 감소
                 deathHandler.ApplyHitEffect(); // 피격 효과 호출
+                if (this.Hp <= 0 && !isDying)
+                {
+                    ScenarioDirector.GetComponent<ScenarioDirector>().bossDied();
+                    DeathSound.GetComponent<BossDeathSound>().Death();
+                    isDying = true; // 파괴 상태로 설정
+                    deathHandler.TriggerDeathSequence();
+
+                    // **6초 후 씬 전환**
+                    StartCoroutine(LoadEndSceneAfterDelay(6.0f));
+                }
+                else
+                {
+                    UpdateColorByHealth(); // 체력에 따라 색상 업데이트
+                }
             }
         }
     }
@@ -61,6 +91,8 @@ public class Boss_3Controller : MonoBehaviour
         // Shoot 메서드 코루틴
         StartCoroutine(SinglePatternShooter());
         StartCoroutine(CirclePatternShooter());
+        StartCoroutine(LinearPatternShooter());
+        
     }
 
     private void Update()
@@ -79,21 +111,8 @@ public class Boss_3Controller : MonoBehaviour
         { // 임시 파괴 코드
             this.Hp -= maxHp;
         }
-
-        if (this.Hp <= 0 && !isDying)
-        {
-            ScenarioDirector.GetComponent<ScenarioDirector>().bossDied();
-            DeathSound.GetComponent<BossDeathSound>().Death();
-            isDying = true; // 파괴 상태로 설정
-            deathHandler.TriggerDeathSequence();
-
-            // **4초 후 씬 전환**
-            StartCoroutine(LoadEndSceneAfterDelay(4.0f));
-        }
-        else
-        {
-            UpdateColorByHealth(); // 체력에 따라 색상 업데이트
-        }
+        UpdateColorByHealth();
+    
     }
 
 
@@ -143,6 +162,26 @@ public class Boss_3Controller : MonoBehaviour
             {
                 audioSource.PlayOneShot(clip2);
                 yield return new WaitForSeconds(0.45f);
+            }
+
+        }
+    }
+
+    IEnumerator LinearPatternShooter()
+    {
+        while (true)
+        {
+            // 무작위 대기 시간
+            float waitTime = Random.Range(minLinearPatternInterval, maxLinearPatternInterval);
+            yield return new WaitForSeconds(waitTime);
+
+            if (!isDying && ready == 1) {// 파괴 상태가 아닐 때만 발사
+                GetComponent<HostileWeaponProvider>().Shoot("linear");
+                for (int i = 0; i < 4; i++)
+                {
+                    audioSource.PlayOneShot(clip1);
+                    yield return new WaitForSeconds(0.2f);
+                }
             }
 
         }

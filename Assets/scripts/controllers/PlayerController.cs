@@ -160,6 +160,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.I)) {
+            Hp = 99;
+        }
+
         if (isDestroyed) return; // 파괴 상태에서는 업데이트 중지
 
         if (speed < maxSpeed)

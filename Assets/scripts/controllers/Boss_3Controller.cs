@@ -142,9 +142,19 @@ public class Boss_3Controller : MonoBehaviour
         while (true)
         {
             // 무작위 대기 시간
-            float waitTime = 4 + Random.Range(minCirclePatternInterval, maxCirclePatternInterval);
+            float waitTime = 5 + Random.Range(minCirclePatternInterval, maxCirclePatternInterval);
             yield return new WaitForSeconds(waitTime);
 
+            if (!isDying) // 파괴 상태가 아닐 때만 발사
+                GetComponent<HostileWeaponProvider>().Shoot("circle");
+            yield return new WaitForSeconds(0.2f);
+            for (int i = 0; i < 2; i++)
+            {
+                audioSource.PlayOneShot(clip2);
+                yield return new WaitForSeconds(0.45f);
+            }
+
+            yield return new WaitForSeconds(0.2f);
             if (!isDying) // 파괴 상태가 아닐 때만 발사
                 GetComponent<HostileWeaponProvider>().Shoot("circle");
             yield return new WaitForSeconds(0.2f);

@@ -55,6 +55,8 @@ public class EndVideoSequencePlayer : MonoBehaviour
 
             // 텍스트와 Outro 이미지를 활성화
             OutroImagePrefab.SetActive(true);
+            SceneManager.LoadScene("StartScene");
+
         }
     }
 }

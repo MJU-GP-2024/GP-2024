@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.Video;
 using UnityEngine.SceneManagement;
 using System.Collections;
-
+//s
 public class StartVideoSequencer : MonoBehaviour
 {
     public VideoPlayer videoPlayer; // VideoPlayer 컴포넌트

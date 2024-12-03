@@ -46,7 +46,7 @@ public class EndVideoSequencePlayer : MonoBehaviour
             ShowEndTextAndOutro();
         }
     }
-
+    //
     private void ShowEndTextAndOutro()
     {
         if (!isBlinking)

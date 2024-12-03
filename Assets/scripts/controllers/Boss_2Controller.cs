@@ -22,11 +22,13 @@ public class Boss_2Controller : MonoBehaviour
     private BossDeathHandler deathHandler;
     private bool isDying = false; // 보스 파괴 상태를 나타내는 플래그
     private SpriteRenderer spriteRenderer; // 보스의 SpriteRenderer
+    private ScoreManager scoreManager;
 
     GameObject ScenarioDirector;
 
     private void Start()
     {
+        scoreManager = GameObject.Find("ScoreText").GetComponent<ScoreManager>();
         this.DeathSound = GameObject.Find("BossDeathSound");
 
         deathHandler = GetComponent<BossDeathHandler>();
@@ -86,6 +88,7 @@ public class Boss_2Controller : MonoBehaviour
                 deathHandler.ApplyHitEffect(); // 피격 효과 호출
                 if (Hp <= 0 && !isDying)
                 {
+                    scoreManager.AddScore(1000);
                     ScenarioDirector.GetComponent<ScenarioDirector>().bossDied();
                     DeathSound.GetComponent<BossDeathSound>().Death();
                     isDying = true; // 파괴 상태로 설정
@@ -134,19 +137,21 @@ public class Boss_2Controller : MonoBehaviour
     {
         while (true)
         {
-                // 무작위 대기 시간
-                float waitTime = 4 + Random.Range(minCirclePatternInterval, maxCirclePatternInterval);
-                yield return new WaitForSeconds(waitTime);
+            // 무작위 대기 시간
+            float waitTime = 4 + Random.Range(minCirclePatternInterval, maxCirclePatternInterval);
+            yield return new WaitForSeconds(waitTime);
 
-                if (!isDying && ready == 1) {// 파괴 상태가 아닐 때만 발사
-                    GetComponent<HostileWeaponProvider>().Shoot("circle");
-                    yield return new WaitForSeconds(0.2f);
-                    for(int i=0; i < 2; i++) {
-                        audioSource.PlayOneShot(clip2);
-                        yield return new WaitForSeconds(0.45f);
-                    }
+            if (!isDying && ready == 1)
+            {// 파괴 상태가 아닐 때만 발사
+                GetComponent<HostileWeaponProvider>().Shoot("circle");
+                yield return new WaitForSeconds(0.2f);
+                for (int i = 0; i < 2; i++)
+                {
+                    audioSource.PlayOneShot(clip2);
+                    yield return new WaitForSeconds(0.45f);
                 }
-            
+            }
+
         }
     }
 
@@ -158,7 +163,8 @@ public class Boss_2Controller : MonoBehaviour
             float waitTime = Random.Range(minLinearPatternInterval, maxLinearPatternInterval);
             yield return new WaitForSeconds(waitTime);
 
-            if (!isDying && ready == 1) {// 파괴 상태가 아닐 때만 발사
+            if (!isDying && ready == 1)
+            {// 파괴 상태가 아닐 때만 발사
                 GetComponent<HostileWeaponProvider>().Shoot("linear");
                 for (int i = 0; i < 4; i++)
                 {

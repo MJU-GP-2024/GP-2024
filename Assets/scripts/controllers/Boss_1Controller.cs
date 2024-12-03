@@ -19,6 +19,8 @@ public class Boss_1Controller : MonoBehaviour
     float minCirclePatternInterval = 5.0f; // circle 무기 발사 minimum interval time
     float maxCirclePatternInterval = 6.5f; // circle 무기 발사 max interval time
 
+    private ScoreManager scoreManager;
+
     GameObject ScenarioDirector;
     private SpriteRenderer spriteRenderer; // 보스의 SpriteRenderer
     private BossDeathHandler deathHandler;
@@ -26,6 +28,7 @@ public class Boss_1Controller : MonoBehaviour
 
     private void Start()
     {
+        scoreManager = GameObject.Find("ScoreText").GetComponent<ScoreManager>();
         this.DeathSound = GameObject.Find("BossDeathSound");
 
         this.ScenarioDirector = GameObject.Find("ScenarioDirector");
@@ -86,38 +89,40 @@ public class Boss_1Controller : MonoBehaviour
                 deathHandler.ApplyHitEffect(); // 피격 효과 호출
 
                 if (this.Hp <= 0)
+                {
+                    scoreManager.AddScore(1000);
+
+                    if (!isDying)
                     {
-                        if (!isDying)
-                        {
-                            ScenarioDirector.GetComponent<ScenarioDirector>().bossDied();
-                            DeathSound.GetComponent<BossDeathSound>().Death();
-                        }
-                        isDying = true; // 파괴 상태로 설정
-                        deathHandler.TriggerDeathSequence();
+                        ScenarioDirector.GetComponent<ScenarioDirector>().bossDied();
+                        DeathSound.GetComponent<BossDeathSound>().Death();
                     }
-                    else
-                    {
-                        UpdateColorByHealth(); // 체력에 따라 색상 업데이트
-                    }
+                    isDying = true; // 파괴 상태로 설정
+                    deathHandler.TriggerDeathSequence();
+                }
+                else
+                {
+                    UpdateColorByHealth(); // 체력에 따라 색상 업데이트
+                }
             }
             else if (other.CompareTag("SkillMissile"))
             {
                 Hp -= 2.5f; // 체력 감소
                 deathHandler.ApplyHitEffect(); // 피격 효과 호출
                 if (this.Hp <= 0)
+                {
+                    if (!isDying)
                     {
-                        if (!isDying)
-                        {
-                            ScenarioDirector.GetComponent<ScenarioDirector>().bossDied();
-                            DeathSound.GetComponent<BossDeathSound>().Death();
-                        }
-                        isDying = true; // 파괴 상태로 설정
-                        deathHandler.TriggerDeathSequence();
+                        ScenarioDirector.GetComponent<ScenarioDirector>().bossDied();
+                        DeathSound.GetComponent<BossDeathSound>().Death();
                     }
-                    else
-                    {
-                        UpdateColorByHealth(); // 체력에 따라 색상 업데이트
-                    }
+                    isDying = true; // 파괴 상태로 설정
+                    deathHandler.TriggerDeathSequence();
+                }
+                else
+                {
+                    UpdateColorByHealth(); // 체력에 따라 색상 업데이트
+                }
             }
         }
     }
@@ -163,7 +168,8 @@ public class Boss_1Controller : MonoBehaviour
             float waitTime = 4 + Random.Range(minCirclePatternInterval, maxCirclePatternInterval);
             yield return new WaitForSeconds(waitTime);
 
-            if (!isDying && ready == 1) {// 파괴 상태가 아닐 때만 발사
+            if (!isDying && ready == 1)
+            {// 파괴 상태가 아닐 때만 발사
                 GetComponent<HostileWeaponProvider>().Shoot("circle");
                 yield return new WaitForSeconds(0.2f);
                 for (int i = 0; i < 2; i++)

@@ -33,6 +33,7 @@ public class MosquitoController : MonoBehaviour
     private Renderer[] renderers;     // 오브젝트의 렌더러
     private Color originalColor;      // 원래 색상
     private bool isDestroyed = false; // 파괴 여부 플래그
+    private ScoreManager scoreManager;
 
     private EnemyDestructionUtility destructionUtility;
 
@@ -55,6 +56,7 @@ public class MosquitoController : MonoBehaviour
 
     void Start()
     {
+        scoreManager = GameObject.Find("ScoreText").GetComponent<ScoreManager>();
         audioSource = GetComponent<AudioSource>();
         this.SkillGenerator = GameObject.Find("SkillGenerator");
         audioSource = GetComponent<AudioSource>();
@@ -150,7 +152,7 @@ public class MosquitoController : MonoBehaviour
             if (Hp <= 0)
             {
                 isDestroyed = true;
-
+                scoreManager.AddScore(100);
                 audioSource.PlayOneShot(clip1);
 
                 if (Random.value < dropChance) // Random.value는 0~1 사이의 값

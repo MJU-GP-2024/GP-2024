@@ -9,7 +9,8 @@ public class ItemDropController : MonoBehaviour
     public float fallSpeed = 2.3f;   // 떨어지는 속도
     public float itemChangeInterval = 1.0f; // 아이템 변경 간격
     private float changeTimer = 0f;  // 아이템 변경 타이머
-    float scaleFactor = 1f;
+    private float scaleFactor = 1f;
+    private ScoreManager scoreManager;
 
     private int currentIndex;        // 현재 아이템의 인덱스
 
@@ -21,6 +22,7 @@ public class ItemDropController : MonoBehaviour
     void Start()
     {
         this.Player = GameObject.Find("Player");
+        scoreManager = GameObject.Find("ScoreText").GetComponent<ScoreManager>();
         // // 초기 아이템 설정
         // currentIndex = Random.Range(0, itemPrefabs.Length);
         // UpdateItemAppearance();
@@ -104,6 +106,7 @@ public class ItemDropController : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             ApplyItemEffect();
+            scoreManager.AddScore(50);
             Destroy(gameObject);
         }
     }

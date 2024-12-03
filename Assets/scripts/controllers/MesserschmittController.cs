@@ -14,6 +14,7 @@ public class MesserschmittController : MonoBehaviour
     private Vector2 startPoint;
     private Vector2 targetPoint; // player를 endpoint로 잡는 경우
     private GameObject player;
+    private ScoreManager scoreManager;
 
     public GameObject explosionEffectPrefab;
     private Renderer[] renderers;     // 오브젝트의 렌더러
@@ -59,6 +60,7 @@ public class MesserschmittController : MonoBehaviour
 
             if (this.Hp <= 0 && !isDestroyed)
             {
+                scoreManager.AddScore(100);
                 audioSource.PlayOneShot(clip1);
                 TriggerDestruction(); // 파괴 처리
             }
@@ -104,6 +106,7 @@ public class MesserschmittController : MonoBehaviour
 
     private void Start()
     {
+        scoreManager = GameObject.Find("ScoreText").GetComponent<ScoreManager>();
         audioSource = GetComponent<AudioSource>();
         this.SkillGenerator = GameObject.Find("SkillGenerator");
         this.player = GameObject.Find("Player");

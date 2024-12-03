@@ -82,6 +82,13 @@ public class LightningController : MonoBehaviour
             }
         }
 
+        left = new Vector3(transform.position.x - 0.25f, transform.position.y - 0.3f, 0);
+        right = new Vector3(transform.position.x + 0.25f, transform.position.y - 0.3f, 0);
+        if(lcharge!=null) {
+            lcharge.transform.position = left;
+            rcharge.transform.position = right;
+        }
+        
         // X축 이동 및 PingPong
         float newX = startPositionX + Mathf.PingPong(Time.time * speed, moveRange) - moveRange / 2;
         transform.position = new Vector3(newX, transform.position.y, transform.position.z);

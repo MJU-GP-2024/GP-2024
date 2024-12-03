@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
 
     int Master = 0;
     int ready = 0;
-    int Hp = 3;
+    int Hp = 4;
     int Firemode = 1;
     public bool stun = false;
     private float speed = 3.5f; // 이동속도
@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (other.gameObject.tag == "Menemy")
             {
-                this.decreaseHp(1);
+                this.decreaseHp(2);
                 this.Hitted();
             }
         }

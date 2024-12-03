@@ -13,7 +13,8 @@ public class ItemDropController : MonoBehaviour
 
     private int currentIndex;        // 현재 아이템의 인덱스
 
-    public void select(int a) {
+    public void select(int a)
+    {
         this.currentIndex = a;
     }
 
@@ -27,7 +28,8 @@ public class ItemDropController : MonoBehaviour
 
     void Update()
     {
-        if(transform.position.y <= -5.5) {
+        if (transform.position.y <= -5.5)
+        {
             Destroy(gameObject);
         }
         // 아래로 이동
@@ -64,34 +66,36 @@ public class ItemDropController : MonoBehaviour
 
 
     private void UpdateItemAppearance()
-{
-    // 현재 오브젝트의 Sprite Renderer 가져오기
-    SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-
-    if (spriteRenderer != null && itemPrefabs[currentIndex] != null)
     {
-        
-        // itemPrefabs의 Sprite를 가져와 설정
-        spriteRenderer.sprite = itemPrefabs[currentIndex].GetComponent<SpriteRenderer>().sprite;
-        scaleFactor = 1f;
-        switch (currentIndex){
-            case 0:
-                scaleFactor = 0.08f;
-                break;
-            case 1:
-                 scaleFactor = 0.5f;
-                break;
-            case 2:
-                scaleFactor = 0.47f;
-                break;
-            case 3:
-                scaleFactor = 0.4f;
-                break;
+        // 현재 오브젝트의 Sprite Renderer 가져오기
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if (spriteRenderer != null && itemPrefabs[currentIndex] != null)
+        {
+
+            // itemPrefabs의 Sprite를 가져와 설정
+            spriteRenderer.sprite = itemPrefabs[currentIndex].GetComponent<SpriteRenderer>().sprite;
+            spriteRenderer.color = itemPrefabs[currentIndex].GetComponent<SpriteRenderer>().color;
+            scaleFactor = 1f;
+            switch (currentIndex)
+            {
+                case 0:
+                    scaleFactor = 0.08f;
+                    break;
+                case 1:
+                    scaleFactor = 0.5f;
+                    break;
+                case 2:
+                    scaleFactor = 0.47f;
+                    break;
+                case 3:
+                    scaleFactor = 0.4f;
+                    break;
+            }
+            transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
+            scaleFactor = 1f;
         }
-         transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
-         scaleFactor = 1f;
     }
-}
 
 
     private void OnTriggerEnter2D(Collider2D other)

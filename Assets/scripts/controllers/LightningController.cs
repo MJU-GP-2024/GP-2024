@@ -36,6 +36,7 @@ public class LightningController : MonoBehaviour
     GameObject rcharge;
     private float minInterval = 3f;
     private float maxInterval = 4.5f;
+    private ScoreManager scoreManager;
 
     GameObject SkillGenerator;
     GameObject player;
@@ -44,6 +45,7 @@ public class LightningController : MonoBehaviour
 
     void Start()
     {
+        scoreManager = GameObject.Find("ScoreText").GetComponent<ScoreManager>();
         audioSource = GetComponent<AudioSource>();
         SkillGenerator = GameObject.Find("SkillGenerator");
         player = GameObject.Find("Player");
@@ -118,6 +120,7 @@ public class LightningController : MonoBehaviour
         // 파괴 처리
         if (hp <= 0 && !isDestroyed)
         {
+            scoreManager.AddScore(250);
             TriggerDestruction();
         }
     }

@@ -21,6 +21,7 @@ public class F_16Controller : MonoBehaviour
     private float upwardPointLeft;
     private Vector2 diveDirection;
     private int Hp = 2;
+    private ScoreManager scoreManager;
     GameObject player;
     public GameObject[] itemPrefabs; // 아이템 프리팹 배열
     public float dropChance = 0.25f;  // 아이템 드롭 확률
@@ -52,6 +53,7 @@ public class F_16Controller : MonoBehaviour
 
             if (this.Hp <= 0 && !isDestroyed)
             {
+                scoreManager.AddScore(250);
                 audioSource.PlayOneShot(clip1);
                 TriggerDestruction();
             }
@@ -97,6 +99,7 @@ public class F_16Controller : MonoBehaviour
 
     void Start()
     {
+        scoreManager = GameObject.Find("ScoreText").GetComponent<ScoreManager>();
         audioSource = GetComponent<AudioSource>();
 
         // 공통 파괴 로직 초기화

@@ -25,6 +25,7 @@ public class Boss_3Controller : MonoBehaviour
     private SpriteRenderer spriteRenderer; // 보스의 SpriteRenderer
     private BossDeathHandler deathHandler;
     private bool isDying = false; // 보스 파괴 상태를 나타내는 플래그
+    private ScoreManager scoreManager;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -35,39 +36,27 @@ public class Boss_3Controller : MonoBehaviour
             {
                 Hp -= 1; // 체력 감소
                 deathHandler.ApplyHitEffect(); // 피격 효과 호출
-                if (this.Hp <= 0 && !isDying)
-                {
-                    ScenarioDirector.GetComponent<ScenarioDirector>().bossDied();
-                    DeathSound.GetComponent<BossDeathSound>().Death();
-                    isDying = true; // 파괴 상태로 설정
-                    deathHandler.TriggerDeathSequence();
-
-                    // **6초 후 씬 전환**
-                    StartCoroutine(LoadEndSceneAfterDelay(6.0f));
-                }
-                else
-                {
-                    UpdateColorByHealth(); // 체력에 따라 색상 업데이트
-                }
             }
             else if (other.CompareTag("SkillMissile"))
             {
                 Hp -= 2.5f; // 체력 감소
                 deathHandler.ApplyHitEffect(); // 피격 효과 호출
-                if (this.Hp <= 0 && !isDying)
-                {
-                    ScenarioDirector.GetComponent<ScenarioDirector>().bossDied();
-                    DeathSound.GetComponent<BossDeathSound>().Death();
-                    isDying = true; // 파괴 상태로 설정
-                    deathHandler.TriggerDeathSequence();
+            }
 
-                    // **6초 후 씬 전환**
-                    StartCoroutine(LoadEndSceneAfterDelay(6.0f));
-                }
-                else
-                {
-                    UpdateColorByHealth(); // 체력에 따라 색상 업데이트
-                }
+            if (this.Hp <= 0 && !isDying)
+            {
+                scoreManager.AddScore(1000);
+                ScenarioDirector.GetComponent<ScenarioDirector>().bossDied();
+                DeathSound.GetComponent<BossDeathSound>().Death();
+                isDying = true; // 파괴 상태로 설정
+                deathHandler.TriggerDeathSequence();
+
+                // **6초 후 씬 전환**
+                StartCoroutine(LoadEndSceneAfterDelay(6.0f));
+            }
+            else
+            {
+                UpdateColorByHealth(); // 체력에 따라 색상 업데이트
             }
         }
     }
@@ -75,6 +64,7 @@ public class Boss_3Controller : MonoBehaviour
 
     private void Start()
     {
+        scoreManager = GameObject.Find("ScoreText").GetComponent<ScoreManager>();
         this.DeathSound = GameObject.Find("BossDeathSound");
 
         this.ScenarioDirector = GameObject.Find("ScenarioDirector");
@@ -92,7 +82,7 @@ public class Boss_3Controller : MonoBehaviour
         StartCoroutine(SinglePatternShooter());
         StartCoroutine(CirclePatternShooter());
         StartCoroutine(LinearPatternShooter());
-        
+
     }
 
     private void Update()
@@ -112,7 +102,7 @@ public class Boss_3Controller : MonoBehaviour
             this.Hp -= maxHp;
         }
         UpdateColorByHealth();
-    
+
     }
 
 
@@ -175,7 +165,8 @@ public class Boss_3Controller : MonoBehaviour
             float waitTime = Random.Range(minLinearPatternInterval, maxLinearPatternInterval);
             yield return new WaitForSeconds(waitTime);
 
-            if (!isDying && ready == 1) {// 파괴 상태가 아닐 때만 발사
+            if (!isDying && ready == 1)
+            {// 파괴 상태가 아닐 때만 발사
                 GetComponent<HostileWeaponProvider>().Shoot("linear");
                 for (int i = 0; i < 4; i++)
                 {

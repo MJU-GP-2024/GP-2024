@@ -253,6 +253,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c363b7832d145d2a73f556ddb32b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletEnemyAPrefab: {fileID: 6416993944179156577, guid: e27e80b41df314128a63ac0fccb688a0, type: 3}
+  bulletEnemyBPrefab: {fileID: 5446210884654358944, guid: 35fc02b7da1f84e0ea609802bcf2e58a, type: 3}
+  bulletEnemyCPrefab: {fileID: 6416993944179156577, guid: 509884999ebe049c48d08e1f312e56af, type: 3}
 --- !u!114 &1552822568498225573
 MonoBehaviour:
   m_ObjectHideFlags: 0

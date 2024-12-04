@@ -22,9 +22,12 @@ public class HostileWeaponProvider : MonoBehaviour
 
     private GameObject player;
     private Vector2 playerDirection;
-    private GameObject bulletEnemyAPrefab;
-    private GameObject bulletEnemyBPrefab;
-    private GameObject bulletEnemyCPrefab;
+    // private GameObject bulletEnemyAPrefab;
+    // private GameObject bulletEnemyBPrefab;
+    // private GameObject bulletEnemyCPrefab;
+    public GameObject bulletEnemyAPrefab;
+    public GameObject bulletEnemyBPrefab;
+    public GameObject bulletEnemyCPrefab;
     private float time;
 
     void Start() // initiate weapon, player reference
@@ -36,11 +39,11 @@ public class HostileWeaponProvider : MonoBehaviour
             Debug.Log("Error; Missing Player object");
         }
 
-        bulletEnemyAPrefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/src/prefabs/BulletA.prefab", typeof(GameObject));
-        bulletEnemyBPrefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/src/prefabs/BulletB.prefab", typeof(GameObject));
-        bulletEnemyCPrefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/src/prefabs/BulletC.prefab", typeof(GameObject));
-    }
+        // bulletEnemyAPrefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/src/prefabs/BulletA.prefab", typeof(GameObject));
+        // bulletEnemyBPrefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/src/prefabs/BulletB.prefab", typeof(GameObject));
+        // bulletEnemyCPrefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/src/prefabs/BulletC.prefab", typeof(GameObject));
 
+    }
     void Update() // player를 가리키는 방향 벡터를 update합니다
     {
         time += Time.deltaTime;

@@ -156,7 +156,7 @@ public class PlayerController : MonoBehaviour
         this.SkillGenerator = GameObject.Find("SkillGenerator");
         playerCollider = GetComponent<Collider2D>(); // Player의 Collider 참조
         StartCoroutine(FireMissilesContinuously()); // 미사일 자동 발사 시작
-        this.Hp = 3;
+        this.Hp = 4;
         renderers = GetComponentsInChildren<Renderer>();
     }
 

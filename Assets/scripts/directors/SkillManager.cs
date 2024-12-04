@@ -40,7 +40,7 @@ public class SkillManager : MonoBehaviour
     {
         if (skillGenerator != null)
         {
-            skillChargeBar.fillAmount = skillGenerator.GetTimeSkillCharged() / 20f; // Slider는 0~1 값 사용
+            skillChargeBar.fillAmount = skillGenerator.GetTimeSkillCharged() / 10f; // Slider는 0~1 값 사용
         }
     }
 }

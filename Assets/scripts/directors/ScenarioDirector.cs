@@ -10,6 +10,7 @@ public class ScenarioDirector : MonoBehaviour
 
     public AudioSource audioSource;
     public AudioClip bgm;
+    public AudioClip clip1;
 
 
     private int chapter = 1; //스테이지 카운터
@@ -60,6 +61,7 @@ public class ScenarioDirector : MonoBehaviour
         if(this.time >= 28.0f) {
             bossOnStage = 1; //시간 측정 중단
             this.time = 0;
+            audioSource.PlayOneShot(clip1, 3.0f);
             BossGen.GetComponent<BossGenerator>().bossGetStage(this.chapter);
             EnemyGen.GetComponent<EnemyGenerator>().ResumeInvoke();
         }

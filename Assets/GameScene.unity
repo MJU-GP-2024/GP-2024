@@ -183,6 +183,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: fe84dbf40597dcd409eae4cddcd3a6ec, type: 3}
     - target: {fileID: 6898332952443867373, guid: 88dcbb9ecd0ff4842a1106fa3e3562a6, type: 3}
+      propertyPath: clip4
+      value: 
+      objectReference: {fileID: 8300000, guid: ef1d22a1a69a07148861d5171f9a8bb5, type: 3}
+    - target: {fileID: 6898332952443867373, guid: 88dcbb9ecd0ff4842a1106fa3e3562a6, type: 3}
       propertyPath: ShieldPrefab
       value: 
       objectReference: {fileID: 3883192996754339759, guid: 46c80c454eae94c42932961e52c08c1e, type: 3}
@@ -253,6 +257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
   bgm: {fileID: 8300000, guid: 103c0dcb86c93b14780e87012a4eea23, type: 3}
+  clip1: {fileID: 8300000, guid: 0d113c05a4b378d48936d8e57cfdf018, type: 3}
 --- !u!82 &345385231
 AudioSource:
   m_ObjectHideFlags: 0
@@ -790,6 +795,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
   clip1: {fileID: 8300000, guid: a9ddc651b5596d247aa5344a48de99c7, type: 3}
+  clip2: {fileID: 8300000, guid: 7bc5f83e85347cd479da19d2e9caf8b1, type: 3}
+  clip3: {fileID: 8300000, guid: 3c954fcf01d3e1947b27d0c044c4586f, type: 3}
   missilePrefab: {fileID: 897242208548587854, guid: ff633c69b7783ce4496e4539d335b39a, type: 3}
   TimeEffect: {fileID: 4333696086117515716, guid: 16b0282953850354984c79eac4b3f2e6, type: 3}
   MissileEffect: {fileID: 9188231254609532510, guid: e782abc664b99cb4fb3b8b99d1084e57, type: 3}

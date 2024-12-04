@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class SkillGenerator : MonoBehaviour
 {
+    
     public AudioSource audioSource;
     public AudioClip clip1;
+    public AudioClip clip2;
+    public AudioClip clip3;
 
     public GameObject missilePrefab;
     public GameObject TimeEffect;
@@ -15,7 +18,7 @@ public class SkillGenerator : MonoBehaviour
     public int TimeSkillActive = 0;
 
     public float missileSkillCharged = 38f;
-    public float timeSkillCharged = 9f;
+    public float timeSkillCharged = 10f;
 
     public void Cooldown(float a)
     {
@@ -39,6 +42,12 @@ public class SkillGenerator : MonoBehaviour
         return this.timeSkillCharged;
     }
 
+    public void PlayerDead() {
+        if(TimeSkillActive==1) {
+            this.TimeControl();
+        }
+    }
+
     IEnumerator Missile()
     {
         float spawnDelay = 0.1f;
@@ -59,6 +68,7 @@ public class SkillGenerator : MonoBehaviour
     {
         if (TimeSkillActive == 0)
         {
+            audioSource.PlayOneShot(clip2, 0.8f);
             TimeSkillActive = 1;
             Time.timeScale = slowMotionScale;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
@@ -66,6 +76,7 @@ public class SkillGenerator : MonoBehaviour
         }
         else if (TimeSkillActive == 1)
         {
+            audioSource.PlayOneShot(clip3, 0.8f);
             TimeSkillActive = 2;
             Time.timeScale = 1f;
             Time.fixedDeltaTime = 0.02f;
@@ -97,7 +108,7 @@ public class SkillGenerator : MonoBehaviour
     {
         if (TimeSkillActive == 1)
         {
-            timeSkillCharged -= 3 * Time.unscaledDeltaTime;
+            timeSkillCharged -= 2.5f * Time.unscaledDeltaTime;
             if (timeSkillCharged <= 0f)
             {
                 timeSkillCharged = 0f;
@@ -106,13 +117,13 @@ public class SkillGenerator : MonoBehaviour
         }
         else if (TimeSkillActive == 0)
         {
-            if (timeSkillCharged < 20f)
+            if (timeSkillCharged < 10f)
             {
                 timeSkillCharged += Time.deltaTime;
             }
             else
             {
-                timeSkillCharged = 20f;
+                timeSkillCharged = 10f;
             }
         }
 

@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip clip1;
     public AudioClip clip2;
     public AudioClip clip3;
+    public AudioClip clip4;
 
     GameObject SkillGenerator;
     public GameObject PlayerMissile;
@@ -141,6 +142,7 @@ public class PlayerController : MonoBehaviour
     public void decreaseHp(int a)
     {
         this.Hp -= a;
+        audioSource.PlayOneShot(clip4);
 
         if (this.Hp <= 0 && !this.isDestroyed)
         {
@@ -295,6 +297,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator DestroyPlayer()
     {
+        SkillGenerator.GetComponent<SkillGenerator>().PlayerDead();
         isDestroyed = true; // 파괴 상태로 설정
         speed = 0; // 움직임 멈춤
 

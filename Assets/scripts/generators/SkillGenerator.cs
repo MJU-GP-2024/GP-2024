@@ -17,18 +17,18 @@ public class SkillGenerator : MonoBehaviour
     public float slowMotionScale = 0.35f;
     public int TimeSkillActive = 0;
 
-    public float missileSkillCharged = 38f;
+    public float missileSkillCharged = 34f;
     public float timeSkillCharged = 10f;
 
     public void Cooldown(float a)
     {
-        if ((missileSkillCharged + a) <= 20f)
+        if ((missileSkillCharged + a) <= 34f)
         {
             missileSkillCharged += a;
         }
         else
         {
-            missileSkillCharged = 20f;
+            missileSkillCharged = 34f;
         }
     }
 

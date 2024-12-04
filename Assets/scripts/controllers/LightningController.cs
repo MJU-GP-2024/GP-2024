@@ -128,6 +128,7 @@ public class LightningController : MonoBehaviour
         if (hp <= 0 && !isDestroyed)
         {
             scoreManager.AddScore(250);
+            audioSource.PlayOneShot(clip1);
             TriggerDestruction();
         }
     }
